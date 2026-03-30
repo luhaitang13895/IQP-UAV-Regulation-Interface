@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category["title"] }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a class="back-link" href="{{ url_for('region_page', region_key=region_key) }}">
+            ← Back to {{ region["name"] }}
+        </a>
+
+        <h1>{{ region["name"] }} - {{ category["title"] }}</h1>
+
+        <ul class="item-list">
+            {% for item in category["items"] %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

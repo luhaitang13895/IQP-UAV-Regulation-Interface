@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAV Export and Regulation Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>UAV Export and Regulation Interface</h1>
+        <p>Select a region to explore its regulations, testing, certifications, and export controls.</p>
+
+        <div class="card-grid">
+            {% for key, region in regions.items() %}
+                <a class="card" href="{{ url_for('region_page', region_key=key) }}">
+                    <h2>{{ region.name }}</h2>
+                    <p>Open region</p>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
