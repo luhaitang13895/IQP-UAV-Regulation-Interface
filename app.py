@@ -9,9 +9,16 @@ REGULATORY_DATA = {
         "categories": {
             "regulations": {
                 "title": "Regulations",
-                "items": [
-                    "CAA operational regulations",
-                    "BSMI compliance requirements"
+                "description": "Overview of Taiwanese UAV regulatory bodies and their responsibilities.",
+                "subsections": [
+                    {
+                        "name": "CAA",
+                        "summary": "Oversees UAV operations, flight safety, registration, and operational compliance."
+                    },
+                    {
+                        "name": "BSMI",
+                        "summary": "Handles standards, inspection, certification, and product compliance."
+                    }
                 ]
             },
             "testing": {

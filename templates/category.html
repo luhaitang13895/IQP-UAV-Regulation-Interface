@@ -13,12 +13,26 @@
         </a>
 
         <h1>{{ region["name"] }} - {{ category["title"] }}</h1>
+        <p>{{ category["description"] }}</p>
 
-        <ul class="item-list">
-            {% for item in category["items"] %}
-                <li>{{ item }}</li>
-            {% endfor %}
-        </ul>
+        {% if category.get("subsections") %}
+            <div class="card-grid">
+                {% for section in category["subsections"] %}
+                    <div class="card">
+                        <h2>{{ section["name"] }}</h2>
+                        <p>{{ section["summary"] }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if category.get("items") %}
+            <ul class="item-list">
+                {% for item in category["items"] %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 </body>
 </html>
