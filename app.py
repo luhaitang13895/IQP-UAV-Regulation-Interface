@@ -5,10 +5,10 @@ app = Flask(__name__)
 # Temporary sample data
 REGULATORY_DATA = {
     "taiwan": {
-        "name": "Taiwan",
+        "name": "Taiwan 台湾",
         "categories": {
             "regulations": {
-                "title": "Regulations",
+                "title": "Regulations ",
                 "description": "Overview of Taiwanese UAV regulatory bodies and their responsibilities.",
                 "subsections": [
                     {
@@ -45,7 +45,7 @@ REGULATORY_DATA = {
         }
     },
     "us": {
-        "name": "United States",
+        "name": "United States 美国",
         "categories": {
             "regulations": {
                 "title": "Regulations",
@@ -78,7 +78,7 @@ REGULATORY_DATA = {
         }
     },
     "eu": {
-        "name": "European Union",
+        "name": "European Union 欧洲联盟",
         "categories": {
             "regulations": {
                 "title": "Regulations",
