@@ -48,11 +48,10 @@ REGULATORY_DATA = {
                         "summary": "summary"
                     }
                 ]
-                
             },
             "export-controls": {
                 "title": "Export Controls",
-                "Description": "Overview of Taiwanese Export regulations and rules",
+                "description": "Overview of Taiwanese Export regulations and rules",
                 "subsections": [
                     {
                         "name": "Export Documentation",
@@ -71,30 +70,58 @@ REGULATORY_DATA = {
         "categories": {
             "regulations": {
                 "title": "Regulations",
-                "items": [
-                    "FAA rules",
-                    "FCC rules"
+                "description": "Overview of United States UAV regulatory bodies and their responsibilities.",
+                "subsections": [
+                    {
+                        "name": "FAA",
+                        "summary": "summary"
+                    },
+                    {
+                        "name": "FCC",
+                        "summary": "summary"
+                    }
                 ]
             },
             "testing": {
                 "title": "Testing",
-                "items": [
-                    "RF compliance testing",
-                    "Technical requirements"
+                "description": "Overview of United States UAV testing requirements and procedures.",
+                "subsections": [
+                    {
+                        "name": "RF compliance testing",
+                        "summary": "summary"
+                    },
+                    {
+                        "name": "Technical requirements",
+                        "summary": "summary"
+                    }
                 ]
             },
             "certifications": {
                 "title": "Certifications",
-                "items": [
-                    "FAA approvals",
-                    "FCC equipment authorization"
+                "description": "Overview of United States certifications and approval pathways for UAVs.",
+                "subsections": [
+                    {
+                        "name": "FAA approvals",
+                        "summary": "summary"
+                    },
+                    {
+                        "name": "FCC equipment authorization",
+                        "summary": "summary"
+                    }
                 ]
             },
             "export-controls": {
                 "title": "Export Controls",
-                "items": [
-                    "Import rules",
-                    "Export restrictions"
+                "description": "Overview of United States import, export, and market-entry requirements for UAVs.",
+                "subsections": [
+                    {
+                        "name": "Import rules",
+                        "summary": "summary"
+                    },
+                    {
+                        "name": "Export restrictions",
+                        "summary": "summary"
+                    }
                 ]
             }
         }
@@ -104,30 +131,58 @@ REGULATORY_DATA = {
         "categories": {
             "regulations": {
                 "title": "Regulations",
-                "items": [
-                    "EASA drone rules",
-                    "Operational categories"
+                "description": "Overview of European Union UAV regulatory bodies and their responsibilities.",
+                "subsections": [
+                    {
+                        "name": "EASA",
+                        "summary": "summary"
+                    },
+                    {
+                        "name": "Operational categories",
+                        "summary": "summary"
+                    }
                 ]
             },
             "testing": {
                 "title": "Testing",
-                "items": [
-                    "Conformity assessment testing",
-                    "Safety testing"
+                "description": "Overview of European Union UAV testing requirements and procedures.",
+                "subsections": [
+                    {
+                        "name": "Conformity assessment testing",
+                        "summary": "summary"
+                    },
+                    {
+                        "name": "Safety testing",
+                        "summary": "summary"
+                    }
                 ]
             },
             "certifications": {
                 "title": "Certifications",
-                "items": [
-                    "CE-related pathways",
-                    "EASA compliance requirements"
+                "description": "Overview of European Union certifications and compliance pathways for UAVs.",
+                "subsections": [
+                    {
+                        "name": "CE-related pathways",
+                        "summary": "summary"
+                    },
+                    {
+                        "name": "EASA compliance requirements",
+                        "summary": "summary"
+                    }
                 ]
             },
             "export-controls": {
                 "title": "Export Controls",
-                "items": [
-                    "Regional market requirements",
-                    "Import/export considerations"
+                "description": "Overview of European Union market-entry, import, and export considerations for UAVs.",
+                "subsections": [
+                    {
+                        "name": "Regional market requirements",
+                        "summary": "summary"
+                    },
+                    {
+                        "name": "Import/export considerations",
+                        "summary": "summary"
+                    }
                 ]
             }
         }
