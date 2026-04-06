@@ -1,0 +1,89 @@
+{
+        "name": "European Union 欧洲联盟",
+        "categories": {
+            "regulations": {
+                "title": "Regulations",
+                "description": "Overview of European Union UAV regulatory bodies and their responsibilities.",
+                "subsections": [
+                    {
+                        "name": "EASA",
+                        "summary": "summary"
+                    },
+                    {
+                        "name": "Operational categories",
+                        "summary": "summary"
+                    }
+                ]
+            },
+            "testing": {
+                "title": "Testing",
+                "description": "Overview of European Union UAV testing requirements and procedures.",
+                "subsections": [
+                    {
+                        "slug": "technical-requirements",
+                        "name": "Technical requirements",
+                        "summary": "summary"
+                    },
+                    {
+                        "slug": "safety-testing",
+                        "name": "Safety testing",
+                        "summary": "summary"
+                    },
+                    {
+                        "slug": "rf-compliance-testing",
+                        "name": "RF Compliance Testing",
+                        "summary": "Summary of RF Testing",
+                        "entries": [
+                            {
+                                "region": "European Union",
+                                "primary_category": "Radio Frequency (RF)",
+                                "secondary_category": "RED RF regulations",
+                                "topic": "RED RF standards stack for common short-range and broadband wireless devices",
+                                "source_title": "Introduction to Wireless RF: an ETC Provided PDF, Page 6",
+                                "brief_summary": "ETC RF deck maps the EU RED standards stack, including ETSI EN 300 220, EN 300 330, EN 300 440, EN 300 328, EN 301 893, EN 302 502, EN 301 357, and ERC Recommendation 70-03 for short-range, wideband, and 5 GHz systems.",
+                                "pdf_url": "/static/pdfs/rf_wireless.pdf"
+                            },
+                            {
+                                "region": "European Union",
+                                "primary_category": "Radio Frequency (RF)",
+                                "secondary_category": "Bluetooth modulation / channelization",
+                                "topic": "Bluetooth modulation modes and channel plans used in RF evaluation",
+                                "source_title": "Introduction to Wireless RF: an ETC Provided PDF, Page 6",
+                                "brief_summary": "ETC RF deck summarizes Bluetooth modulation modes relevant to RF evaluation: Bluetooth 2.1+EDR uses GFSK, pi/4-DQPSK, and 8-DPSK, while Bluetooth LE uses GFSK; the deck also shows BR/EDR and LE channel-list examples and 20 dB emission-bandwidth examples.",
+                                "pdf_url": "/static/pdfs/rf_wireless.pdf"
+                            }
+                        ]
+                    }
+                ]
+            },
+            
+            "certifications": {
+                "title": "Certifications",
+                "description": "Overview of European Union certifications and compliance pathways for UAVs.",
+                "subsections": [
+                    {
+                        "name": "CE-related pathways",
+                        "summary": "summary"
+                    },
+                    {
+                        "name": "EASA compliance requirements",
+                        "summary": "summary"
+                    }
+                ]
+            },
+            "export-controls": {
+                "title": "Export Controls",
+                "description": "Overview of European Union market-entry, import, and export considerations for UAVs.",
+                "subsections": [
+                    {
+                        "name": "Regional market requirements",
+                        "summary": "summary"
+                    },
+                    {
+                        "name": "Import/export considerations",
+                        "summary": "summary"
+                    }
+                ]
+            }
+        }
+    }

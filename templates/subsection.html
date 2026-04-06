@@ -19,18 +19,20 @@
             <div class="card-grid">
                 {% for entry in subsection["entries"] %}
                     <div class="card">
-                        <h2>{{ entry["secondary_category"] }}</h2>
+                        <h2>{{ entry["source_title"] }}</h2>
 
                         {% if entry.get("topic") %}
                             <p><strong>Topic:</strong> {{ entry["topic"] }}</p>
                         {% endif %}
 
-                        {% if entry.get("source_title") %}
-                            <p><strong>Source:</strong> {{ entry["source_title"] }}</p>
-                        {% endif %}
+                        <p>{{ entry["brief_summary"] }}</p>
 
-                        {% if entry.get("brief_summary") %}
-                            <p>{{ entry["brief_summary"] }}</p>
+                        {% if entry.get("external_url") %}
+                            <p>
+                                <a href="{{ entry['external_url'] }}" target="_blank" rel="noopener noreferrer">
+                                    Open source page
+                                </a>
+                            </p>
                         {% endif %}
 
                         {% if entry.get("pdf_url") %}
