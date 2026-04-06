@@ -23,23 +23,45 @@ REGULATORY_DATA = {
             },
             "testing": {
                 "title": "Testing",
-                "items": [
-                    "EMC testing",
-                    "RF testing"
+                "description": "Overview of Taiwanese UAV testing requirements and their procedures",
+                "subsections": [
+                    {
+                        "name": "EMC testing",
+                        "summary": "summary of EMC testing"
+                    },
+                    {
+                        "name": "RF Testing",
+                        "summary": "Summary of RF Testing"
+                    }
                 ]
             },
             "certifications": {
                 "title": "Certifications",
-                "items": [
-                    "Product certification pathways",
-                    "Compliance processes"
+                "description": "Overview of Taiwanese Certifications for UAVs",
+                "subsections": [
+                    {
+                        "name": "Product certification pathways",
+                        "summary": "summary"
+                    },
+                    {
+                        "name": "Compliance Processes",
+                        "summary": "summary"
+                    }
                 ]
+                
             },
             "export-controls": {
                 "title": "Export Controls",
-                "items": [
-                    "Export documentation",
-                    "Market-entry requirements"
+                "Description": "Overview of Taiwanese Export regulations and rules",
+                "subsections": [
+                    {
+                        "name": "Export Documentation",
+                        "summary": "summary"
+                    },
+                    {
+                        "name": "Market-entry requirements",
+                        "summary": "summary"
+                    }
                 ]
             }
         }
