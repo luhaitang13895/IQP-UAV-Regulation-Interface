@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ subsection["name"] }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a class="back-link" href="{{ url_for('category_page', region_key=region_key, category_key=category_key) }}">
+            ← Back to {{ category["title"] }}
+        </a>
+
+        <h1>{{ region["name"] }} - {{ subsection["name"] }}</h1>
+        <p>{{ subsection["summary"] }}</p>
+
+        <div class="item-list">
+            <p>This is the new page for {{ subsection["name"] }}.</p>
+            <p>You can list regulations here next.</p>
+        </div>
+    </div>
+</body>
+</html>

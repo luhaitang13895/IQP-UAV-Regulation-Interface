@@ -217,7 +217,34 @@ def category_page(region_key, category_key):
         "category.html",
         region=region,
         region_key=region_key,
-        category=category
+        category=category,
+        category_key=category_key
+    )
+
+@app.route("/region/<region_key>/<category_key>/<int:subsection_index>")
+def subsection_page(region_key, category_key, subsection_index):
+    region = REGULATORY_DATA.get(region_key)
+    if not region:
+        abort(404)
+
+    category = region["categories"].get(category_key)
+    if not category:
+        abort(404)
+
+    subsections = category.get("subsections", [])
+    if subsection_index < 0 or subsection_index >= len(subsections):
+        abort(404)
+
+    subsection = subsections[subsection_index]
+
+    return render_template(
+        "subsection.html",
+        region=region,
+        region_key=region_key,
+        category=category,
+        category_key=category_key,
+        subsection=subsection,
+        subsection_index=subsection_index
     )
 
 

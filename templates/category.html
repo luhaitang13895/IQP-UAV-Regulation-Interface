@@ -18,14 +18,15 @@
         {% if category.get("subsections") %}
             <div class="card-grid">
                 {% for section in category["subsections"] %}
-                    <div class="card">
+                    {% set subsection_index = loop.index0 %}
+                    <a class="card" href="{{ url_for('subsection_page', region_key=region_key, category_key=category_key, subsection_index=subsection_index) }}">
                         <h2>{{ section["name"] }}</h2>
                         <p>{{ section["summary"] }}</p>
-                    </div>
+                    </a>
                 {% endfor %}
             </div>
         {% endif %}
-
+        
         {% if category.get("items") %}
             <ul class="item-list">
                 {% for item in category["items"] %}
