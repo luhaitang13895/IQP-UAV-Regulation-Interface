@@ -27,7 +27,7 @@ REGULATORY_DATA = {
                 "subsections": [
                     {
                         "name": "EMC testing",
-                        "summary": "summary of EMC testing",
+                        "summary": "Electromagnetic Compatibility and Testing",
                         "entries": [
                             {
                                 "region": "Taiwan",
@@ -64,8 +64,34 @@ REGULATORY_DATA = {
                                 "source_title": "Electromagnetic Compatibility (EMC) for Drone Testing",
                                 "brief_summary": "ETC EMC deck maps radiated immunity to CNS 14676-3 (IEC 61000-4-3). For under-2 kg drones it shows 80 MHz-1 GHz at 10 V/m and 1.4-6.0 GHz at 3 V/m with 80% AM; for 2-25 kg drones it describes propeller-off, motor-speed stability testing in an anechoic chamber with a 10 percent fluctuation limit and no loss of function.",
                                 "pdf_url": "/static/pdfs/introduction_to_wireless_rf.pdf"
-                            }
-                    
+                            },
+                            {
+                                "region": "Taiwan",
+                                "primary_category": "Electromagnetic Capability (EMC)",
+                                "secondary_category": "Electromagnetic static discharge",
+                                "topic": "Taiwan ESD setup and laboratory conditions",
+                                "source_title": "Electromagnetic Compatibility (EMC) for Drone Testing",
+                                "brief_summary": "ETC EMC deck details ESD setup verification and laboratory conditions for IEC 61000-4-2 testing, including shielding room conditions, 15-35 C temperature, 30-60% humidity, 150 pF / 330 ohm generator parameters, and verification of the generator, return cable, bleeder resistors, and ground reference plane.",
+                                "pdf_url": "/static/pdfs/introduction_to_wireless_rf.pdf"
+                            },
+                            {
+                                "region": "Taiwan",
+                                "primary_category": "Electromagnetic Capability (EMC)",
+                                "secondary_category": "Electromagnetic susceptibility / immunity",
+                                "topic": "Conducted disturbance immunity (CS) requirements for Taiwan drone testing",
+                                "source_title": "Electromagnetic Compatibility (EMC) for Drone Testing",
+                                "brief_summary": "ETC EMC deck lists CNS 14676-6 (IEC 61000-4-6) for conducted disturbance immunity from 0.15 MHz to 80 MHz and shows an ability level of 10 V with 80% AM at 1 kHz.",
+                                "pdf_url": "/static/pdfs/introduction_to_wireless_rf.pdf"
+                            },
+                            {
+                                "region": "Taiwan",
+                                "primary_category": "Electromagnetic Capability (EMC)",
+                                "secondary_category": "Electromagnetic susceptibility / immunity",
+                                "topic": "Additional EFT, surge, magnetic-field, and voltage-dip immunity families in Taiwan drone testing",
+                                "source_title": "Electromagnetic Compatibility (EMC) for Drone Testing",
+                                "brief_summary": "ETC EMC deck adds Taiwan drone immunity families beyond ESD and RS: CNS 14676-4 / IEC 61000-4-4 for EFT, CNS 14676-5 / IEC 61000-4-5 for surge, CNS 14676-8 / IEC 61000-4-8 for magnetic-field immunity, and IEC 61000-4-11 for voltage dips and interruptions, with under-2 kg drone performance criteria shown on the deck.",
+                                "pdf_url": "/static/pdfs/introduction_to_wireless_rf.pdf"
+                            },                  
                         ]
                     },
                     {
