@@ -38,7 +38,7 @@
                                 "topic": "FCC RF rule families and test methods used for wireless devices",
                                 "source_title": "Introduction to Wireless RF: an ETC Provided PDF, Page 5",
                                 "brief_summary": "ETC RF deck maps U.S. FCC RF rule families and matching test methods, including Part 15 Subpart B with ANSI C63.4-2014, Part 15 Subpart C with ANSI C63.10-2013, Part 15 Subpart D with ANSI C63.17-2013, and Part 15 Subpart E / DFS with FCC KDB 905462.",
-                                "pdf_url": "/static/pdfs/rf_wireless.pdf"
+                                "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
                             },
                             {
                                 "region": "United States",
@@ -47,7 +47,7 @@
                                 "topic": "Bluetooth FCC test items for 2.4 GHz modules",
                                 "source_title": "Introduction to Wireless RF: an ETC Provided PDF, Page 8",
                                 "brief_summary": "ETC RF deck lists Bluetooth-related FCC test items including radiated emission, conducted emission, antenna requirement, 20 dB emission bandwidth, output power, out-of-band conducted spurious emissions, hopping-channel count and spacing, dwell time, and maximum permissible exposure under Part 15.247 / 15.207 / 15.203 / 2.1093.",
-                                "pdf_url": "/static/pdfs/rf_wireless.pdf"
+                                "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
                             },
                             {
                                 "region": "United States",
@@ -56,7 +56,7 @@
                                 "topic": "Wi-Fi / U-NII / DFS channel-plan testing context",
                                 "source_title": "Introduction to Wireless RF: an ETC Provided PDF, Page 8",
                                 "brief_summary": "ETC RF deck includes IEEE 802.11 a/b/g/n/ac/ax references, U-NII channel-plan context under §15.407, and DFS-related testing context via FCC KDB 905462, which is directly relevant to drone Wi-Fi, telemetry, and video links using 2.4 GHz / 5 GHz radios.",
-                                "pdf_url": "/static/pdfs/rf_wireless.pdf"
+                                "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
                             }
                         ]
                     }

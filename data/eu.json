@@ -41,7 +41,7 @@
                                 "topic": "RED RF standards stack for common short-range and broadband wireless devices",
                                 "source_title": "Introduction to Wireless RF: an ETC Provided PDF, Page 6",
                                 "brief_summary": "ETC RF deck maps the EU RED standards stack, including ETSI EN 300 220, EN 300 330, EN 300 440, EN 300 328, EN 301 893, EN 302 502, EN 301 357, and ERC Recommendation 70-03 for short-range, wideband, and 5 GHz systems.",
-                                "pdf_url": "/static/pdfs/rf_wireless.pdf"
+                                "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
                             },
                             {
                                 "region": "European Union",
@@ -50,7 +50,7 @@
                                 "topic": "Bluetooth modulation modes and channel plans used in RF evaluation",
                                 "source_title": "Introduction to Wireless RF: an ETC Provided PDF, Page 6",
                                 "brief_summary": "ETC RF deck summarizes Bluetooth modulation modes relevant to RF evaluation: Bluetooth 2.1+EDR uses GFSK, pi/4-DQPSK, and 8-DPSK, while Bluetooth LE uses GFSK; the deck also shows BR/EDR and LE channel-list examples and 20 dB emission-bandwidth examples.",
-                                "pdf_url": "/static/pdfs/rf_wireless.pdf"
+                                "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
                             }
                         ]
                     }
