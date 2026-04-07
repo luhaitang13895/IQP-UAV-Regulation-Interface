@@ -95,7 +95,19 @@
                                 "source_title": "Introduction to Wireless RF: an ETC Provided PDF, Page 6",
                                 "brief_summary": "ETC RF deck summarizes Bluetooth modulation modes relevant to RF evaluation: Bluetooth 2.1+EDR uses GFSK, pi/4-DQPSK, and 8-DPSK, while Bluetooth LE uses GFSK; the deck also shows BR/EDR and LE channel-list examples and 20 dB emission-bandwidth examples.",
                                 "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
+                            },
+                            {
+                                "region": "European Union",
+                                "primary_category": "Radio Frequency (RF)",
+                                "secondary_category": "Wireless RF testing standards",
+                                "topic": "Drone RF / EMC / LVD test stack for CE entry",
+                                "source_title": "FCC/CE Testing and Certification for Drones - Compliance Testing",
+                                "brief_summary": "Commercial explainer describing CE testing for drones as a stack combining RED for wireless communication, EMC for electromagnetic compatibility, and LVD for battery/power safety, with RF testing across controllers, video, telemetry, GPS, and other links.",
+                                "pdf_url": "",
+                                "external_url": "https://compliancetesting.com/fcc-ce-testing-and-certification-for-drones/"
                             }
+                            
+                        
                         ]
                     }
                 ]
