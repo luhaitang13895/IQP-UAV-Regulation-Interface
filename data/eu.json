@@ -6,8 +6,52 @@
                 "description": "Overview of European Union UAV regulatory bodies and their responsibilities.",
                 "subsections": [
                     {
+                        "slug": "easa",
                         "name": "EASA",
-                        "summary": "summary"
+                        "summary": "summary",
+                        "entries": [
+                            {
+                                "region": "European Union",
+                                "primary_category": "Reliability / Airworthiness",
+                                "secondary_category": "Electromagnetic Capability (EMC)",
+                                "topic": "EU market access / declaration of conformity / CE marking",
+                                "source_title": "Articles.pdf links: CE marking, declaration of conformity, and conformity-assessment guidance",
+                                "brief_summary": "Bundle links for manufacturer-side market access and conformity documentation in the EU.",
+                                "pdf_url": "",
+                                "external_url": "https://certrust.eu/en/drone-ce-marking-mandatory-requirements-for-manufacturers/"
+                            },
+                            {
+                                "region": "European Union",
+                                "primary_category": "Reliability / Airworthiness",
+                                "secondary_category": "Misc / Context",
+                                "topic": "EU foundational drone regulations",
+                                "source_title": "Articles.pdf note: EU Regulations 2019/945 / 2019/947 and follow-on rulings",
+                                "brief_summary": "Bundle notes summarizing the EU legal foundation for manufacturer and operator regulation, including initial airworthiness, third-country operators, and standard scenarios.",
+                                "pdf_url": "",
+                                "external_url": "https://eur-lex.europa.eu/eli/reg_impl/2019/947/oj/eng"
+                            },
+                            {
+                                "region": "European Union",
+                                "primary_category": "Reliability / Airworthiness",
+                                "secondary_category": "",
+                                "topic": "EASA open-category operations",
+                                "source_title": "Articles.pdf link: EASA open-category low-risk civil drones",
+                                "brief_summary": "Explains the EU open-category operating rules for low-risk civil drones.",
+                                "pdf_url": "",
+                                "external_url": "https://www.easa.europa.eu/en/domains/drones-air-mobility/operating-drone/open-category-low-risk-civil-drones"
+                            },
+                            {
+                                "region": "European Union",
+                                "primary_category": "Reliability / Airworthiness",
+                                "secondary_category": "",
+                                "topic": "EASA FAQ / consolidated explanation of UAS rules",
+                                "source_title": "Articles.pdf link: EASA FAQ — Regulations UAS / drone explained",
+                                "brief_summary": "FAQ-style explanation of how the EU drone rules work in practice.",
+                                "pdf_url": "",
+                                "external_url": "https://www.easa.europa.eu/en/the-agency/faqs/regulations-uas-drone-explained"
+                            }
+                            
+                        ]
                     },
                     {
                         "name": "Operational categories",

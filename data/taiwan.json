@@ -8,7 +8,20 @@
                     {
                         "slug": "caa",
                         "name": "CAA",
-                        "summary": "Oversees UAV operations, flight safety, registration, and operational compliance."
+                        "summary": "Oversees UAV operations, flight safety, registration, and operational compliance.",
+                        "entries": [
+                            {
+                                "region": "Taiwan",
+                                "primary_category": "Reliability / Airworthiness",
+                                "secondary_category": "Radio Frequency (RF)",
+                                "topic": "Taiwan CAA drone regulations",
+                                "source_title": "Articles.pdf link: Taiwan CAA drone regulations",
+                                "brief_summary": "Link extracted from the link bundle; points to Taiwan CAA rules page for drone operations and regulatory requirements.",
+                                "pdf_url": "",
+                                "external_url": "https://drone.caa.gov.tw/en-US/Default/DataDetail3/8"
+                            }
+                            
+                        ]
                     },
                     {
                         "slug": "bsmi",

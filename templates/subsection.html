@@ -16,38 +16,40 @@
         <p>{{ subsection["summary"] }}</p>
 
         {% if subsection.get("entries") and subsection["entries"]|length > 0 %}
-            <div class="card-grid">
-                {% for entry in subsection["entries"] %}
-                    <div class="card">
-                        <h2>{{ entry["source_title"] }}</h2>
+    <div class="card-grid">
+        {% for entry in subsection["entries"] %}
+            <div class="card">
+                <h2>{{ entry["source_title"] }}</h2>
 
-                        {% if entry.get("topic") %}
-                            <p><strong>Topic:</strong> {{ entry["topic"] }}</p>
-                        {% endif %}
+                {% if entry.get("topic") %}
+                    <p><strong>Topic:</strong> {{ entry["topic"] }}</p>
+                {% endif %}
 
-                        <p>{{ entry["brief_summary"] }}</p>
+                {% if entry.get("brief_summary") %}
+                    <p>{{ entry["brief_summary"] }}</p>
+                {% endif %}
 
-                        {% if entry.get("external_url") %}
-                            <p>
-                                <a href="{{ entry['external_url'] }}" target="_blank" rel="noopener noreferrer">
-                                    Open source page
-                                </a>
-                            </p>
-                        {% endif %}
+                {% if entry.get("external_url") %}
+                    <p>
+                        <a href="{{ entry['external_url'] }}" target="_blank" rel="noopener noreferrer">
+                            Open source page
+                        </a>
+                    </p>
+                {% endif %}
 
-                        {% if entry.get("pdf_url") %}
-                            <p>
-                                <a href="{{ entry['pdf_url'] }}" target="_blank" rel="noopener noreferrer">
-                                    Open PDF source
-                                </a>
-                            </p>
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                {% if entry.get("pdf_url") %}
+                    <p>
+                        <a href="{{ entry['pdf_url'] }}" target="_blank" rel="noopener noreferrer">
+                            Open PDF
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
             </div>
         {% else %}
             <div class="item-list">
-                <p>No entries listed yet.</p>
+        <p>No entries listed yet.</p>
             </div>
         {% endif %}
     </div>
