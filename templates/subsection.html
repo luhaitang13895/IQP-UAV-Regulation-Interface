@@ -7,6 +7,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <div class="topbar">
+        <a href="/" class="topbar-home">Home</a>
+
+        <form action="{{ url_for('search') }}" method="get" class="topbar-search">
+            <input
+                type="text"
+                name="keyword"
+                placeholder="Search..."
+                required
+            >
+            <button type="submit">Search</button>
+        </form>
+    </div>
     <div class="container">
         <a class="back-link" href="{{ url_for('category_page', region_key=region_key, category_key=category_key) }}">
             ← Back to {{ category["title"] }}

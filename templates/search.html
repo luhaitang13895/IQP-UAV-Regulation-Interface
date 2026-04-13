@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - UAV Export and Regulation Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="topbar">
+        <a href="/" class="topbar-home">Home</a>
+
+        <form action="{{ url_for('search') }}" method="get" class="topbar-search">
+            <input
+                type="text"
+                name="keyword"
+                placeholder="Search..."
+                required
+            >
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <div class="container">
+        <h1>UAV Export and Regulation Interface</h1>
+        <p>Search results{% if keyword %} for "{{ keyword }}"{% endif %}.</p>
+
+        <form action="{{ url_for('search') }}" method="get">
+            <p>Search by keyword and filter by region. (leave region blank to search all)</p>
+
+            <input
+                type="text"
+                name="keyword"
+                placeholder="Enter keyword"
+                value="{{ keyword }}" 
+                required
+            >
+
+            <div>
+                {% for region in allRegions %}
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="regions"
+                            value="{{ region }}"
+                            {% if region in selectedRegions %}checked{% endif %}
+                        >
+                        {{ region }}
+                    </label>
+                {% endfor %}
+            </div>
+
+            <button type="submit">Search</button>
+        </form>
+        <br>
+
+        <div class="card-grid">
+            {% for result in results %}
+                <a class="card" href="{{ result.path }}">
+                    <h2>{{ result.title }}</h2>
+                    <p>{{ result.text }}</p>
+                    <p><strong>Path:</strong> {{ result.path }}</p>
+                    <p><strong>Type:</strong> {{ result.type }}</p>
+                    {% if result.sortLevel is defined %}
+                        <p><strong>Sort Level:</strong> {{ result.sortLevel }}</p>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+
+        {% if not results %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

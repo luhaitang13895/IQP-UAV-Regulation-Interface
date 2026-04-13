@@ -7,44 +7,39 @@ def loadJsonFromFilepath (filePath: str):
         return json.load(f)
 
 # Reads all the json files and makes a list of dicts that have all the data:
-def getData ():
+def getDataFromRegions (regions = []):
     # List of all json files in data
     jsonFileNames = os.listdir('./data')
     
     data = []
     for fileName in jsonFileNames:
-        fileData = loadJsonFromFilepath("./data/" + fileName)
-        fileData['fileName'] = fileName # adds this extra information
-        data.append(fileData)
+        regionShorthand = fileName[0:-5] # the region name with no json
+        if len(regions) == 0 or regionShorthand in regions:
+            fileData = loadJsonFromFilepath("./data/" + fileName)
+            fileData['fileName'] = fileName # adds this extra information
+            data.append(fileData)
 
     return data
 
 # print(getData())
 
 # Main function to use:
-def keywordSearch (keyword):
+def keywordSearch (keyword, regions = []):
     keyword = keyword.lower()
 
-    data = getData()
+    data = getDataFromRegions(regions)
     results = []
 
-    # Each path will be a python object that has a standarized way to uniqly identify each article 
+    # Each path will be a python object that has a standarized way to uniqly identify each page 
     # In this form:
     """
     resultDict = {
         # Used for finding the article later (index)
-        'fileName': 'EU.json',
-        'categoryName': 'regulations',
-        'subsectionIndex': 0,
-
-        # Used for displaying search results
-        'displayText': '...100 chacters around the keyword...',
-        'region': 'European Union',
-        'primary_category': 'Reliability / Airworthiness',
-        'secondary_category': 'Misc / Context',
-        'subsection_slug': 'easa',
-        'topic': 'EU foundational drone regulations',
-        'summary': 'Bundle notes summarizing the EU legal foundation for manufacturer and operator regulation.'
+        'path': '/region/taiwan',
+        'title': 'European Union 欧洲联盟', # Title of what is used to get ther 
+        'text': '',
+        'sortLevel': '', # Used to sort the list to make regions and subsections go to the top
+        'type': 'region'
     }
     """
     # This is a simple way to uniqly identify any article in the current system. 
@@ -52,19 +47,77 @@ def keywordSearch (keyword):
 
     for countryDict in data:
         fileName = countryDict.get('fileName')
+        fileShorthand = fileName[0:-5] #strips out the .json from the file name
         categories = countryDict.get('categories') # list of catagories (each is a dict)
         # ^ dictionary with catagory name keys
 
+        regionName = countryDict.get('name')
+
+        # Appends the region's page into the list if it matches
+        if keyword in regionName.lower():
+            # print('FOUND REGION: ', regionName, "   ", fileShorthand)
+            pagePath = '/region/' + fileShorthand
+            resultDict = {
+                # Used for finding the article later (index)
+                'path': pagePath,
+                'title': regionName,
+                'text': '',
+                'sortLevel': 0,
+                'type': 'region'
+            }
+            results.append(resultDict)
+
         for categoryName, categoryDict in categories.items():
-            # print('='*80)
-            # print('categoryName')
-            # print(categoryName)
+
+            # Checks to see if the category page should be added:
+            categoryDescription = categoryDict.get('description')
+            categoryTitle = categoryDict.get('title') # This is what is on the 'title' in the json - used for display
+            # If the keyword is in the category desciption or title
+            if keyword in categoryDescription.lower() or keyword in categoryTitle.lower():
+                sortLevel = 2
+                # If the keyword is in the title of the catogory, we want to show that first (sort level lower) - becuase it wont be bolded later on
+                if keyword in categoryTitle.lower():
+                    sortLevel = 1
+
+                # print('FOUND Category: ', categoryTitle)
+                pagePath = '/region/' + fileShorthand + '/' + categoryName
+                resultDict = {
+                    # Used for finding the article later (index)
+                    'path': pagePath,
+                    'title': categoryTitle,
+                    'text': categoryDescription,
+                    'sortLevel': sortLevel,
+                    'type': 'category'
+                }
+                results.append(resultDict)
+
+
             subsections = categoryDict.get('subsections')
             subsectionIndex = 0
             for subsection in subsections:
                 # print('\n')
                 # print(subsection.get('slug'))
                 # print(subsection)
+
+                subsectionTitle = subsection.get('name')
+                subsectionSummary = subsection.get('summary')
+                subsectionSlug = subsection.get('slug')
+                # Once again tests to see if the keyword is found in the subsection name or description:
+                if keyword in subsectionTitle.lower() or keyword in subsectionSummary.lower():
+                    sortLevel = 3
+                    # If the keyword is in the title of the subsection, we want to show that first (sort level lower) - becuase it wont be bolded later on
+                    if keyword in categoryTitle.lower():
+                        sortLevel = 1.1
+
+                    pagePath = '/region/' + fileShorthand + '/' + categoryName + '/' + subsectionSlug
+                    resultDict = {
+                        # Used for finding the article later (index)
+                        'path': pagePath,
+                        'title': subsectionTitle,
+                        'text': subsectionSummary,
+                        'sortLevel': sortLevel,
+                        'type': 'subsection'
+                    }
 
 
                 entries = subsection.get('entries')
@@ -74,42 +127,42 @@ def keywordSearch (keyword):
 
                 for entry in entries:
                     
-                    summary = entry.get('brief_summary')
+                    entrySummary = entry.get('brief_summary')
+                    entryTitle = entry.get('source_title')
 
-                    if keyword in summary.lower():
+                    if keyword in entryTitle.lower():
+                        sortLevel = 4
+                        # If the keyword is in the title of the entry, we want to show that first (sort level lower) - becuase it wont be bolded later on
+                        if keyword in categoryTitle.lower():
+                            sortLevel = 1.2
+
+                        pagePath = '/region/' + fileShorthand + '/' + categoryName + '/' + subsectionSlug + '?index=' + str(subsectionIndex)
                         resultDict = {
                             # Used for finding the article later (index)
-                            'fileName': fileName,
-                            'categoryName': categoryName,
-                            'subsectionIndex': subsectionIndex,
-
-                            # Used for displaying search results 
-                            # 'displayText': '...100 chacters around the keyword...',
-                            #'region': 'European Union',
-                            #'primary_category': 'Reliability / Airworthiness',
-                            #'secondary_category': 'Misc / Context',
-                            #'subsection_slug': 'easa',
-                            #'topic': 'EU foundational drone regulations',
-                            'summary': summary
+                            'path': pagePath,
+                            'title': entryTitle,
+                            'text': entrySummary,
+                            'sortLevel': sortLevel,
+                            'type': 'entry'
                         }
                         results.append(resultDict)
                 
                 subsectionIndex += 1 
         
-        # for categoryDict in countryDict['categories']:
-            # categoryName = categoryDict[]
+    sortedResults = sorted(results, key=lambda x: x.get("sortLevel", 0))
+    
+    return sortedResults
 
+if __name__ == '__main__':
+    print('TYPE YOUR SEARCH HERE: ')
+    res = keywordSearch(input())
 
-    return results
+    if len(res) == 0:
+        print("NO RESULTS FOUND")
 
-
-print('TYPE YOUR SEARCH HERE: ')
-res = keywordSearch(input())
-
-if len(res) == 0:
-    print("NO RESULTS FOUND")
-
-for result in res:
-    print("="*80)
-    print('RESULT: ')
-    print(result)
+    for result in res:
+        print("="*80)
+        print('RESULT: ')
+        print(result)
+        finalLink = 'http://127.0.0.1:5000' + result.get('path')
+        print(finalLink)

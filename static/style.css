@@ -56,3 +56,25 @@ p {
 .item-list li {
     margin-bottom: 10px;
 }
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #ccc;
+}
+
+.topbar-home {
+    text-decoration: none;
+    font-weight: bold;
+    color: inherit;
+}
+
+.topbar-search input {
+    padding: 0.4rem;
+}
+
+.topbar-search button {
+    padding: 0.4rem;
+}
