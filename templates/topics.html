@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ topic.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a class="back-link" href="{{ url_for('region_page', region_key=region_key) }}">
+            ← Back to {{ region.name }}
+        </a>
+
+        <h1>{{ region.name }} - {{ topic.title }}</h1>
+        <p>{{ topic.description }}</p>
+
+        <div class="card-grid">
+            {% for category_key, category in topic.categories.items() %}
+                <a class="card" href="{{ url_for('category_page', region_key=region_key, topic_key=topic_key, category_key=category_key) }}">
+                    <h2>{{ category.title }}</h2>
+                    <p>View details</p>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
