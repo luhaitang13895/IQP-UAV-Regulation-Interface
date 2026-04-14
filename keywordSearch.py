@@ -23,8 +23,143 @@ def getDataFromRegions (regions = []):
 
 # print(getData())
 
-# Main function to use:
 def keywordSearch (keyword, regions = []):
+    keyword = keyword.lower()
+
+    data = getDataFromRegions(regions) # Dict with all json data
+    results = [] # Output Array
+
+    # Each path will be a python object that has a standarized way to uniqly identify each page 
+    # In this form:
+    """
+    resultDict = {
+        # Used for finding the article later (index)
+        'path': '/region/eu/rf/regulations',
+        'title': 'Regulations',
+        'text': 'Overview of RF-related regulatory bodies and rules.',
+        'sortLevel': '', # Used to sort the list to make regions and subsections go to the top
+        'type': 'category'
+    }
+    """
+    for countryDict in data:
+        fileName = countryDict.get('fileName')
+        fileShorthand = fileName[0:-5] # strips out the .json from the file name
+        regionName = countryDict.get('name')
+        topics = countryDict.get('topics', {})
+                # Appends the region's page into the list if it matches
+
+        if keyword in regionName.lower():
+            pagePath = '/region/' + fileShorthand
+            resultDict = {
+                'path': pagePath,
+                'title': regionName,
+                'text': '',
+                'sortLevel': 0,
+                'type': 'region'
+            }
+            results.append(resultDict)
+
+        for topicName, topicDict in topics.items():
+            topicTitle = topicDict.get('title', '')
+            topicDescription = topicDict.get('description', '')
+            categories = topicDict.get('categories', {})
+
+            # Checks to see if the topic page should be added:
+            if keyword in topicTitle.lower() or keyword in topicDescription.lower():
+                sortLevel = 2
+                # If the keyword is in the title of the topic, we want to show that first
+                if keyword in topicTitle.lower():
+                    sortLevel = 1
+
+                pagePath = '/region/' + fileShorthand + '/topic/' + topicName
+                resultDict = {
+                    'path': pagePath,
+                    'title': topicTitle,
+                    'text': topicDescription,
+                    'sortLevel': sortLevel,
+                    'type': 'category'
+                }
+                results.append(resultDict)
+
+            for categoryName, categoryDict in categories.items():
+                categoryTitle = categoryDict.get('title', '')
+                categoryDescription = categoryDict.get('description', '')
+
+                # Checks to see if the category page should be added:
+                if keyword in categoryTitle.lower() or keyword in categoryDescription.lower():
+                    sortLevel = 3
+                    # If the keyword is in the title of the category, we want to show that first
+                    if keyword in categoryTitle.lower():
+                        sortLevel = 1.1
+
+                    pagePath = '/region/' + fileShorthand + '/topic/' + topicName + '/category/' + categoryName
+                    resultDict = {
+                        'path': pagePath,
+                        'title': categoryTitle,
+                        'text': categoryDescription,
+                        'sortLevel': sortLevel,
+                        'type': 'subsection'
+                    }
+                    results.append(resultDict)
+
+                subsections = categoryDict.get('subsections', [])
+                for subsection in subsections:
+                    subsectionTitle = subsection.get('name', '')
+                    subsectionSummary = subsection.get('summary', '')
+                    subsectionSlug = subsection.get('slug', '')
+
+                    # Once again tests to see if the keyword is found in the subsection name or description:
+                    if keyword in subsectionTitle.lower() or keyword in subsectionSummary.lower():
+                        sortLevel = 4
+                        # If the keyword is in the title of the subsection, we want to show that first
+                        if keyword in subsectionTitle.lower():
+                            sortLevel = 1.2
+
+                        pagePath = '/region/' + fileShorthand + '/topic/' + topicName + '/category/' + categoryName + '/subsection/' + subsectionSlug
+                        resultDict = {
+                            'path': pagePath,
+                            'title': subsectionTitle,
+                            'text': subsectionSummary,
+                            'sortLevel': sortLevel,
+                            'type': 'subsection'
+                        }
+                        results.append(resultDict)
+
+                    entryIndex = 0
+
+                    entries = subsection.get('entries')
+                    if entries is None:
+                        entryIndex += 1
+                        continue
+
+                    for entry in entries:
+                        entrySummary = entry.get('brief_summary', '')
+                        entryTitle = entry.get('source_title', '')
+
+                        if keyword in entryTitle.lower() or keyword in entrySummary.lower():
+                            sortLevel = 5
+                            # If the keyword is in the title of the entry, we want to show that first
+                            if keyword in entryTitle.lower():
+                                sortLevel = 1.3
+
+                            pagePath = '/region/' + fileShorthand + '/topic/' + topicName + '/category/' + categoryName + '/subsection/' + subsectionSlug + '?index=' + str(entryIndex)
+                            resultDict = {
+                                'path': pagePath,
+                                'title': entryTitle,
+                                'text': entrySummary,
+                                'sortLevel': sortLevel,
+                                'type': 'entry'
+                            }
+                            results.append(resultDict)
+
+                    entryIndex += 1
+
+        
+    sortedResults = sorted(results, key=lambda x: x.get("sortLevel", 0))
+    return sortedResults
+
+# This is old and works with the old json format. DO NOT USE:
+def keywordSearchOLD (keyword, regions = []):
     keyword = keyword.lower()
 
     data = getDataFromRegions(regions)
