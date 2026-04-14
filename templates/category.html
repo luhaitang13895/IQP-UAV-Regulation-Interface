@@ -21,17 +21,17 @@
         </form>
     </div>
     <div class="container">
-        <a class="back-link" href="{{ url_for('region_page', region_key=region_key) }}">
-            ← Back to {{ region["name"] }}
+        <a class="back-link" href="{{ url_for('topic_page', region_key=region_key, topic_key=topic_key) }}">
+            ← Back to {{ topic["title"] }}
         </a>
 
-        <h1>{{ region["name"] }} - {{ category["title"] }}</h1>
+        <h1>{{ region["name"] }} - {{ topic["title"] }} - {{ category["title"] }}</h1>
         <p>{{ category["description"] }}</p>
 
         {% if category.get("subsections") %}
             <div class="card-grid">
                 {% for section in category["subsections"] %}
-                    <a class="card" href="{{ url_for('subsection_page', region_key=region_key, category_key=category_key, subsection_slug=section['slug']) }}">
+                    <a class="card" href="{{ url_for('subsection_page', region_key=region_key, topic_key=topic_key, category_key=category_key, subsection_slug=section['slug']) }}">
                         <h2>{{ section["name"] }}</h2>
                         <p>{{ section["summary"] }}</p>
                     </a>
