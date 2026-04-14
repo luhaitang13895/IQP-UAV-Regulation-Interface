@@ -65,6 +65,51 @@
                 <p>No entries listed yet.</p>
             </div>
         {% endif %}
+
+        <hr>
+        <h2>Add New Entry</h2>
+
+        <form action="/addNewEntry" method="post">
+            <!-- Hidden context fields -->
+            <input type="hidden" name="region" value="{{ region['name'] }}">
+            <input type="hidden" name="region_key" value="{{ region_key }}">
+            <input type="hidden" name="category" value="{{ category['title'] }}">
+            <input type="hidden" name="category_key" value="{{ category_key }}">
+            <input type="hidden" name="subsection" value="{{ subsection['name'] }}">
+            
+            <div>
+                <label>Source Title</label><br>
+                <input type="text" name="source_title" required>
+            </div>
+
+            <div>
+                <label>Primary Category</label><br>
+                <input type="text" name="primary_category" required>
+            </div>
+
+            <div>
+                <label>Secondary Category</label><br>
+                <input type="text" name="secondary_category">
+            </div>
+
+            <div>
+                <label>Topic</label><br>
+                <input type="text" name="topic" required>
+            </div>
+
+            <div>
+                <label>Brief Summary</label><br>
+                <textarea name="brief_summary" rows="3" required></textarea>
+            </div>
+
+            <div>
+                <label>External URL</label><br>
+                <input type="url" name="external_url">
+            </div>
+
+            <br>
+            <button type="submit">Add Entry</button>
+        </form>
     </div>
 </body>
 </html>
