@@ -1,35 +1,80 @@
 {
   "name": "Taiwan 台湾",
   "topics": {
-    "all-topics": {
-      "title": "All Topics",
-      "description": "Temporary container during migration.",
+    "rf": {
+      "title": "Radio Frequency (RF)",
+      "description": "RF-related regulations, testing, certification, and export topics.",
       "categories": {
         "regulations": {
           "title": "Regulations",
-          "description": "Overview of Taiwanese UAV regulatory bodies and their responsibilities.",
-          "subsections": [
-            {
-              "slug": "caa",
-              "name": "CAA",
-              "summary": "Oversees UAV operations, flight safety, registration, and operational compliance.",
-              "entries": []
-            }
-          ]
+          "description": "Overview of RF-related regulatory bodies and rules.",
+          "subsections": []
         },
         "testing": {
           "title": "Testing",
-          "description": "Overview of Taiwanese UAV testing requirements and procedures.",
+          "description": "Overview of RF testing requirements and procedures.",
           "subsections": []
         },
         "certifications": {
           "title": "Certifications",
-          "description": "Overview of Taiwanese certifications for UAVs.",
+          "description": "Overview of RF certification pathways.",
           "subsections": []
         },
         "export-controls": {
           "title": "Export Controls",
-          "description": "Overview of Taiwanese export regulations and rules.",
+          "description": "Overview of RF-related export and market-entry rules.",
+          "subsections": []
+        }
+      }
+    },
+    "emc": {
+      "title": "Electromagnetic Compatibility (EMC)",
+      "description": "EMC-related regulations, testing, certification, and export topics.",
+      "categories": {
+        "regulations": {
+          "title": "Regulations",
+          "description": "Overview of EMC-related rules and standards.",
+          "subsections": []
+        },
+        "testing": {
+          "title": "Testing",
+          "description": "Overview of EMC testing requirements and procedures.",
+          "subsections": []
+        },
+        "certifications": {
+          "title": "Certifications",
+          "description": "Overview of EMC certification pathways.",
+          "subsections": []
+        },
+        "export-controls": {
+          "title": "Export Controls",
+          "description": "Overview of EMC-related export and market-entry rules.",
+          "subsections": []
+        }
+      }
+    },
+    "reliability": {
+      "title": "Reliability / Airworthiness",
+      "description": "Reliability, airworthiness, and safety-related topics.",
+      "categories": {
+        "regulations": {
+          "title": "Regulations",
+          "description": "Overview of reliability and airworthiness regulations.",
+          "subsections": []
+        },
+        "testing": {
+          "title": "Testing",
+          "description": "Overview of reliability and airworthiness testing procedures.",
+          "subsections": []
+        },
+        "certifications": {
+          "title": "Certifications",
+          "description": "Overview of reliability and airworthiness certification pathways.",
+          "subsections": []
+        },
+        "export-controls": {
+          "title": "Export Controls",
+          "description": "Overview of reliability-related market-entry and export issues.",
           "subsections": []
         }
       }

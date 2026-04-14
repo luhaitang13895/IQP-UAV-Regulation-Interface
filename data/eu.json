@@ -1,145 +1,83 @@
 {
-        "name": "European Union 欧洲联盟",
-        "categories": {
-            "regulations": {
-                "title": "Regulations",
-                "description": "Overview of European Union UAV regulatory bodies and their responsibilities.",
-                "subsections": [
-                    {
-                        "slug": "easa",
-                        "name": "EASA",
-                        "summary": "summary",
-                        "entries": [
-                            {
-                                "region": "European Union",
-                                "primary_category": "Reliability / Airworthiness",
-                                "secondary_category": "Electromagnetic Capability (EMC)",
-                                "topic": "EU market access / declaration of conformity / CE marking",
-                                "source_title": "Articles.pdf links: CE marking, declaration of conformity, and conformity-assessment guidance",
-                                "brief_summary": "Bundle links for manufacturer-side market access and conformity documentation in the EU.",
-                                "pdf_url": "",
-                                "external_url": "https://certrust.eu/en/drone-ce-marking-mandatory-requirements-for-manufacturers/"
-                            },
-                            {
-                                "region": "European Union",
-                                "primary_category": "Reliability / Airworthiness",
-                                "secondary_category": "Misc / Context",
-                                "topic": "EU foundational drone regulations",
-                                "source_title": "Articles.pdf note: EU Regulations 2019/945 / 2019/947 and follow-on rulings",
-                                "brief_summary": "Bundle notes summarizing the EU legal foundation for manufacturer and operator regulation, including initial airworthiness, third-country operators, and standard scenarios.",
-                                "pdf_url": "",
-                                "external_url": "https://eur-lex.europa.eu/eli/reg_impl/2019/947/oj/eng"
-                            },
-                            {
-                                "region": "European Union",
-                                "primary_category": "Reliability / Airworthiness",
-                                "secondary_category": "",
-                                "topic": "EASA open-category operations",
-                                "source_title": "Articles.pdf link: EASA open-category low-risk civil drones",
-                                "brief_summary": "Explains the EU open-category operating rules for low-risk civil drones.",
-                                "pdf_url": "",
-                                "external_url": "https://www.easa.europa.eu/en/domains/drones-air-mobility/operating-drone/open-category-low-risk-civil-drones"
-                            },
-                            {
-                                "region": "European Union",
-                                "primary_category": "Reliability / Airworthiness",
-                                "secondary_category": "",
-                                "topic": "EASA FAQ / consolidated explanation of UAS rules",
-                                "source_title": "Articles.pdf link: EASA FAQ — Regulations UAS / drone explained",
-                                "brief_summary": "FAQ-style explanation of how the EU drone rules work in practice.",
-                                "pdf_url": "",
-                                "external_url": "https://www.easa.europa.eu/en/the-agency/faqs/regulations-uas-drone-explained"
-                            }
-                            
-                        ]
-                    },
-                    {
-                        "name": "Operational categories",
-                        "summary": "summary"
-                    }
-                ]
-            },
-            "testing": {
-                "title": "Testing",
-                "description": "Overview of European Union UAV testing requirements and procedures.",
-                "subsections": [
-                    {
-                        "slug": "technical-requirements",
-                        "name": "Technical requirements",
-                        "summary": "summary"
-                    },
-                    {
-                        "slug": "safety-testing",
-                        "name": "Safety testing",
-                        "summary": "summary"
-                    },
-                    {
-                        "slug": "rf-compliance-testing",
-                        "name": "RF Compliance Testing",
-                        "summary": "Summary of RF Testing",
-                        "entries": [
-                            {
-                                "region": "European Union",
-                                "primary_category": "Radio Frequency (RF)",
-                                "secondary_category": "RED RF regulations",
-                                "topic": "RED RF standards stack for common short-range and broadband wireless devices",
-                                "source_title": "Introduction to Wireless RF: an ETC Provided PDF, Page 6",
-                                "brief_summary": "ETC RF deck maps the EU RED standards stack, including ETSI EN 300 220, EN 300 330, EN 300 440, EN 300 328, EN 301 893, EN 302 502, EN 301 357, and ERC Recommendation 70-03 for short-range, wideband, and 5 GHz systems.",
-                                "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
-                            },
-                            {
-                                "region": "European Union",
-                                "primary_category": "Radio Frequency (RF)",
-                                "secondary_category": "Bluetooth modulation / channelization",
-                                "topic": "Bluetooth modulation modes and channel plans used in RF evaluation",
-                                "source_title": "Introduction to Wireless RF: an ETC Provided PDF, Page 6",
-                                "brief_summary": "ETC RF deck summarizes Bluetooth modulation modes relevant to RF evaluation: Bluetooth 2.1+EDR uses GFSK, pi/4-DQPSK, and 8-DPSK, while Bluetooth LE uses GFSK; the deck also shows BR/EDR and LE channel-list examples and 20 dB emission-bandwidth examples.",
-                                "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
-                            },
-                            {
-                                "region": "European Union",
-                                "primary_category": "Radio Frequency (RF)",
-                                "secondary_category": "Wireless RF testing standards",
-                                "topic": "Drone RF / EMC / LVD test stack for CE entry",
-                                "source_title": "FCC/CE Testing and Certification for Drones - Compliance Testing",
-                                "brief_summary": "Commercial explainer describing CE testing for drones as a stack combining RED for wireless communication, EMC for electromagnetic compatibility, and LVD for battery/power safety, with RF testing across controllers, video, telemetry, GPS, and other links.",
-                                "pdf_url": "",
-                                "external_url": "https://compliancetesting.com/fcc-ce-testing-and-certification-for-drones/"
-                            }
-                            
-                        
-                        ]
-                    }
-                ]
-            },
-            
-            "certifications": {
-                "title": "Certifications",
-                "description": "Overview of European Union certifications and compliance pathways for UAVs.",
-                "subsections": [
-                    {
-                        "name": "CE-related pathways",
-                        "summary": "summary"
-                    },
-                    {
-                        "name": "EASA compliance requirements",
-                        "summary": "summary"
-                    }
-                ]
-            },
-            "export-controls": {
-                "title": "Export Controls",
-                "description": "Overview of European Union market-entry, import, and export considerations for UAVs.",
-                "subsections": [
-                    {
-                        "name": "Regional market requirements",
-                        "summary": "summary"
-                    },
-                    {
-                        "name": "Import/export considerations",
-                        "summary": "summary"
-                    }
-                ]
-            }
+  "name": "European Union",
+  "topics": {
+    "rf": {
+      "title": "Radio Frequency (RF)",
+      "description": "RF-related regulations, testing, certification, and export topics.",
+      "categories": {
+        "regulations": {
+          "title": "Regulations",
+          "description": "Overview of RF-related regulatory bodies and rules.",
+          "subsections": []
+        },
+        "testing": {
+          "title": "Testing",
+          "description": "Overview of RF testing requirements and procedures.",
+          "subsections": []
+        },
+        "certifications": {
+          "title": "Certifications",
+          "description": "Overview of RF certification pathways.",
+          "subsections": []
+        },
+        "export-controls": {
+          "title": "Export Controls",
+          "description": "Overview of RF-related export and market-entry rules.",
+          "subsections": []
         }
+      }
+    },
+    "emc": {
+      "title": "Electromagnetic Compatibility (EMC)",
+      "description": "EMC-related regulations, testing, certification, and export topics.",
+      "categories": {
+        "regulations": {
+          "title": "Regulations",
+          "description": "Overview of EMC-related rules and standards.",
+          "subsections": []
+        },
+        "testing": {
+          "title": "Testing",
+          "description": "Overview of EMC testing requirements and procedures.",
+          "subsections": []
+        },
+        "certifications": {
+          "title": "Certifications",
+          "description": "Overview of EMC certification pathways.",
+          "subsections": []
+        },
+        "export-controls": {
+          "title": "Export Controls",
+          "description": "Overview of EMC-related export and market-entry rules.",
+          "subsections": []
+        }
+      }
+    },
+    "reliability": {
+      "title": "Reliability / Airworthiness",
+      "description": "Reliability, airworthiness, and safety-related topics.",
+      "categories": {
+        "regulations": {
+          "title": "Regulations",
+          "description": "Overview of reliability and airworthiness regulations.",
+          "subsections": []
+        },
+        "testing": {
+          "title": "Testing",
+          "description": "Overview of reliability and airworthiness testing procedures.",
+          "subsections": []
+        },
+        "certifications": {
+          "title": "Certifications",
+          "description": "Overview of reliability and airworthiness certification pathways.",
+          "subsections": []
+        },
+        "export-controls": {
+          "title": "Export Controls",
+          "description": "Overview of reliability-related market-entry and export issues.",
+          "subsections": []
+        }
+      }
     }
+  }
+}
