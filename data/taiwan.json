@@ -39,7 +39,34 @@
         "testing": {
           "title": "Testing",
           "description": "Overview of EMC testing requirements and procedures.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "emc-testing",
+              "name": "EMC Testing",
+              "summary": "Electromagnetic compatibility and immunity testing for UAV systems",
+              "entries": [
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Electromagnetic Compatibility (EMC)",
+                  "secondary_category": "Electrostatic discharge (ESD)",
+                  "topic": "Taiwan drone ESD test requirement",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone Testing",
+                  "brief_summary": "ETC EMC deck lists CNS 14676-2 (IEC 61000-4-2) as the ESD test method and, for under-2 kg drones, shows ESD performance criteria of contact discharge 4 kV and air discharge 8 kV.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505381/Electromagnetic.Compatibility.for.Drone.testing.pdf"
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Electromagnetic Compatibility (EMC)",
+                  "secondary_category": "Radiated susceptibility / immunity",
+                  "topic": "Taiwan radiated immunity / radiated susceptibility requirements for drones",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone testing",
+                  "brief_summary": "ETC EMC deck maps radiated immunity to CNS 14676-3 (IEC 61000-4-3). For under-2 kg drones it shows 80 MHz-1 GHz at 10 V/m and 1.4-6.0 GHz at 3 V/m with 80% AM; for 2-25 kg drones it describes propeller-off, motor-speed stability testing in an anechoic chamber with a 10% fluctuation limit and no loss of function.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505381/Electromagnetic.Compatibility.for.Drone.testing.pdf"
+                }
+            
+              ]
+            }
+          ]
         },
         "certifications": {
           "title": "Certifications",
