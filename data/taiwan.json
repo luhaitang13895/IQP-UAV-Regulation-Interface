@@ -13,7 +13,35 @@
         "testing": {
           "title": "Testing",
           "description": "Overview of RF testing requirements and procedures.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "emc-testing",
+              "name": "EMC Testing",
+              "summary": "Electromagnetic compatibility and immunity testing for UAV systems",
+              "entries": [
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Geofencing / geo-awareness",
+                  "topic": "Taiwan CAA map-software geofencing / warning requirements",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone Testing",
+                  "brief_summary": "ETC EMC deck reproduces Article 12-style map-software requirements: drones with navigation equipment must have active restriction or warning functions to prevent entry into prohibited or restricted airspace and airport buffer zones, and designers / manufacturers must keep map information accurate and updated.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505381/Electromagnetic.Compatibility.for.Drone.testing.pdf"
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Wireless RF testing standards",
+                  "topic": "NCC RF type-approval framework for low-power and telecom radio devices",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone Testing",
+                  "brief_summary": "ETC RF deck maps Taiwan NCC RF regulation families used for wireless products, including LP0002 for low-power radio-frequency devices, RTTE01 for 2.4 GHz radio-frequency telecommunications terminal equipment, and IS2031-0 for point-to-point microwave radio-frequency equipment.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
+                }
+            
+            
+              ]
+            }
+          ]
         },
         "certifications": {
           "title": "Certifications",
