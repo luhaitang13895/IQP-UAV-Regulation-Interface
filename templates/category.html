@@ -46,6 +46,80 @@
                 {% endfor %}
             </ul>
         {% endif %}
+
+        <hr>
+        
+        <h2>Add New Subsection</h2>
+        
+        <form id="addSubsectionForm" action="/addNewSubsection">
+            <!-- Hidden context fields -->
+            <input type="hidden" name="region" value="{{ region['name'] }}">
+            <input type="hidden" name="region_key" value="{{ region_key }}">
+            <input type="hidden" name="topic_key" value="{{ topic_key }}">
+            <input type="hidden" name="category" value="{{ category['title'] }}">
+            <input type="hidden" name="category_key" value="{{ category_key }}">
+            
+            <div>
+                <label>Name</label><br>
+                <input type="text" name="subsection-name" id="subsection-name" required>
+            </div>
+
+            <div>
+                <label>Slug</label><br>
+                <input type="text" name="subsection-slug" id="subsection-slug" required>
+            </div>
+
+            <div>
+                <label>Summary</label><br>
+                <textarea name="subsection_summary" rows="3" required></textarea>
+            </div>
+
+            <br>
+            <button type="submit">Add subsection</button>
+        </form>
     </div>
+    <script>
+        // Turns the name into slug
+        function nameToSlug(name) {
+            return name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')  // replace spaces & invalid chars with remove leading/trailing -
+        }
+
+        // Whenever name is changed, update the slug
+        document.getElementById('subsection-name').addEventListener('input', ()=> {
+            document.getElementById('subsection-slug').value = nameToSlug(document.getElementById('subsection-name').value)
+        })
+
+        const addSubsectionForm = document.getElementById('addSubsectionForm')
+
+        addSubsectionForm.addEventListener("submit", async function (event) {
+            event.preventDefault()
+            try {
+                const formData = new FormData(addSubsectionForm)
+                const jsonData = JSON.stringify(Object.fromEntries(formData.entries()))
+
+                const response = await fetch(addSubsectionForm.action, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(jsonData)
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Subsection Created!")
+                    addSubsectionForm.reset()
+                    location.reload()
+                } else {
+                    throw new Error("Bad server response")
+                }
+            } catch (error) {
+                console.error("Error submitting form:", error)
+                alert("Error submitting form")
+            }
+        })
+    </script>
 </body>
 </html>

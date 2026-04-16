@@ -85,8 +85,8 @@
             </div>
 
             <div>
-                <label>Primary Category</label><br>
-                <input type="text" name="primary_category" required>
+                <label>Primary Category (not used rn?)</label><br>
+                <input type="text" name="primary_category">
             </div>
 
             <div>
@@ -100,8 +100,13 @@
             </div>
 
             <div>
-                <label>External URL</label><br>
+                <label>External URL (not used rn?)</label><br>
                 <input type="url" name="external_url">
+            </div>
+
+            <div>
+                <label>PDF Link (not used rn?)</label><br>
+                <input type="url" name="pdf_link">
             </div>
 
             <br>
@@ -134,7 +139,7 @@
                     addEntryForm.reset()
                     location.reload()
                 } else {
-                    throw new Error("Got Back Success = False :(");
+                    throw new Error("Got Back Success = False :(")
                 }
             } catch (error) {
                 console.error("Error submitting form:", error)

@@ -19,6 +19,14 @@ def getRegulatoryData ():
     return REGULATORY_DATA
 
 
+# Gets the subsection index from a given slug
+def getSubsectionIndexFromSlug (slug, subsections):
+    index = 0
+    # Loops through all subsections to match slug
+    for subsection in subsections:
+        if subsection['slug'] == slug: return index
+        index += 1
+    return -1
 
 @app.route("/")
 def home():
@@ -171,14 +179,59 @@ def addNewEntry ():
         # Becasue subsections are a list, we need to find the index of the subsection by slug
         subsectionSlug = data.get('subsection_slug')
         categorySubsections = regionJson['topics'][topicKey]['categories'][categoryKey]["subsections"]
-        subsectionIndex = 0
-        # Loops through all subsections to match slug
-        for subsection in categorySubsections:
-            if subsection['slug'] == subsectionSlug: break
-            subsectionIndex += 1
+        subsectionIndex = getSubsectionIndexFromSlug(subsectionSlug, categorySubsections)
 
         # Adds the entry to the json:
         regionJson['topics'][topicKey]['categories'][categoryKey]["subsections"][subsectionIndex]['entries'].append(dataToAppend)
+        
+        # Saves the new json
+        filepath = "data/" + regionKey + ".json"
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(regionJson, f, indent=2)
+
+
+        print('sucessfully added to form')
+        return {"success": True}
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+    
+@app.route('/addNewSubsection', methods=['POST'])
+def addNewSubsection ():
+    try:
+
+        print('adding new subsection')
+        data = json.loads(request.get_json())
+
+        slug = data.get('subsection-slug')
+        name = data.get('subsection-name')
+        summary = data.get('subsection_summary')
+
+        dataToAppend = {
+            "slug": slug,
+            "name": name,
+            "summary": summary,
+            "entries": []
+        }
+
+        print(dataToAppend)
+
+        regionKey = data.get('region_key')
+        regionJson = load_json(regionKey + ".json")
+
+        topicKey = data.get('topic_key')
+        categoryKey = data.get('category_key')
+
+        # Checks to make sure the slug hasn't been used befores
+        subsectionSlug = data.get('subsection_slug')
+        categorySubsections = regionJson['topics'][topicKey]['categories'][categoryKey]["subsections"]
+        subsectionIndex = getSubsectionIndexFromSlug (subsectionSlug,categorySubsections) # should return -1 for new slug
+        if subsectionIndex > -1:
+            raise Exception ('slug already used')
+
+        # Adds the entry to the json:
+        regionJson['topics'][topicKey]['categories'][categoryKey]["subsections"].append(dataToAppend)
         
         # Saves the new json
         filepath = "data/" + regionKey + ".json"
