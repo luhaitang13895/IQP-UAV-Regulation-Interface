@@ -8,7 +8,42 @@
         "regulations": {
           "title": "Regulations",
           "description": "Overview of RF-related regulatory bodies and rules.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "red-directive",
+              "name": "Radio Equipment Directive (RED)",
+              "summary": "Key EU regulatory framework for radio equipment placed on the market.",
+              "entries": [
+                {
+                  "source_title": "Scope",
+                  "brief_summary": "The Radio Equipment Directive 2014/53/EU applies to equipment that intentionally emits and/or receives radio waves for communication or radiodetermination."
+                },
+                {
+                  "source_title": "Essential Requirements",
+                  "brief_summary": "Equipment must ensure health and safety, electromagnetic compatibility, and effective use of radio spectrum."
+                },
+                {
+                  "source_title": "Applicable Products",
+                  "brief_summary": "Examples include Wi-Fi devices, Bluetooth products, cellular modules, and other wireless transmitters or receivers."
+                }
+              ]
+            },
+            {
+              "slug": "etsi-harmonized-standards",
+              "name": "ETSI Harmonized Standards",
+              "summary": "Standards commonly used to demonstrate conformity under RED.",
+              "entries": [
+                {
+                  "source_title": "Purpose",
+                  "brief_summary": "Harmonized standards provide a presumption of conformity with relevant RED essential requirements."
+                },
+                {
+                  "source_title": "Examples",
+                  "brief_summary": "Common examples include ETSI EN 300 328 for 2.4 GHz wideband transmission systems and ETSI EN 301 893 for 5 GHz RLAN equipment."
+                }
+              ]
+            }
+          ]
         },
         "testing": {
           "title": "Testing",

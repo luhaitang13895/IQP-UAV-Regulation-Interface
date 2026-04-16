@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, request
+from keywordSearch import keywordSearch
 
 app = Flask(__name__)
 
@@ -72,6 +73,33 @@ def category_page(region_key, topic_key, category_key):
         category_key=category_key
     )
 
+@app.route("/search")
+def search():
+    keyword = request.args.get("keyword")
+    if not keyword:
+        abort(400, description="Missing required parameter: keyword")
+
+    
+    selectedRegions = request.args.getlist("regions")
+
+    allRegions = REGULATORY_DATA.keys()
+
+    results = keywordSearch(keyword, regions = selectedRegions)
+
+    # for result in results:
+    #     print("=" * 80)
+    #     print("RESULT:")
+    #     print(result)
+    #     link = "http://127.0.0.1:5000" + result.get("path", "")
+    #     print(link)
+
+    return render_template(
+        "search.html",
+        results=results,
+        keyword=keyword,
+        allRegions = allRegions,
+        selectedRegions = selectedRegions
+    )
 
 @app.route("/region/<region_key>/topic/<topic_key>/category/<category_key>/subsection/<subsection_slug>")
 def subsection_page(region_key, topic_key, category_key, subsection_slug):
