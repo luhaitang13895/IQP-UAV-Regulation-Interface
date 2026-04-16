@@ -21,11 +21,11 @@
         </form>
     </div>
     <div class="container">
-        <h1>UAV Export and Regulation Interface</h1>
+        <h1>UAV Export and Regulation Keyword Search</h1>
         <p>Search results{% if keyword %} for "{{ keyword }}"{% endif %}.</p>
 
         <form action="{{ url_for('search') }}" method="get">
-            <p>Search by keyword and filter by region. (leave region blank to search all)</p>
+            <p>Search by keyword and filter by region. (leave all blank to search all regions)</p>
 
             <input
                 type="text"
@@ -58,11 +58,9 @@
                 <a class="card" href="{{ result.path }}">
                     <h2>{{ result.title }}</h2>
                     <p>{{ result.text }}</p>
-                    <p><strong>Path:</strong> {{ result.path }}</p>
+                    <!-- <p><strong>Path:</strong> {{ result.path }}</p> -->
                     <p><strong>Type:</strong> {{ result.type }}</p>
-                    {% if result.sortLevel is defined %}
-                        <p><strong>Sort Level:</strong> {{ result.sortLevel }}</p>
-                    {% endif %}
+                    <!-- <p><strong>Sort Level:</strong> {{ result.sortLevel }}</p> -->
                 </a>
             {% endfor %}
         </div>

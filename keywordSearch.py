@@ -4,22 +4,32 @@ import json
 
 def loadJsonFromFilepath (filePath: str):
     with open(filePath, "r", encoding="utf-8") as f:
-        return json.load(f)
+        try:
+            # This causes an issue if the file is bad, thats why we added try/catch
+            data = json.load(f)
+            return data 
+        except Exception as e:
+            return {}
 
 # Reads all the json files and makes a list of dicts that have all the data:
 def getDataFromRegions (regions = []):
-    # List of all json files in data
-    jsonFileNames = os.listdir('./data')
-    
-    data = []
-    for fileName in jsonFileNames:
-        regionShorthand = fileName[0:-5] # the region name with no json
-        if len(regions) == 0 or regionShorthand in regions:
-            fileData = loadJsonFromFilepath("./data/" + fileName)
-            fileData['fileName'] = fileName # adds this extra information
-            data.append(fileData)
+    try:
+        # List of all json files in data
+        jsonFileNames = os.listdir('./data')
+        
+        data = []
+        for fileName in jsonFileNames:
+            regionShorthand = fileName[0:-5] # the region name with no json
+            if len(regions) == 0 or regionShorthand in regions:
+                fileData = loadJsonFromFilepath("./data/" + fileName)
+                fileData['fileName'] = fileName # adds this extra information
+                data.append(fileData)
 
-    return data
+        return data
+    except Exception as e:
+        print('ERROR READING DATA FROM REGIONS')
+        print(e)
+        return []
 
 # print(getData())
 
@@ -42,117 +52,122 @@ def keywordSearch (keyword, regions = []):
     }
     """
     for countryDict in data:
-        fileName = countryDict.get('fileName')
-        fileShorthand = fileName[0:-5] # strips out the .json from the file name
-        regionName = countryDict.get('name')
-        topics = countryDict.get('topics', {})
-                # Appends the region's page into the list if it matches
+        # Try here so if one fails, they dont all fail
+        try: 
+            fileName = countryDict.get('fileName')
+            fileShorthand = fileName[0:-5] # strips out the .json from the file name
+            regionName = countryDict.get('name')
+            topics = countryDict.get('topics', {})
+                    # Appends the region's page into the list if it matches
 
-        if keyword in regionName.lower():
-            pagePath = '/region/' + fileShorthand
-            resultDict = {
-                'path': pagePath,
-                'title': regionName,
-                'text': '',
-                'sortLevel': 0,
-                'type': 'region'
-            }
-            results.append(resultDict)
-
-        for topicName, topicDict in topics.items():
-            topicTitle = topicDict.get('title', '')
-            topicDescription = topicDict.get('description', '')
-            categories = topicDict.get('categories', {})
-
-            # Checks to see if the topic page should be added:
-            if keyword in topicTitle.lower() or keyword in topicDescription.lower():
-                sortLevel = 2
-                # If the keyword is in the title of the topic, we want to show that first
-                if keyword in topicTitle.lower():
-                    sortLevel = 1
-
-                pagePath = '/region/' + fileShorthand + '/topic/' + topicName
+            if keyword in regionName.lower():
+                pagePath = '/region/' + fileShorthand
                 resultDict = {
                     'path': pagePath,
-                    'title': topicTitle,
-                    'text': topicDescription,
-                    'sortLevel': sortLevel,
-                    'type': 'category'
+                    'title': regionName,
+                    'text': '',
+                    'sortLevel': 0,
+                    'type': 'region'
                 }
                 results.append(resultDict)
 
-            for categoryName, categoryDict in categories.items():
-                categoryTitle = categoryDict.get('title', '')
-                categoryDescription = categoryDict.get('description', '')
+            for topicName, topicDict in topics.items():
+                topicTitle = topicDict.get('title', '')
+                topicDescription = topicDict.get('description', '')
+                categories = topicDict.get('categories', {})
 
-                # Checks to see if the category page should be added:
-                if keyword in categoryTitle.lower() or keyword in categoryDescription.lower():
-                    sortLevel = 3
-                    # If the keyword is in the title of the category, we want to show that first
-                    if keyword in categoryTitle.lower():
-                        sortLevel = 1.1
+                # Checks to see if the topic page should be added:
+                if keyword in topicTitle.lower() or keyword in topicDescription.lower():
+                    sortLevel = 2
+                    # If the keyword is in the title of the topic, we want to show that first
+                    if keyword in topicTitle.lower():
+                        sortLevel = 1
 
-                    pagePath = '/region/' + fileShorthand + '/topic/' + topicName + '/category/' + categoryName
+                    pagePath = '/region/' + fileShorthand + '/topic/' + topicName
                     resultDict = {
                         'path': pagePath,
-                        'title': categoryTitle,
-                        'text': categoryDescription,
+                        'title': topicTitle,
+                        'text': topicDescription,
                         'sortLevel': sortLevel,
-                        'type': 'subsection'
+                        'type': 'category'
                     }
                     results.append(resultDict)
 
-                subsections = categoryDict.get('subsections', [])
-                for subsection in subsections:
-                    subsectionTitle = subsection.get('name', '')
-                    subsectionSummary = subsection.get('summary', '')
-                    subsectionSlug = subsection.get('slug', '')
+                for categoryName, categoryDict in categories.items():
+                    categoryTitle = categoryDict.get('title', '')
+                    categoryDescription = categoryDict.get('description', '')
 
-                    # Once again tests to see if the keyword is found in the subsection name or description:
-                    if keyword in subsectionTitle.lower() or keyword in subsectionSummary.lower():
-                        sortLevel = 4
-                        # If the keyword is in the title of the subsection, we want to show that first
-                        if keyword in subsectionTitle.lower():
-                            sortLevel = 1.2
+                    # Checks to see if the category page should be added:
+                    if keyword in categoryTitle.lower() or keyword in categoryDescription.lower():
+                        sortLevel = 3
+                        # If the keyword is in the title of the category, we want to show that first
+                        if keyword in categoryTitle.lower():
+                            sortLevel = 1.1
 
-                        pagePath = '/region/' + fileShorthand + '/topic/' + topicName + '/category/' + categoryName + '/subsection/' + subsectionSlug
+                        pagePath = '/region/' + fileShorthand + '/topic/' + topicName + '/category/' + categoryName
                         resultDict = {
                             'path': pagePath,
-                            'title': subsectionTitle,
-                            'text': subsectionSummary,
+                            'title': categoryTitle,
+                            'text': categoryDescription,
                             'sortLevel': sortLevel,
                             'type': 'subsection'
                         }
                         results.append(resultDict)
 
-                    entryIndex = 0
+                    subsections = categoryDict.get('subsections', [])
+                    for subsection in subsections:
+                        subsectionTitle = subsection.get('name', '')
+                        subsectionSummary = subsection.get('summary', '')
+                        subsectionSlug = subsection.get('slug', '')
 
-                    entries = subsection.get('entries')
-                    if entries is None:
-                        entryIndex += 1
-                        continue
+                        # Once again tests to see if the keyword is found in the subsection name or description:
+                        if keyword in subsectionTitle.lower() or keyword in subsectionSummary.lower():
+                            sortLevel = 4
+                            # If the keyword is in the title of the subsection, we want to show that first
+                            if keyword in subsectionTitle.lower():
+                                sortLevel = 1.2
 
-                    for entry in entries:
-                        entrySummary = entry.get('brief_summary', '')
-                        entryTitle = entry.get('source_title', '')
-
-                        if keyword in entryTitle.lower() or keyword in entrySummary.lower():
-                            sortLevel = 5
-                            # If the keyword is in the title of the entry, we want to show that first
-                            if keyword in entryTitle.lower():
-                                sortLevel = 1.3
-
-                            pagePath = '/region/' + fileShorthand + '/topic/' + topicName + '/category/' + categoryName + '/subsection/' + subsectionSlug + '?index=' + str(entryIndex)
+                            pagePath = '/region/' + fileShorthand + '/topic/' + topicName + '/category/' + categoryName + '/subsection/' + subsectionSlug
                             resultDict = {
                                 'path': pagePath,
-                                'title': entryTitle,
-                                'text': entrySummary,
+                                'title': subsectionTitle,
+                                'text': subsectionSummary,
                                 'sortLevel': sortLevel,
-                                'type': 'entry'
+                                'type': 'subsection'
                             }
                             results.append(resultDict)
 
-                    entryIndex += 1
+                        entryIndex = 0
+
+                        entries = subsection.get('entries')
+                        if entries is None:
+                            entryIndex += 1
+                            continue
+
+                        for entry in entries:
+                            entrySummary = entry.get('brief_summary', '')
+                            entryTitle = entry.get('source_title', '')
+
+                            if keyword in entryTitle.lower() or keyword in entrySummary.lower():
+                                sortLevel = 5
+                                # If the keyword is in the title of the entry, we want to show that first
+                                if keyword in entryTitle.lower():
+                                    sortLevel = 1.3
+
+                                pagePath = '/region/' + fileShorthand + '/topic/' + topicName + '/category/' + categoryName + '/subsection/' + subsectionSlug + '?index=' + str(entryIndex)
+                                resultDict = {
+                                    'path': pagePath,
+                                    'title': entryTitle,
+                                    'text': entrySummary,
+                                    'sortLevel': sortLevel,
+                                    'type': 'entry'
+                                }
+                                results.append(resultDict)
+
+                        entryIndex += 1
+        except Exception as e:
+            print('There was an issue searching file: ', countryDict)
+            print(e)
 
         
     sortedResults = sorted(results, key=lambda x: x.get("sortLevel", 0))
