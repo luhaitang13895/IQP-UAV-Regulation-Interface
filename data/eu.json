@@ -25,6 +25,42 @@
                 {
                   "source_title": "Applicable Products",
                   "brief_summary": "Examples include Wi-Fi devices, Bluetooth products, cellular modules, and other wireless transmitters or receivers."
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "lkjadslfkjlkfds",
+                  "secondaryCategory": "lkjjlkj",
+                  "sourceTitle": "asdfaf",
+                  "briefSummary": "lkjlkjlkj",
+                  "externalURL": "",
+                  "pdfLink": ""
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "asdfa",
+                  "secondaryCategory": "adsfa",
+                  "sourceTitle": "Source title",
+                  "briefSummary": "afdafdss\n",
+                  "externalURL": "",
+                  "pdfLink": ""
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "asdfasdfasfda",
+                  "secondaryCategory": "asdadsfadsf",
+                  "sourceTitle": "Does this work?",
+                  "briefSummary": "HMMMMMmmm",
+                  "externalURL": "",
+                  "pdfLink": ""
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "asdf",
+                  "secondary_category": "asdf",
+                  "source_title": "New Entry",
+                  "brief_summary": "This should work!",
+                  "externalURL": "",
+                  "pdfLink": ""
                 }
               ]
             },

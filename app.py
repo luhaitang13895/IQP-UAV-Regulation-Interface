@@ -10,21 +10,24 @@ def load_json(filename):
     with open(file_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
-REGULATORY_DATA = {
-    "taiwan": load_json("taiwan.json"),
-    "us": load_json("us.json"),
-    "eu": load_json("eu.json")
-}
+def getRegulatoryData ():
+    REGULATORY_DATA = {
+        "taiwan": load_json("taiwan.json"),
+        "us": load_json("us.json"),
+        "eu": load_json("eu.json")
+    }
+    return REGULATORY_DATA
+
 
 
 @app.route("/")
 def home():
-    return render_template("home.html", regions=REGULATORY_DATA)
+    return render_template("home.html", regions=getRegulatoryData())
 
 
 @app.route("/region/<region_key>")
 def region_page(region_key):
-    region = REGULATORY_DATA.get(region_key)
+    region = getRegulatoryData().get(region_key)
     if not region:
         abort(404)
     return render_template("region.html", region=region, region_key=region_key)
@@ -32,7 +35,7 @@ def region_page(region_key):
 
 @app.route("/region/<region_key>/topic/<topic_key>")
 def topic_page(region_key, topic_key):
-    region = REGULATORY_DATA.get(region_key)
+    region = getRegulatoryData().get(region_key)
     if not region:
         abort(404)
 
@@ -51,7 +54,7 @@ def topic_page(region_key, topic_key):
 
 @app.route("/region/<region_key>/topic/<topic_key>/category/<category_key>")
 def category_page(region_key, topic_key, category_key):
-    region = REGULATORY_DATA.get(region_key)
+    region = getRegulatoryData().get(region_key)
     if not region:
         abort(404)
 
@@ -82,7 +85,7 @@ def search():
     
     selectedRegions = request.args.getlist("regions")
 
-    allRegions = REGULATORY_DATA.keys()
+    allRegions = getRegulatoryData().keys()
 
     results = keywordSearch(keyword, regions = selectedRegions)
 
@@ -103,7 +106,7 @@ def search():
 
 @app.route("/region/<region_key>/topic/<topic_key>/category/<category_key>/subsection/<subsection_slug>")
 def subsection_page(region_key, topic_key, category_key, subsection_slug):
-    region = REGULATORY_DATA.get(region_key)
+    region = getRegulatoryData().get(region_key)
     if not region:
         abort(404)
 
@@ -135,6 +138,60 @@ def subsection_page(region_key, topic_key, category_key, subsection_slug):
         subsection=subsection
     )
 
+@app.route('/addNewEntry', methods=['POST'])
+def addNewEntry ():
+    try:
+        print('adding new entry')
+        data = json.loads(request.get_json())
+
+        regionName = data.get('region')
+        primaryCategory = data.get('primary_category')
+        secondaryCategory = data.get('secondary_category')
+        sourceTitle = data.get('source_title')
+        briefSummary = data.get('brief_summary')
+        externalURL = data.get('external_url', '')
+        pdfLink = data.get('pdf_link', '')
+
+        dataToAppend = {
+            "region": regionName,
+            "primary_category": primaryCategory,
+            "secondary_category": secondaryCategory,
+            "source_title": sourceTitle,
+            "brief_summary": briefSummary,
+            "externalURL": externalURL,
+            "pdfLink": pdfLink
+        }
+
+        regionKey = data.get('region_key')
+        regionJson = load_json(regionKey + ".json")
+
+        topicKey = data.get('topic_key')
+        categoryKey = data.get('category_key')
+
+        # Becasue subsections are a list, we need to find the index of the subsection by slug
+        subsectionSlug = data.get('subsection_slug')
+        categorySubsections = regionJson['topics'][topicKey]['categories'][categoryKey]["subsections"]
+        subsectionIndex = 0
+        # Loops through all subsections to match slug
+        for subsection in categorySubsections:
+            if subsection['slug'] == subsectionSlug: break
+            subsectionIndex += 1
+
+        # Adds the entry to the json:
+        regionJson['topics'][topicKey]['categories'][categoryKey]["subsections"][subsectionIndex]['entries'].append(dataToAppend)
+        
+        # Saves the new json
+        filepath = "data/" + regionKey + ".json"
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(regionJson, f, indent=2)
+
+
+        print('sucessfully added to form')
+        return {"success": True}
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
 
 if __name__ == "__main__":
     app.run(debug=True)

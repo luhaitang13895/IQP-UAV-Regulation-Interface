@@ -69,13 +69,15 @@
         <hr>
         <h2>Add New Entry</h2>
 
-        <form action="/addNewEntry" method="post">
+        <form id="addEntryForm" action="/addNewEntry">
             <!-- Hidden context fields -->
             <input type="hidden" name="region" value="{{ region['name'] }}">
             <input type="hidden" name="region_key" value="{{ region_key }}">
+            <input type="hidden" name="topic_key" value="{{ topic_key }}">
             <input type="hidden" name="category" value="{{ category['title'] }}">
             <input type="hidden" name="category_key" value="{{ category_key }}">
             <input type="hidden" name="subsection" value="{{ subsection['name'] }}">
+            <input type="hidden" name="subsection_slug" value="{{ subsection['slug'] }}">
             
             <div>
                 <label>Source Title</label><br>
@@ -93,11 +95,6 @@
             </div>
 
             <div>
-                <label>Topic</label><br>
-                <input type="text" name="topic" required>
-            </div>
-
-            <div>
                 <label>Brief Summary</label><br>
                 <textarea name="brief_summary" rows="3" required></textarea>
             </div>
@@ -111,5 +108,39 @@
             <button type="submit">Add Entry</button>
         </form>
     </div>
+
+    <script>
+        const addEntryForm = document.getElementById("addEntryForm")
+
+        addEntryForm.addEventListener("submit", async function (event) {
+            event.preventDefault()
+            try {
+                const formData = new FormData(addEntryForm)
+                const jsonData = JSON.stringify(Object.fromEntries(formData.entries()))
+
+                const response = await fetch(addEntryForm.action, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(jsonData)
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Entry added!")
+                    addEntryForm.reset()
+                    location.reload()
+                } else {
+                    throw new Error("Got Back Success = False :(");
+                }
+            } catch (error) {
+                console.error("Error submitting form:", error)
+                alert("Error submitting form")
+            }
+        })
+    </script>
 </body>
 </html>
