@@ -10,6 +10,9 @@
     <div class="topbar">
         <a href="/" class="topbar-home">Home</a>
 
+        <div class="topbar-logo">
+            <img src="/static/etcLogo.png" alt="Logo">
+        </div>
         <form action="{{ url_for('search') }}" method="get" class="topbar-search">
             <input
                 type="text"
@@ -61,7 +64,7 @@
             <div>
                 <label for="add-default-categories">
                     Add default categories
-                    <input type="checkbox" id="add-default-categories" name="add_default_categories" value="true">
+                    <input type="checkbox" id="add-default-categories" name="add_default_categories" value="true" checked>
                     <p>* Adds Regulations, Testing, Certifications, and Export Controls to the new topic</p>
                 </label>
             </div>

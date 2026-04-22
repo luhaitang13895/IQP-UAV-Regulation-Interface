@@ -63,6 +63,7 @@ p {
     align-items: center;
     padding: 0.5rem 1rem;
     border-bottom: 1px solid #ccc;
+    position: relative; 
 }
 
 .topbar-home {
@@ -77,4 +78,14 @@ p {
 
 .topbar-search button {
     padding: 0.4rem;
+}
+
+.topbar-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.topbar-logo img {
+    height: 40px;
 }

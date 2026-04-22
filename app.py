@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from flask import Flask, render_template, abort, request
 from keywordSearch import keywordSearch
+import os
 
 app = Flask(__name__)
 
@@ -11,11 +12,20 @@ def load_json(filename):
         return json.load(f)
 
 def getRegulatoryData ():
-    REGULATORY_DATA = {
-        "taiwan": load_json("taiwan.json"),
-        "us": load_json("us.json"),
-        "eu": load_json("eu.json")
-    }
+    jsonFileNames = os.listdir('./data')
+    REGULATORY_DATA = {}
+    for filename in jsonFileNames:
+        try: # try is incase the load json fails (happens if the json file isnt a real json)
+            shorthand = filename[0:-5]
+            REGULATORY_DATA[shorthand] = load_json(filename)
+        except Exception as e:
+            print('ERROR LOADING: ', filename)
+
+    # REGULATORY_DATA = {
+    #     "taiwan": load_json("taiwan.json"),
+    #     "us": load_json("us.json"),
+    #     "eu": load_json("eu.json")
+    # }
     return REGULATORY_DATA
 
 
