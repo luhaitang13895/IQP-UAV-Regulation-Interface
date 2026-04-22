@@ -104,3 +104,12 @@ p {
     white-space: nowrap;
 }
 
+.topbar-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.topbar-search input {
+    width: 180px;
+}
