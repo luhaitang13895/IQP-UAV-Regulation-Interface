@@ -25,42 +25,6 @@
                 {
                   "source_title": "Applicable Products",
                   "brief_summary": "Examples include Wi-Fi devices, Bluetooth products, cellular modules, and other wireless transmitters or receivers."
-                },
-                {
-                  "region": "European Union",
-                  "primary_category": "lkjadslfkjlkfds",
-                  "secondaryCategory": "lkjjlkj",
-                  "sourceTitle": "asdfaf",
-                  "briefSummary": "lkjlkjlkj",
-                  "externalURL": "",
-                  "pdfLink": ""
-                },
-                {
-                  "region": "European Union",
-                  "primary_category": "asdfa",
-                  "secondaryCategory": "adsfa",
-                  "sourceTitle": "Source title",
-                  "briefSummary": "afdafdss\n",
-                  "externalURL": "",
-                  "pdfLink": ""
-                },
-                {
-                  "region": "European Union",
-                  "primary_category": "asdfasdfasfda",
-                  "secondaryCategory": "asdadsfadsf",
-                  "sourceTitle": "Does this work?",
-                  "briefSummary": "HMMMMMmmm",
-                  "externalURL": "",
-                  "pdfLink": ""
-                },
-                {
-                  "region": "European Union",
-                  "primary_category": "asdf",
-                  "secondary_category": "asdf",
-                  "source_title": "New Entry",
-                  "brief_summary": "This should work!",
-                  "externalURL": "",
-                  "pdfLink": ""
                 }
               ]
             },
@@ -84,7 +48,35 @@
         "testing": {
           "title": "Testing",
           "description": "Overview of RF testing requirements and procedures.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "rf-testing",
+              "name": "Radio Frequency Testing",
+              "summary": "Radio Frequency testing for UAV systems",
+              "entries": [
+                {
+                  "region": "European Union",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Bluetooth modulation / channelization",
+                  "topic": "Bluetooth modulation modes and channel plans used in RF evaluation",
+                  "source_title": "Introduction to Wireless RF",
+                  "brief_summary": "ETC RF deck summarizes Bluetooth modulation modes relevant to RF evaluation: Bluetooth 2.1+EDR uses GFSK, pi/4-DQPSK, and 8-DPSK, while Bluetooth LE uses GFSK; the deck also shows BR/EDR and LE channel-list examples and 20 dB emission-bandwidth examples.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "RED RF regulations",
+                  "topic": "RED RF standards stack for common short-range and broadband wireless devices",
+                  "source_title": "Introduction to Wireless RF",
+                  "brief_summary": "ETC RF deck maps the EU RED standards stack, including ETSI EN 300 220, EN 300 330, EN 300 440, EN 300 328, EN 301 893, EN 302 502, EN 301 357, and ERC Recommendation 70-03 for short-range, wideband, and 5 GHz systems.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
+                }
+            
+            
+              ]
+            }
+          ]
         },
         "certifications": {
           "title": "Certifications",
@@ -131,7 +123,27 @@
         "regulations": {
           "title": "Regulations",
           "description": "Overview of reliability and airworthiness regulations.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "reliability-regulations",
+              "name": "Reliability and Airworthiness Regulations",
+              "summary": "Reliability and Airworthiness Regulations for UAV systems",
+              "entries": [
+                {
+                  "region": "European Union",
+                  "primary_category": "Reliability / Airworthiness",
+                  "secondary_category": "Reliability / Airworthiness",
+                  "topic": "Low Voltage Directive (LVD)",
+                  "source_title": "Low Voltage Directive (LVD)",
+                  "brief_summary": "The low voltage directive (LVD) (2014/35/EU) ensures that electrical equipment within certain voltage limits provides a high level of protection for European citizens, and benefits fully from the single market. ",
+                  "external_url": "https://single-market-economy.ec.europa.eu/sectors/electrical-and-electronic-engineering-industries-eei/low-voltage-directive-lvd_en",
+                  "pdf_url": ""
+                }
+            
+            
+              ]
+            }
+          ]
         },
         "testing": {
           "title": "Testing",
