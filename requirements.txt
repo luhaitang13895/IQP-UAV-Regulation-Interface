@@ -1,2 +1,2 @@
 Flask
-gunicorn==25.3.0git 
+gunicorn==25.3.0
