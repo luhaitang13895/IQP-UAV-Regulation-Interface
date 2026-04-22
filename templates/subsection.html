@@ -13,6 +13,7 @@
         <div class="topbar-logo">
             <img src="/static/etcLogo.png" alt="Logo">
         </div>
+
         <form action="{{ url_for('search') }}" method="get" class="topbar-search">
             <input
                 type="text"
@@ -22,6 +23,14 @@
             >
             <button type="submit">Search</button>
         </form>
+
+        <div>
+            {% if is_admin %}
+                <a href="{{ url_for('admin_logout') }}">Admin Logout</a>
+            {% else %}
+                <a href="{{ url_for('admin_login') }}">Admin Login</a>
+            {% endif %}
+        </div>
     </div>
     <div class="container">
         <a class="back-link" href="{{ url_for('category_page', region_key=region_key, topic_key=topic_key, category_key=category_key) }}">
@@ -69,6 +78,7 @@
             </div>
         {% endif %}
 
+        {% if is_admin %}
         <hr>
         <h2>Add New Entry</h2>
 
@@ -115,6 +125,7 @@
             <br>
             <button type="submit">Add Entry</button>
         </form>
+        {% endif %}
     </div>
 
     <script>

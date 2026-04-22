@@ -13,6 +13,7 @@
         <div class="topbar-logo">
             <img src="/static/etcLogo.png" alt="Logo">
         </div>
+
         <form action="{{ url_for('search') }}" method="get" class="topbar-search">
             <input
                 type="text"
@@ -22,6 +23,14 @@
             >
             <button type="submit">Search</button>
         </form>
+
+        <div>
+            {% if is_admin %}
+                <a href="{{ url_for('admin_logout') }}">Admin Logout</a>
+            {% else %}
+                <a href="{{ url_for('admin_login') }}">Admin Login</a>
+            {% endif %}
+        </div>
     </div>
     <div class="container">
         <a class="back-link" href="{{ url_for('region_page', region_key=region_key) }}">
@@ -45,6 +54,7 @@
                 </div>
             {% endif %}
         </div>
+        {% if is_admin %}
         <hr>
         
         <h2>Add New Category</h2>
@@ -73,6 +83,7 @@
             <br>
             <button type="submit">Add category</button>
         </form>
+        {% endif %}
     </div>
     <script>
         // Turns the name into slug

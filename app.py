@@ -1,10 +1,47 @@
 import json
 from pathlib import Path
-from flask import Flask, render_template, abort, request
+from flask import Flask, render_template, abort, request, session, redirect, url_for, flash
 from keywordSearch import keywordSearch
 import os
+from functools import wraps
 
 app = Flask(__name__)
+
+app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key-change-this")
+
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "change-this-password")
+
+
+def is_admin():
+    return session.get("is_admin", False)
+
+def admin_required(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if not is_admin():
+            return {"success": False, "error": "Unauthorized"}, 401
+        return func(*args, **kwargs)
+    return wrapper
+
+
+@app.route("/admin/login", methods=["GET", "POST"])
+def admin_login():
+    if request.method == "POST":
+        password = request.form.get("password", "")
+        if password == ADMIN_PASSWORD:
+            session["is_admin"] = True
+            flash("Logged in successfully.")
+            return redirect(url_for("home"))
+        else:
+            flash("Incorrect password.")
+    return render_template("admin_login.html", is_admin=is_admin())
+
+@app.route("/admin/logout")
+def admin_logout():
+    session.clear()
+    flash("Logged out.")
+    return redirect(url_for("home"))
+
 
 def load_json(filename):
     file_path = Path("data") / filename
@@ -40,7 +77,7 @@ def getSubsectionIndexFromSlug (slug, subsections):
 
 @app.route("/")
 def home():
-    return render_template("home.html", regions=getRegulatoryData())
+    return render_template("home.html", regions=getRegulatoryData(), is_admin=is_admin())
 
 
 @app.route("/region/<region_key>")
@@ -48,7 +85,7 @@ def region_page(region_key):
     region = getRegulatoryData().get(region_key)
     if not region:
         abort(404)
-    return render_template("region.html", region=region, region_key=region_key)
+    return render_template("region.html", region=region, region_key=region_key, is_admin=is_admin())
 
 
 @app.route("/region/<region_key>/topic/<topic_key>")
@@ -62,12 +99,13 @@ def topic_page(region_key, topic_key):
         abort(404)
 
     return render_template(
-        "topic.html",
-        region=region,
-        region_key=region_key,
-        topic=topic,
-        topic_key=topic_key
-    )
+    "topic.html",
+    region=region,
+    region_key=region_key,
+    topic=topic,
+    topic_key=topic_key,
+    is_admin=is_admin()
+)
 
 
 @app.route("/region/<region_key>/topic/<topic_key>/category/<category_key>")
@@ -85,14 +123,15 @@ def category_page(region_key, topic_key, category_key):
         abort(404)
 
     return render_template(
-        "category.html",
-        region=region,
-        region_key=region_key,
-        topic=topic,
-        topic_key=topic_key,
-        category=category,
-        category_key=category_key
-    )
+    "category.html",
+    region=region,
+    region_key=region_key,
+    topic=topic,
+    topic_key=topic_key,
+    category=category,
+    category_key=category_key,
+    is_admin=is_admin()
+)
 
 @app.route("/search")
 def search():
@@ -146,17 +185,19 @@ def subsection_page(region_key, topic_key, category_key, subsection_slug):
         abort(404)
 
     return render_template(
-        "subsection.html",
-        region=region,
-        region_key=region_key,
-        topic=topic,
-        topic_key=topic_key,
-        category=category,
-        category_key=category_key,
-        subsection=subsection
-    )
+    "subsection.html",
+    region=region,
+    region_key=region_key,
+    topic=topic,
+    topic_key=topic_key,
+    category=category,
+    category_key=category_key,
+    subsection=subsection,
+    is_admin=is_admin()
+)
 
 @app.route('/addNewEntry', methods=['POST'])
+@admin_required
 def addNewEntry ():
     try:
         print('adding new entry')
@@ -208,6 +249,7 @@ def addNewEntry ():
         return {"success": False}
     
 @app.route('/addNewSubsection', methods=['POST'])
+@admin_required
 def addNewSubsection ():
     try:
 
@@ -257,6 +299,7 @@ def addNewSubsection ():
         return {"success": False}
 
 @app.route('/addNewCategory', methods=['POST'])
+@admin_required
 def addCategoryForm(): 
     try:
         print('adding new category')
@@ -299,6 +342,7 @@ def addCategoryForm():
 
 
 @app.route('/addNewTopic', methods=['POST'])
+@admin_required
 def addTopicForm(): 
     try:
         print('adding new topic')
@@ -362,6 +406,7 @@ def addTopicForm():
         return {"success": False}
 
 @app.route('/addNewRegion', methods=['POST'])
+@admin_required
 def addNewRegion ():
     try:
         print('adding new region')
