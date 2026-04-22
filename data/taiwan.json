@@ -1,5 +1,5 @@
 {
-  "name": "Taiwan 台湾",
+  "name": "Taiwan 台灣",
   "topics": {
     "rf": {
       "title": "Radio Frequency (RF)",
@@ -13,7 +13,35 @@
         "testing": {
           "title": "Testing",
           "description": "Overview of RF testing requirements and procedures.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "rf-testing",
+              "name": "Radio Frequency Testing",
+              "summary": "Radio Frequency testing for UAV systems",
+              "entries": [
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Geofencing / geo-awareness",
+                  "topic": "Taiwan CAA map-software geofencing / warning requirements",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone Testing",
+                  "brief_summary": "ETC EMC deck reproduces Article 12-style map-software requirements: drones with navigation equipment must have active restriction or warning functions to prevent entry into prohibited or restricted airspace and airport buffer zones, and designers / manufacturers must keep map information accurate and updated.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505381/Electromagnetic.Compatibility.for.Drone.testing.pdf"
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Wireless RF testing standards",
+                  "topic": "NCC RF type-approval framework for low-power and telecom radio devices",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone Testing",
+                  "brief_summary": "ETC RF deck maps Taiwan NCC RF regulation families used for wireless products, including LP0002 for low-power radio-frequency devices, RTTE01 for 2.4 GHz radio-frequency telecommunications terminal equipment, and IS2031-0 for point-to-point microwave radio-frequency equipment.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
+                }
+            
+            
+              ]
+            }
+          ]
         },
         "certifications": {
           "title": "Certifications",
@@ -39,7 +67,88 @@
         "testing": {
           "title": "Testing",
           "description": "Overview of EMC testing requirements and procedures.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "emc-testing",
+              "name": "EMC Testing",
+              "summary": "Electromagnetic compatibility and immunity testing for UAV systems",
+              "entries": [
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Electromagnetic Compatibility (EMC)",
+                  "secondary_category": "Electrostatic discharge (ESD)",
+                  "topic": "Taiwan drone ESD test requirement",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone Testing",
+                  "brief_summary": "ETC EMC deck lists CNS 14676-2 (IEC 61000-4-2) as the ESD test method and, for under-2 kg drones, shows ESD performance criteria of contact discharge 4 kV and air discharge 8 kV.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505381/Electromagnetic.Compatibility.for.Drone.testing.pdf"
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Electromagnetic Compatibility (EMC)",
+                  "secondary_category": "Radiated susceptibility / immunity",
+                  "topic": "Taiwan radiated immunity / radiated susceptibility requirements for drones",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone testing",
+                  "brief_summary": "ETC EMC deck maps radiated immunity to CNS 14676-3 (IEC 61000-4-3). For under-2 kg drones it shows 80 MHz-1 GHz at 10 V/m and 1.4-6.0 GHz at 3 V/m with 80% AM; for 2-25 kg drones it describes propeller-off, motor-speed stability testing in an anechoic chamber with a 10% fluctuation limit and no loss of function.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505381/Electromagnetic.Compatibility.for.Drone.testing.pdf"
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Electromagnetic Compatibility (EMC)",
+                  "secondary_category": "Electromagnetic static discharge",
+                  "topic": "Taiwan ESD setup and laboratory conditions",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone testing",
+                  "brief_summary": "ETC EMC deck details ESD setup verification and laboratory conditions for IEC 61000-4-2 testing, including shielding room conditions, 15-35 C temperature, 30-60% humidity, 150 pF / 330 ohm generator parameters, and verification of the generator, return cable, bleeder resistors, and ground reference plane.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505381/Electromagnetic.Compatibility.for.Drone.testing.pdf"
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Electromagnetic Compatibility (EMC)",
+                  "secondary_category": "Electromagnetic susceptibility / immunity",
+                  "topic": "Conducted disturbance immunity (CS) requirements for Taiwan drone testing",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone testing",
+                  "brief_summary": "ETC EMC deck lists CNS 14676-6 (IEC 61000-4-6) for conducted disturbance immunity from 0.15 MHz to 80 MHz and shows an ability level of 10 V with 80% AM at 1 kHz.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505381/Electromagnetic.Compatibility.for.Drone.testing.pdf"
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Electromagnetic Compatibility (EMC)",
+                  "secondary_category": "Electromagnetic susceptibility / immunity",
+                  "topic": "Additional EFT, surge, magnetic-field, and voltage-dip immunity families in Taiwan drone testing",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone testing",
+                  "brief_summary": "ETC EMC deck adds Taiwan drone immunity families beyond ESD and RS: CNS 14676-4 / IEC 61000-4-4 for EFT, CNS 14676-5 / IEC 61000-4-5 for surge, CNS 14676-8 / IEC 61000-4-8 for magnetic-field immunity, and IEC 61000-4-11 for voltage dips and interruptions, with under-2 kg drone performance criteria shown on the deck.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505381/Electromagnetic.Compatibility.for.Drone.testing.pdf"
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Electromagnetic Compatibility (EMC)",
+                  "secondary_category": "Electromagnetic interference (EMI)",
+                  "topic": "Taiwan BSMI drone inspection standards for EMC emissions and immunity",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone testing",
+                  "brief_summary": "ETC EMC deck states that for drones under 2 kg, Taiwan BSMI inspection references CNS 15598-1 (IEC 62368-1 safety), CNS 15936 (CISPR 32 emissions), CNS 16197 (CISPR 35 immunity), CNS 14674-2 (IEC 61000-6-2 industrial immunity), and CAA map-software requirements under the drone management rules.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505381/Electromagnetic.Compatibility.for.Drone.testing.pdf"
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Electromagnetic Compatibility (EMC)",
+                  "secondary_category": "Electromagnetic susceptibility / immunity",
+                  "topic": "Taiwan drone immunity framework using CNS / IEC standards",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone testing",
+                  "brief_summary": "ETC EMC deck shows Taiwan drone immunity testing tied to CNS 16197 (CISPR 35), CNS 14674-2 (IEC 61000-6-2), and the specific IEC 61000-4-x immunity families, making Taiwan much more explicit on immunity than the earlier workbook version suggested.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505381/Electromagnetic.Compatibility.for.Drone.testing.pdf"
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Electromagnetic Compatibility (EMC)",
+                  "secondary_category": "Electromagnetic interference (EMI)",
+                  "topic": "EMC structure and EMI definitions used in Taiwan drone testing",
+                  "source_title": "Electromagnetic Compatibility (EMC) for Drone testing",
+                  "brief_summary": "ETC EMC deck defines EMC as EMI plus EMS and explicitly separates conducted emission, radiated emission, conducted susceptibility, and radiated susceptibility; it frames EMI as electromagnetic energy emitted through radiation or conduction that interferes with other equipment.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505381/Electromagnetic.Compatibility.for.Drone.testing.pdf"
+                }
+            
+              ]
+            }
+          ]
         },
         "certifications": {
           "title": "Certifications",
@@ -60,12 +169,133 @@
         "regulations": {
           "title": "Regulations",
           "description": "Overview of reliability and airworthiness regulations.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "reliability-regulations",
+              "name": "Reliability and Airworthiness Regulations",
+              "summary": "Reliability and Airworthiness Regulations for UAV systems in the United States ",
+              "entries": [
+                {
+                  "region": "United States",
+                  "primary_category": "Reliability / Airworthiness",
+                  "secondary_category": "Radio Frequency (RF)",
+                  "topic": "Taiwan CAA drone regulations",
+                  "source_title": "Articles.pdf link: Taiwan CAA drone regulations",
+                  "brief_summary": "Link extracted from the link bundle; points to Taiwan CAA rules page for drone operations and regulatory requirements.",
+                  "external_url": "https://drone.caa.gov.tw/en-US/Default/DataDetail3/8",
+                  "pdf_url": ""
+                }
+              ]
+            }
+          ]
         },
         "testing": {
           "title": "Testing",
           "description": "Overview of reliability and airworthiness testing procedures.",
           "subsections": []
+        },
+        "certifications": {
+          "title": "Certifications",
+          "description": "Overview of reliability and airworthiness certification pathways.",
+          "subsections": []
+        },
+        "export-controls": {
+          "title": "Export Controls",
+          "description": "Overview of reliability-related market-entry and export issues.",
+          "subsections": []
+        }
+      }
+    },
+    "Cybersecurity": {
+      "title": "Cybersecurity",
+      "description": "Cybersecurity Related Topics",
+      "categories": {
+        "regulations": {
+          "title": "Regulations",
+          "description": "Overview of cybersecurity regulations in Taiwan",
+          "subsections": [
+            {
+              "slug": "cybersecurity-regulations",
+              "name": "Cybersecurity Regulations",
+              "summary": "Cybersecurity Regulations for UAV systems in the Taiwan",
+              "entries": [
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "Radio Frequency (RF)",
+                  "topic": "Blue UAS / trusted procurement approval",
+                  "source_title": "Taiwan’s Thunder Tiger drone added to US Blue UAS Cleared List",
+                  "brief_summary": "Shows Taiwan firm entry onto the U.S. Blue UAS Cleared List after security, supply-chain-integrity, and performance vetting; also mentions anti-jamming GPS.",
+                  "external_url": "https://www.taiwannews.com.tw/news/6204883",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "Misc / Context",
+                  "topic": "National cybersecurity / defense resilience context",
+                  "source_title": "ROC National Defense Report 2025",
+                  "brief_summary": "National defense report describing cyber threats, AI-enabled attacks, and defense resilience priorities; contextual support for Taiwan cyber-related certification needs.",
+                  "external_url": "",
+                  "pdf_url": ""
+                }
+
+              ]
+            }
+          ]
+        },
+        "testing": {
+          "title": "Testing",
+          "description": "Overview of reliability and airworthiness testing procedures.",
+          "subsections": [
+            {
+              "slug": "cybersecurity-regulations",
+              "name": "Cybersecurity Regulations",
+              "summary": "Cybersecurity Regulations for UAV systems in the Taiwan",
+              "entries": [
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "UAV cybersecurity testing and certification",
+                  "source_title": "MODA UAV cybersecurity testing and certification",
+                  "brief_summary": "Link extracted from the link bundle; direct Taiwan MODA press release on UAV cybersecurity testing / certification.",
+                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "UAV cybersecurity testing and certification",
+                  "source_title": "The Ministry of Digital Affairs Marks Establishing UAV Cybersecurity Laboratories by Private Sector for One Year",
+                  "brief_summary": "Press release on Taiwan’s private-sector UAV cybersecurity joint testing labs and the number of UAV models passing cyber testing.",
+                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "UAV cybersecurity testing and certification",
+                  "source_title": "The Ministry of Digital Affairs Marks Establishing UAV Cybersecurity Laboratories by Private Sector for One Year (duplicate capture)",
+                  "brief_summary": "Duplicate file capture of the same MODA cybersecurity testing press release; kept for completeness but excluded from summary counts.",
+                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "Communication security / cyber testing",
+                  "topic": "MODA/ETC cyber test scope for UAVs",
+                  "source_title": "The Ministry of Digital Affairs Marks Establishing UAV Cybersecurity Laboratories by Private Sector for One Year",
+                  "brief_summary": "MODA states that the UAV Cybersecurity Joint Testing Laboratory focuses on product system security, software security, communication security, and firmware security; ETC is one of the participating labs in the mechanism.",
+                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
+                  "pdf_url": ""
+                }
+              ]
+            }
+          ]
         },
         "certifications": {
           "title": "Certifications",

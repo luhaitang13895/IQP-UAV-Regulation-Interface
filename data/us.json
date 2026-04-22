@@ -1,5 +1,5 @@
 {
-  "name": "United States",
+  "name": "United States 美國",
   "topics": {
     "rf": {
       "title": "Radio Frequency (RF)",
@@ -8,12 +8,110 @@
         "regulations": {
           "title": "Regulations",
           "description": "Overview of RF-related regulatory bodies and rules.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "rf-regulations",
+              "name": "Radio Frequency Regulations",
+              "summary": "Radio Frequency Regulations for UAV systems",
+              "entries":[
+                {
+                  "region": "United States",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Reliability / Airworthiness",
+                  "topic": "BVLOS rulemaking and Part 135 constraints",
+                  "source_title": "Sorry for the Delay: How FAA Regulations in the U.S. are Stifling Innovation and Hindering the Growth of a Promising New Industry Based on Delivery Drones",
+                  "brief_summary": "Argues that delivery-drone growth is hindered by restrictive Part 135 approvals and reliance on waivers / exemptions instead of a clear BVLOS rule.",
+                  "external_url": "https://doi.org/10.25172/jalc.89.3.7",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "United States",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Reliability / Airworthiness",
+                  "topic": "BVLOS spectrum / access to spectrum",
+                  "source_title": "5 Major Obstacles For Unmanned Aircraft Systems",
+                  "brief_summary": "Identifies lack of spectrum access and the absence of a U.S. licensing scheme for BVLOS command-and-control links as a major regulatory bottleneck.",
+                  "external_url": "",
+                  "pdf_url": ""
+                }
+                
+
+                
+              ]
+            }
+          ]
         },
         "testing": {
           "title": "Testing",
           "description": "Overview of RF testing requirements and procedures.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "rf-testing",
+              "name": "Radio Frequency Testing",
+              "summary": "Radio Frequency testing for UAV systems",
+              "entries": [
+                {
+                  "region": "United States",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Wireless RF testing standards",
+                  "topic": "Wi-Fi / U-NII / DFS channel-plan testing context",
+                  "source_title": "Introduction to Wireless RF",
+                  "brief_summary": "ETC RF deck includes IEEE 802.11 a/b/g/n/ac/ax references, U-NII channel-plan context under §15.407, and DFS-related testing context via FCC KDB 905462, which is directly relevant to drone Wi-Fi, telemetry, and video links using 2.4 GHz / 5 GHz radios.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
+                },
+                {
+                  "region": "United States",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Bluetooth modulation / channelization",
+                  "topic": "Bluetooth FCC test items for 2.4 GHz modules",
+                  "source_title": "Introduction to Wireless RF",
+                  "brief_summary": "ETC RF deck lists Bluetooth-related FCC test items including radiated emission, conducted emission, antenna requirement, 20 dB emission bandwidth, output power, out-of-band conducted spurious emissions, hopping-channel count and spacing, dwell time, and maximum permissible exposure under Part 15.247 / 15.207 / 15.203 / 2.1093.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
+                },
+                {
+                  "region": "United States",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Wireless RF testing standards",
+                  "topic": "FCC RF rule families and test methods used for wireless devices",
+                  "source_title": "Introduction to Wireless RF",
+                  "brief_summary": "ETC RF deck maps U.S. FCC RF rule families and matching test methods, including Part 15 Subpart B with ANSI C63.4-2014, Part 15 Subpart C with ANSI C63.10-2013, Part 15 Subpart D with ANSI C63.17-2013, and Part 15 Subpart E / DFS with FCC KDB 905462.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
+                },
+                {
+                  "region": "United States",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Wireless RF testing standards",
+                  "topic": "ANSI C63.10-2020 for intentional radiators",
+                  "source_title": "Updating References to Standards Related to the Commission's Equipment Authorization Program",
+                  "brief_summary": "FCC incorporated ANSI C63.10-2020 for compliance testing of intentional radiators and set it as the required procedure for §15.31(a)(3) measurements after the transition period.",
+                  "pdf_url": "https://www.federalregister.gov/documents/2023/09/29/2023-20711/updating-references-to-standards-related-to-the-commissions-equipment-authorization-program"
+                },
+                {
+                  "region": "United States",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Wireless RF testing standards",
+                  "topic": "Drone RF module testing across FCC Parts 15 / 87 / 90 / 95",
+                  "source_title": "Introduction to Drone FCC Certification in the USA | JJRLAB",
+                  "brief_summary": "Commercial explainer that maps drone radio features to FCC Parts 15, 87, 90, and 95, and highlights RF range, transmit power, and EMC as common test items for export to the U.S.",
+                  "external_url":"https://www.jjrlab.com/news/introduction-to-drone-fcc-certification-in-the-usa.html",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "United States",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Bluetooth modulation / channelization",
+                  "topic": "Bluetooth / Wi-Fi / cellular modules as FCC-certified drone radios",
+                  "source_title": "FCC/CE Testing and Certification for Drones - Compliance Testing",
+                  "brief_summary": "Commercial explainer noting that drone RF transmitters, Wi-Fi, Bluetooth, and cellular modules typically fall into FCC certification and RF testing workflows along with ESC/flight-controller EMC checks.",
+                  "external_url":"https://compliancetesting.com/fcc-ce-testing-and-certification-for-drones/",
+                  "pdf_url": ""
+                }
+                
+            
+            
+              ]
+            }
+          ]
         },
         "certifications": {
           "title": "Certifications",
@@ -34,7 +132,36 @@
         "regulations": {
           "title": "Regulations",
           "description": "Overview of EMC-related rules and standards.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "emc-regulations",
+              "name": "EMC Regulations",
+              "summary": "EMC Regulations in the US",
+              "entries": [
+                {
+                  "region": "United States",
+                  "primary_category": "Electromagnetic Capability (EMC)",
+                  "secondary_category": "Electromagnetic interference (EMI)",
+                  "topic": "FCC Part 15 harmful-interference conditions",
+                  "source_title": "47 CFR Part 15 -- Radio Frequency Devices (eCFR)",
+                  "brief_summary": "FCC Part 15 devices may not cause harmful interference, must accept interference received, and may be required to cease operation until the interference condition is corrected.",
+                  "external_url": "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "United States",
+                  "primary_category": "Electromagnetic Capability (EMC)",
+                  "secondary_category": "Electromagnetic susceptibility / immunity",
+                  "topic": "FCC Part 15 susceptibility-to-interference design guidance",
+                  "source_title": "47 CFR Part 15 -- Radio Frequency Devices (eCFR)",
+                  "brief_summary": "FCC advises equipment designers to consider high-power licensed and government stations when choosing operating frequencies so equipment is less susceptible to harmful interference.",
+                  "external_url": "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15",
+                  "pdf_url": ""
+                }
+                
+              ]
+            }
+          ]
         },
         "testing": {
           "title": "Testing",
@@ -60,7 +187,77 @@
         "regulations": {
           "title": "Regulations",
           "description": "Overview of reliability and airworthiness regulations.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "reliability-regulations",
+              "name": "Reliability and Airworthiness Regulations",
+              "summary": "Reliability and Airworthiness Regulations for UAV systems in the United States ",
+              "entries": [
+                {
+                  "region": "United States",
+                  "primary_category": "Reliability / Airworthiness",
+                  "secondary_category": "",
+                  "topic": "2018 FAA Reauthorization / manufacturer compliance",
+                  "source_title": "Client Alert: FAA: Drone Manufacturers Must Self-Regulate",
+                  "brief_summary": "Explains how the 2018 FAA Reauthorization Act extended FAA authority to drone manufacturers and pushed manufacturer-side compliance / self-certification responsibilities.",
+                  "external_url": "",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "United States",
+                  "primary_category": "Reliability / Airworthiness",
+                  "secondary_category": "",
+                  "topic": "FAA Part 21 certification (type, production, airworthiness)",
+                  "source_title": "Certification | Federal Aviation Administration",
+                  "brief_summary": "FAA overview page explaining type, production, and airworthiness certification for UAS under Part 21; foundational U.S. certification reference.",
+                  "external_url": "https://www.faa.gov/uas/advanced_operations/certification",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "United States",
+                  "primary_category": "Reliability / Airworthiness",
+                  "secondary_category": "Cybersecurity",
+                  "topic": "FAA drone type certification process",
+                  "source_title": "Understanding the FAA’s New Drone Type Certification Process | UST",
+                  "brief_summary": "Explains the FAA’s five-phase type certification process and how tailored airworthiness criteria are built around the intended UAS operation.",
+                  "external_url": "https://www.unmannedsystemstechnology.com/2021/04/understanding-the-faas-new-drone-type-certification-process/",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "United States",
+                  "primary_category": "Reliability / Airworthiness",
+                  "secondary_category": "",
+                  "topic": "FAA type certification for UAS",
+                  "source_title": "How Does the FAA Aircraft Certification Process Affect UAVs? | Commercial UAV News",
+                  "brief_summary": "Describes FAA review of some UAS designs through aircraft-style certification and emphasizes the cost burden on smaller manufacturers.",
+                  "external_url": "",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "United States",
+                  "primary_category": "Reliability / Airworthiness",
+                  "secondary_category": "Misc / Context",
+                  "topic": "Military UAS certification burdens",
+                  "source_title": "Unmanned aircraft certification challenges",
+                  "brief_summary": "Discusses how unmanned platforms face the challenge of meeting manned-aircraft-style safety certification expectations, including DO-178C / DO-254 style burdens.",
+                  "external_url": "https://militaryembedded.com/avionics/safety-certification/unmanned-aircraft-certification-challenges",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "United States",
+                  "primary_category": "Reliability / Airworthiness",
+                  "secondary_category": "Radio Frequency (RF)",
+                  "topic": "Sense-and-avoid / Part 91 compliance",
+                  "source_title": "UAS Sense and Avoid System Certification Obstacles",
+                  "brief_summary": "FAA research outline on the certification barriers facing sense-and-avoid systems needed for compliance with 14 CFR Part 91 flight rules.",
+                  "external_url": "",
+                  "pdf_url": ""
+                }
+            
+            
+              ]
+            }
+          ]
         },
         "testing": {
           "title": "Testing",
@@ -79,5 +276,6 @@
         }
       }
     }
+    
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "European Union",
+  "name": "European Union 歐洲聯盟",
   "topics": {
     "rf": {
       "title": "Radio Frequency (RF)",
@@ -25,42 +25,6 @@
                 {
                   "source_title": "Applicable Products",
                   "brief_summary": "Examples include Wi-Fi devices, Bluetooth products, cellular modules, and other wireless transmitters or receivers."
-                },
-                {
-                  "region": "European Union",
-                  "primary_category": "lkjadslfkjlkfds",
-                  "secondaryCategory": "lkjjlkj",
-                  "sourceTitle": "asdfaf",
-                  "briefSummary": "lkjlkjlkj",
-                  "externalURL": "",
-                  "pdfLink": ""
-                },
-                {
-                  "region": "European Union",
-                  "primary_category": "asdfa",
-                  "secondaryCategory": "adsfa",
-                  "sourceTitle": "Source title",
-                  "briefSummary": "afdafdss\n",
-                  "externalURL": "",
-                  "pdfLink": ""
-                },
-                {
-                  "region": "European Union",
-                  "primary_category": "asdfasdfasfda",
-                  "secondaryCategory": "asdadsfadsf",
-                  "sourceTitle": "Does this work?",
-                  "briefSummary": "HMMMMMmmm",
-                  "externalURL": "",
-                  "pdfLink": ""
-                },
-                {
-                  "region": "European Union",
-                  "primary_category": "asdf",
-                  "secondary_category": "asdf",
-                  "source_title": "New Entry",
-                  "brief_summary": "This should work!",
-                  "externalURL": "",
-                  "pdfLink": ""
                 }
               ]
             },
@@ -78,13 +42,106 @@
                   "brief_summary": "Common examples include ETSI EN 300 328 for 2.4 GHz wideband transmission systems and ETSI EN 301 893 for 5 GHz RLAN equipment."
                 }
               ]
+            },
+            {
+              "slug": "rf-regulations",
+              "name": "Redio Frequency in the EU",
+              "summary": "RF in EU",
+              "entries":[
+                {
+                  "region": "European Union",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Reliability / Airworthiness",
+                  "topic": "U-Space shared-airspace / traffic-management rules",
+                  "source_title": "EU U-Space Regulations (2021/664, 665, 666)",
+                  "brief_summary": "Bundle notes identify the U-Space regulations governing how drones interact with manned aircraft in shared airspace through digital traffic management.",
+                  "external_url": "",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "RED RF regulations",
+                  "topic": "Radio Equipment Directive (RED) essential requirements",
+                  "source_title": "Radio Equipment Directive (RED) - European Commission",
+                  "brief_summary": "RED establishes the EU market-access framework for radio equipment and sets essential requirements for safety and health, electromagnetic compatibility, and efficient use of radio spectrum.",
+                  "external_url": "https://single-market-economy.ec.europa.eu/sectors/electrical-and-electronic-engineering-industries-eei/radio-equipment-directive-red_en",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Geofencing / geo-awareness",
+                  "topic": "Geo-awareness and geographical-zone obligations under EU UAS rules",
+                  "source_title": "Commission Delegated Regulation (EU) 2019/945 / Implementing Regulation (EU) 2019/947",
+                  "brief_summary": "EU open-category rules connect class-marked UAS to active and updated direct remote identification and geo-awareness functions, while operators must obtain geographical-zone information and update geo-awareness data when applicable.",
+                  "external_url": "https://eur-lex.europa.eu/eli/reg_impl/2019/947/oj/eng",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Bluetooth modulation / channelization",
+                  "topic": "Bluetooth LE channelization (2.4 GHz, 40 channels)",
+                  "source_title": "Bluetooth Core Specification - LE Physical Layer",
+                  "brief_summary": "Bluetooth LE operates in the 2.4 GHz ISM band from 2400 MHz to 2483.5 MHz and uses 40 RF channels spaced 2 MHz apart; relevant when scoping RED/Bluetooth radio behavior for drone modules.",
+                  "external_url": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core-60/out/en/low-energy-controller/physical-layer-specification.html",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Bluetooth modulation / channelization",
+                  "topic": "Bluetooth Basic Rate GFSK modulation",
+                  "source_title": "Bluetooth Core Specification - BR/EDR Radio Specification",
+                  "brief_summary": "Bluetooth Basic Rate uses GFSK modulation in the 2.4 GHz ISM band; useful as a general Bluetooth modulation reference when comparing wireless test scope under RED.",
+                  "external_url": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core-61/out/en/br-edr-controller/radio-specification.html",
+                  "pdf_url": ""
+                }
+              ]
             }
           ]
         },
         "testing": {
           "title": "Testing",
           "description": "Overview of RF testing requirements and procedures.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "rf-testing",
+              "name": "Radio Frequency Testing",
+              "summary": "Radio Frequency testing for UAV systems",
+              "entries": [
+                {
+                  "region": "European Union",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Bluetooth modulation / channelization",
+                  "topic": "Bluetooth modulation modes and channel plans used in RF evaluation",
+                  "source_title": "Introduction to Wireless RF",
+                  "brief_summary": "ETC RF deck summarizes Bluetooth modulation modes relevant to RF evaluation: Bluetooth 2.1+EDR uses GFSK, pi/4-DQPSK, and 8-DPSK, while Bluetooth LE uses GFSK; the deck also shows BR/EDR and LE channel-list examples and 20 dB emission-bandwidth examples.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "RED RF regulations",
+                  "topic": "RED RF standards stack for common short-range and broadband wireless devices",
+                  "source_title": "Introduction to Wireless RF",
+                  "brief_summary": "ETC RF deck maps the EU RED standards stack, including ETSI EN 300 220, EN 300 330, EN 300 440, EN 300 328, EN 301 893, EN 302 502, EN 301 357, and ERC Recommendation 70-03 for short-range, wideband, and 5 GHz systems.",
+                  "pdf_url": "https://github.com/user-attachments/files/26505379/RF.Wireless.pdf"
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "Radio Frequency (RF)",
+                  "secondary_category": "Wireless RF testing standards",
+                  "topic": "Drone RF / EMC / LVD test stack for CE entry",
+                  "source_title": "FCC/CE Testing and Certification for Drones - Compliance Testing",
+                  "brief_summary": "Commercial explainer describing CE testing for drones as a stack combining RED for wireless communication, EMC for electromagnetic compatibility, and LVD for battery/power safety, with RF testing across controllers, video, telemetry, GPS, and other links.",
+                  "external_url": "https://compliancetesting.com/fcc-ce-testing-and-certification-for-drones/",
+                  "pdf_url": ""
+                }
+              ]
+            }
+          ]
         },
         "certifications": {
           "title": "Certifications",
@@ -105,7 +162,55 @@
         "regulations": {
           "title": "Regulations",
           "description": "Overview of EMC-related rules and standards.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "emc-regulations",
+              "name": "EMC Regulations",
+              "summary": "EMC Regulations in the EU",
+              "entries": [
+                {
+                  "region": "European Union",
+                  "primary_category": "Electromagnetic Capability (EMC)",
+                  "secondary_category": "Electromagnetic interference (EMI)",
+                  "topic": "EMC Directive emissions controls",
+                  "source_title": "Electromagnetic Compatibility (EMC) Directive - European Commission",
+                  "brief_summary": "The EMC Directive limits electromagnetic emissions so equipment does not disturb radio, telecommunications, or other equipment when used as intended.",
+                  "external_url": "https://single-market-economy.ec.europa.eu/sectors/electrical-and-electronic-engineering-industries-eei/electromagnetic-compatibility-emc-directive_en",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "Electromagnetic Capability (EMC)",
+                  "secondary_category": "Electromagnetic susceptibility / immunity",
+                  "topic": "EMC Directive immunity requirement",
+                  "source_title": "Electromagnetic Compatibility (EMC) Directive - European Commission",
+                  "brief_summary": "The EMC Directive also governs immunity, aiming to ensure equipment is not disturbed by radio emissions and other electromagnetic interference when used as intended.",
+                  "external_url": " https://single-market-economy.ec.europa.eu/sectors/electrical-and-electronic-engineering-industries-eei/electromagnetic-compatibility-emc-directive_en",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "Electromagnetic Capability (EMC)",
+                  "secondary_category": "Electrostatic discharge (ESD)",
+                  "topic": "ESD as an EMC immunity test family",
+                  "source_title": "EMC Directive 2014/30/EU: Compliance, CE Marking & Testing",
+                  "brief_summary": "Accredited-lab EMC guide identifies ESD as a key immunity factor used in EU EMC conformity assessment, describing it as protection against discharges from human contact or charged objects.",
+                  "external_url": "https://ib-lenhardt.com/kb/faq/emc-directive-2014-30-eu",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "Electromagnetic Capability (EMC)",
+                  "secondary_category": "Radiated susceptibility / immunity",
+                  "topic": "Radiated immunity as an EMC test family",
+                  "source_title": "EMC Directive 2014/30/EU: Compliance, CE Marking & Testing",
+                  "brief_summary": "Accredited-lab EMC guide identifies radiated immunity as resistance to surrounding electromagnetic fields and treats it as a core EU EMC immunity topic alongside ESD and other disturbance tests.",
+                  "external_url": "https://ib-lenhardt.com/kb/faq/emc-directive-2014-30-eu",
+                  "pdf_url": ""
+                }
+              ]
+            }
+          ]
         },
         "testing": {
           "title": "Testing",
@@ -131,7 +236,27 @@
         "regulations": {
           "title": "Regulations",
           "description": "Overview of reliability and airworthiness regulations.",
-          "subsections": []
+          "subsections": [
+            {
+              "slug": "reliability-regulations",
+              "name": "Reliability and Airworthiness Regulations",
+              "summary": "Reliability and Airworthiness Regulations for UAV systems",
+              "entries": [
+                {
+                  "region": "European Union",
+                  "primary_category": "Reliability / Airworthiness",
+                  "secondary_category": "Reliability / Airworthiness",
+                  "topic": "Low Voltage Directive (LVD)",
+                  "source_title": "Low Voltage Directive (LVD)",
+                  "brief_summary": "The low voltage directive (LVD) (2014/35/EU) ensures that electrical equipment within certain voltage limits provides a high level of protection for European citizens, and benefits fully from the single market. ",
+                  "external_url": "https://single-market-economy.ec.europa.eu/sectors/electrical-and-electronic-engineering-industries-eei/low-voltage-directive-lvd_en",
+                  "pdf_url": ""
+                }
+            
+            
+              ]
+            }
+          ]
         },
         "testing": {
           "title": "Testing",
