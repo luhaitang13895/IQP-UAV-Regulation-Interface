@@ -58,26 +58,55 @@ p {
 }
 
 .topbar {
+    border-bottom: 1px solid #ccc;
+    background: white;
+}
+
+.topbar-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0.75rem 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 1rem;
-    border-bottom: 1px solid #ccc;
-    position: relative; 
+    position: relative;
+    min-height: 56px;
 }
 
 .topbar-home {
     text-decoration: none;
     font-weight: bold;
     color: inherit;
+    white-space: nowrap;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+.topbar-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .topbar-search input {
     padding: 0.4rem;
+    width: 180px;
 }
 
 .topbar-search button {
     padding: 0.4rem;
+}
+
+.topbar-admin a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+    white-space: nowrap;
 }
 
 .topbar-logo {
@@ -88,28 +117,4 @@ p {
 
 .topbar-logo img {
     height: 40px;
-}
-
-.topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-left: auto;
-}
-
-.topbar-admin a {
-    text-decoration: none;
-    color: inherit;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.topbar-search {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.topbar-search input {
-    width: 180px;
 }

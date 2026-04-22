@@ -8,31 +8,34 @@
 </head>
 <body>
     <div class="topbar">
-        <a href="/" class="topbar-home">Home</a>
+        <div class="topbar-inner">
+            <a href="/" class="topbar-home">Home</a>
 
-        <div class="topbar-logo">
-            <img src="/static/etcLogo.png" alt="Logo">
-        </div>
+            <div class="topbar-logo">
+                <img src="/static/etcLogo.png" alt="Logo">
+            </div>
 
-        <div class="topbar-right">
-            <form action="{{ url_for('search') }}" method="get" class="topbar-search">
-                <input
-                    type="text"
-                    name="keyword"
-                    placeholder="Search..."
-                    required
-                >
-                <button type="submit">Search</button>
-            </form>
+            <div class="topbar-right">
+                <form action="{{ url_for('search') }}" method="get" class="topbar-search">
+                    <input
+                        type="text"
+                        name="keyword"
+                        placeholder="Search..."
+                        required
+                    >
+                    <button type="submit">Search</button>
+                </form>
 
-            <div class="topbar-admin">
-                {% if is_admin %}
-                    <a href="{{ url_for('admin_logout') }}">Admin Logout</a>
-                {% else %}
-                    <a href="{{ url_for('admin_login') }}">Admin Login</a>
-                {% endif %}
+                <div class="topbar-admin">
+                    {% if is_admin %}
+                        <a href="{{ url_for('admin_logout') }}">Admin Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('admin_login') }}">Admin Login</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
+    </div>
     <div class="container">
         <h1>UAV Export and Regulation Interface</h1>
         <p>Select a region to explore its regulations, testing, certifications, and export controls.</p>
