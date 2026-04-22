@@ -36,6 +36,76 @@
                 </a>
             {% endfor %}
         </div>
+    <hr>
+    
+    <h2>Add New Region</h2>
+    
+    <form id="addRegionForm" action="/addNewRegion">
+        
+        <div>
+            <label>Name</label><br>
+            <input type="text" name="region-name" id="region-name" required>
+        </div>
+
+        <div>
+            <label>Slug</label><br>
+            <input type="text" name="region-slug" id="region-slug" required>
+        </div>
+
+        <div>
+            <label for="add-default-topics">
+                Add default topics
+                <input type="checkbox" id="add-default-topics" name="add_default_topics" value="true" checked>
+                <p>* Adds Radio Frequency, EMC, Reliability/Airworthyness, & Cybersecurity to the new region</p>
+            </label>
+        </div>
+        <button type="submit">Add Region</button>
+    </form>
     </div>
+    <script>
+        // Turns the name into slug
+        function nameToSlug(name) {
+            return name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')  // replace spaces & invalid chars with remove leading/trailing -
+        }
+
+        // Whenever name is changed, update the slug
+        document.getElementById('region-name').addEventListener('input', ()=> {
+            document.getElementById('region-slug').value = nameToSlug(document.getElementById('region-name').value)
+        })
+
+        const addRegionForm = document.getElementById('addRegionForm')
+
+        addRegionForm.addEventListener("submit", async function (event) {
+            event.preventDefault()
+            try {
+                const formData = new FormData(addRegionForm)
+                const jsonData = JSON.stringify(Object.fromEntries(formData.entries()))
+
+                console.log('jsonData')
+                console.log(jsonData)
+                const response = await fetch(addRegionForm.action, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(jsonData)
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Region Created!")
+                    addRegionForm.reset()
+                    location.reload()
+                } else {
+                    throw new Error("Bad server response")
+                }
+            } catch (error) {
+                console.error("Error submitting form:", error)
+                alert("Error submitting form")
+            }
+        })
+    </script>
 </body>
 </html>

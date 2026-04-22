@@ -361,6 +361,145 @@ def addTopicForm():
         print(e)
         return {"success": False}
 
+@app.route('/addNewRegion', methods=['POST'])
+def addNewRegion ():
+    try:
+        print('adding new region')
+        data = json.loads(request.get_json())
+        print('data')
+        print(data)
+
+        
+        slug = data.get('region-slug')
+        name = data.get('region-name')
+        # If its not checked, it wont show at all. If its checked it will show as 'true'
+        addDefault = data.get("add_default_topics") == "true"
+
+        data = {
+            "name": name,
+            "topics": {}
+        }
+
+        # Adds the default data to topics
+        if addDefault:
+            data['topics'] = {
+                "rf": {
+                    "title": "Radio Frequency (RF)",
+                    "description": "RF-related regulations, testing, certification, and export topics.",
+                    "categories": {
+                        "regulations": {
+                            "title": "Regulations",
+                            "description": "Overview of RF-related regulatory bodies and rules.",
+                            "subsections": []
+                        },
+                        "testing": {
+                            "title": "Testing",
+                            "description": "Overview of RF testing requirements and procedures.",
+                            "subsections": []
+                        },
+                        "certifications": {
+                            "title": "Certifications",
+                            "description": "Overview of RF certification pathways.",
+                            "subsections": []
+                        },
+                        "export-controls": {
+                            "title": "Export Controls",
+                            "description": "Overview of RF-related export and market-entry rules.",
+                            "subsections": []
+                        }
+                    }
+                }, 
+                "emc": {
+                    "title": "Electromagnetic Compatibility (EMC)",
+                    "description": "EMC-related regulations, testing, certification, and export topics.",
+                    "categories": {
+                        "regulations": {
+                            "title": "Regulations",
+                            "description": "Overview of EMC-related rules and standards.",
+                            "subsections": []
+                        },
+                        "testing": {
+                            "title": "Testing",
+                            "description": "Overview of EMC testing requirements and procedures.",
+                            "subsections": []
+                        },
+                        "certifications": {
+                            "title": "Certifications",
+                            "description": "Overview of EMC certification pathways.",
+                            "subsections": []
+                        },
+                        "export-controls": {
+                            "title": "Export Controls",
+                            "description": "Overview of EMC-related export and market-entry rules.",
+                            "subsections": []
+                        }
+                    }
+                }, 
+                "reliability": {
+                    "title": "Reliability / Airworthiness",
+                    "description": "Reliability, airworthiness, and safety-related topics.",
+                    "categories": {
+                        "regulations": {
+                        "title": "Regulations",
+                        "description": "Overview of reliability and airworthiness regulations.",
+                        "subsections": []
+                        },
+                        "testing": {
+                        "title": "Testing",
+                        "description": "Overview of reliability and airworthiness testing procedures.",
+                        "subsections": []
+                        },
+                        "certifications": {
+                        "title": "Certifications",
+                        "description": "Overview of reliability and airworthiness certification pathways.",
+                        "subsections": []
+                        },
+                        "export-controls": {
+                        "title": "Export Controls",
+                        "description": "Overview of reliability-related market-entry and export issues.",
+                        "subsections": []
+                        }
+                    }
+                },
+                "Cybersecurity": {
+                    "title": "Cybersecurity",
+                    "description": "Cybersecurity Related Topics",
+                    "categories": {
+                        "regulations": {
+                            "title": "Regulations",
+                            "description": "Overview of cybersecurity regulations in Taiwan",
+                            "subsections": []
+                        },
+                        "testing": {
+                            "title": "Testing",
+                            "description": "Overview of reliability and airworthiness testing procedures.",
+                            "subsections": []
+                        },
+                        "certifications": {
+                            "title": "Certifications",
+                            "description": "Overview of reliability and airworthiness certification pathways.",
+                            "subsections": []
+                        },
+                        "export-controls": {
+                            "title": "Export Controls",
+                            "description": "Overview of reliability-related market-entry and export issues.",
+                            "subsections": []
+                        }
+                    }
+                }
+            }
+
+        newFilepath = "data/" + slug + ".json"
+        # Saves the data
+        with open(newFilepath, "w") as f:
+            json.dump(data, f)
+
+        return {"success": True}
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+
 
 if __name__ == "__main__":
     app.run()
