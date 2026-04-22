@@ -288,5 +288,69 @@ def addCategoryForm():
         return {"success": False}
 
 
+@app.route('/addNewTopic', methods=['POST'])
+def addTopicForm(): 
+    try:
+        print('adding new topic')
+        data = json.loads(request.get_json())
+
+        
+        slug = data.get('topic-slug')
+        name = data.get('topic-name')
+        summary = data.get('topic_summary')
+        # If its not checked, it wont show at all. If its checked it will show as 'true'
+        addDefault = data.get("add_default_categories") == "true"
+
+        # this will be added to the dictionary with the key being the slug
+        dictToAppend = {
+            "title": name,
+            "description": summary,
+            "categories": {}
+        }
+
+        # Adds some of the default categories to each topic
+        if addDefault:
+            dictToAppend['categories']['regulations'] = {
+                "title": "Regulations",
+                "description": "Overview of RF-related regulatory bodies and rules.",
+                "subsections": []
+            }
+            dictToAppend["categories"]['testing'] = {
+                "title": "Testing",
+                "description": "Overview of RF testing requirements and procedures.",
+                "subsections": []
+            }
+            dictToAppend['categories']['certifications'] = {
+                "title": "Certifications",
+                "description": "Overview of RF certification pathways.",
+                "subsections": []
+            }
+            dictToAppend['categories']['export-controls'] = {
+                "title": "Export Controls",
+                "description": "Overview of RF-related export and market-entry rules.",
+                "subsections": []
+            }
+            
+        # Gets region data
+        regionKey = data.get('region_key')
+        regionJson = load_json(regionKey + ".json")
+        
+        # Adds it to the data dict
+        regionJson['topics'][slug] = dictToAppend
+
+        # Saves the new json
+        filepath = "data/" + regionKey + ".json"
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(regionJson, f, indent=2)
+
+
+        print('sucessfully added to form')
+        return {"success": True}
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+
+
 if __name__ == "__main__":
     app.run(debug=True)

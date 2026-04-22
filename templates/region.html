@@ -34,6 +34,85 @@
                 </a>
             {% endfor %}
         </div>
+        <hr>
+        
+        <h2>Add New Topic</h2>
+        
+        <form id="addTopicForm" action="/addNewTopic">
+            <!-- Hidden context fields -->
+            <input type="hidden" name="region" value="{{ region['name'] }}">
+            <input type="hidden" name="region_key" value="{{ region_key }}">
+            
+            <div>
+                <label>Name</label><br>
+                <input type="text" name="topic-name" id="topic-name" required>
+            </div>
+
+            <div>
+                <label>Slug</label><br>
+                <input type="text" name="topic-slug" id="topic-slug" required>
+            </div>
+
+            <div>
+                <label>Summary</label><br>
+                <textarea name="topic_summary" rows="3" required></textarea>
+            </div>
+
+            <div>
+                <label for="add-default-categories">
+                    Add default categories
+                    <input type="checkbox" id="add-default-categories" name="add_default_categories" value="true">
+                    <p>* Adds Regulations, Testing, Certifications, and Export Controls to the new topic</p>
+                </label>
+            </div>
+            <button type="submit">Add topic</button>
+        </form>
     </div>
+    
+    <script>
+        // Turns the name into slug
+        function nameToSlug(name) {
+            return name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')  // replace spaces & invalid chars with remove leading/trailing -
+        }
+
+        // Whenever name is changed, update the slug
+        document.getElementById('topic-name').addEventListener('input', ()=> {
+            document.getElementById('topic-slug').value = nameToSlug(document.getElementById('topic-name').value)
+        })
+
+        const addTopicForm = document.getElementById('addTopicForm')
+
+        addTopicForm.addEventListener("submit", async function (event) {
+            event.preventDefault()
+            try {
+                const formData = new FormData(addTopicForm)
+                const jsonData = JSON.stringify(Object.fromEntries(formData.entries()))
+
+                console.log('jsonData')
+                console.log(jsonData)
+                const response = await fetch(addTopicForm.action, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(jsonData)
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Topic Created!")
+                    addTopicForm.reset()
+                    location.reload()
+                } else {
+                    throw new Error("Bad server response")
+                }
+            } catch (error) {
+                console.error("Error submitting form:", error)
+                alert("Error submitting form")
+            }
+        })
+    </script>
 </body>
 </html>

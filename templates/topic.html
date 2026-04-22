@@ -29,12 +29,18 @@
         <p>{{ topic.description }}</p>
 
         <div class="card-grid">
-            {% for category_key, category in topic.categories.items() %}
-                <a class="card" href="{{ url_for('category_page', region_key=region_key, topic_key=topic_key, category_key=category_key) }}">
-                    <h2>{{ category.title }}</h2>
-                    <p>View details</p>
-                </a>
-            {% endfor %}
+            {% if topic.get("categories") %}
+                {% for category_key, category in topic.categories.items() %}
+                    <a class="card" href="{{ url_for('category_page', region_key=region_key, topic_key=topic_key, category_key=category_key) }}">
+                        <h2>{{ category.title }}</h2>
+                        <p>View details</p>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <div class="item-list">
+                    <p>No categories listed yet.</p>
+                </div>
+            {% endif %}
         </div>
         <hr>
         
