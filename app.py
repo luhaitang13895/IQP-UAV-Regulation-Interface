@@ -246,5 +246,47 @@ def addNewSubsection ():
         print(e)
         return {"success": False}
 
+@app.route('/addNewCategory', methods=['POST'])
+def addCategoryForm(): 
+    try:
+        print('adding new category')
+        data = json.loads(request.get_json())
+
+        
+        slug = data.get('category-slug')
+        name = data.get('category-name')
+        summary = data.get('category_summary')
+
+        # this will be added to the dictionary with the key being the slug
+        dictToAppend = {
+            "title": name,
+            "summary": summary,
+            "subsections": []
+        }
+        
+        regionKey = data.get('region_key')
+        regionJson = load_json(regionKey + ".json")
+        
+        topicKey = data.get('topic_key')
+
+        # Adds it to the data dict
+        regionJson['topics'][topicKey]['categories'][slug] = dictToAppend
+
+
+        # Saves the new json
+        filepath = "data/" + regionKey + ".json"
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(regionJson, f, indent=2)
+
+
+        print('sucessfully added to form')
+        return {"success": True}
+
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+
+
 if __name__ == "__main__":
     app.run(debug=True)

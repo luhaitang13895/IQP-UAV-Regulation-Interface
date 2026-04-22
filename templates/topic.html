@@ -36,6 +36,77 @@
                 </a>
             {% endfor %}
         </div>
+        <hr>
+        
+        <h2>Add New Category</h2>
+        
+        <form id="addCategoryForm" action="/addNewCategory">
+            <!-- Hidden context fields -->
+            <input type="hidden" name="region" value="{{ region['name'] }}">
+            <input type="hidden" name="region_key" value="{{ region_key }}">
+            <input type="hidden" name="topic_key" value="{{ topic_key }}">
+            
+            <div>
+                <label>Name</label><br>
+                <input type="text" name="category-name" id="category-name" required>
+            </div>
+
+            <div>
+                <label>Slug</label><br>
+                <input type="text" name="category-slug" id="category-slug" required>
+            </div>
+
+            <div>
+                <label>Summary</label><br>
+                <textarea name="category_summary" rows="3" required></textarea>
+            </div>
+
+            <br>
+            <button type="submit">Add category</button>
+        </form>
     </div>
+    <script>
+        // Turns the name into slug
+        function nameToSlug(name) {
+            return name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')  // replace spaces & invalid chars with remove leading/trailing -
+        }
+
+        // Whenever name is changed, update the slug
+        document.getElementById('category-name').addEventListener('input', ()=> {
+            document.getElementById('category-slug').value = nameToSlug(document.getElementById('category-name').value)
+        })
+
+        const addCategoryForm = document.getElementById('addCategoryForm')
+
+        addCategoryForm.addEventListener("submit", async function (event) {
+            event.preventDefault()
+            try {
+                const formData = new FormData(addCategoryForm)
+                const jsonData = JSON.stringify(Object.fromEntries(formData.entries()))
+
+                const response = await fetch(addCategoryForm.action, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(jsonData)
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Category Created!")
+                    addCategoryForm.reset()
+                    location.reload()
+                } else {
+                    throw new Error("Bad server response")
+                }
+            } catch (error) {
+                console.error("Error submitting form:", error)
+                alert("Error submitting form")
+            }
+        })
+    </script>
 </body>
 </html>

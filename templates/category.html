@@ -37,6 +37,10 @@
                     </a>
                 {% endfor %}
             </div>
+        {% else %}
+            <div class="item-list">
+                <p>No subsections listed yet.</p>
+            </div>
         {% endif %}
 
         {% if category.get("items") %}
