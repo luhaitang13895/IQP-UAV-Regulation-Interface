@@ -176,8 +176,8 @@ def addNewEntry ():
             "secondary_category": secondaryCategory,
             "source_title": sourceTitle,
             "brief_summary": briefSummary,
-            "externalURL": externalURL,
-            "pdfLink": pdfLink
+            "external_url": externalURL,
+            "pdf_url": pdfLink
         }
 
         regionKey = data.get('region_key')
