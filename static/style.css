@@ -89,3 +89,18 @@ p {
 .topbar-logo img {
     height: 40px;
 }
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+.topbar-admin a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
