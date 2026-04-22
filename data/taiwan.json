@@ -205,6 +205,109 @@
           "subsections": []
         }
       }
+    },
+    "Cybersecurity": {
+      "title": "Cybersecurity",
+      "description": "Cybersecurity Related Topics",
+      "categories": {
+        "regulations": {
+          "title": "Regulations",
+          "description": "Overview of cybersecurity regulations in Taiwan",
+          "subsections": [
+            {
+              "slug": "cybersecurity-regulations",
+              "name": "Cybersecurity Regulations",
+              "summary": "Cybersecurity Regulations for UAV systems in the Taiwan",
+              "entries": [
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "Radio Frequency (RF)",
+                  "topic": "Blue UAS / trusted procurement approval",
+                  "source_title": "Taiwan’s Thunder Tiger drone added to US Blue UAS Cleared List",
+                  "brief_summary": "Shows Taiwan firm entry onto the U.S. Blue UAS Cleared List after security, supply-chain-integrity, and performance vetting; also mentions anti-jamming GPS.",
+                  "external_url": "https://www.taiwannews.com.tw/news/6204883",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "Misc / Context",
+                  "topic": "National cybersecurity / defense resilience context",
+                  "source_title": "ROC National Defense Report 2025",
+                  "brief_summary": "National defense report describing cyber threats, AI-enabled attacks, and defense resilience priorities; contextual support for Taiwan cyber-related certification needs.",
+                  "external_url": "",
+                  "pdf_url": ""
+                }
+
+              ]
+            }
+          ]
+        },
+        "testing": {
+          "title": "Testing",
+          "description": "Overview of reliability and airworthiness testing procedures.",
+          "subsections": [
+            {
+              "slug": "cybersecurity-regulations",
+              "name": "Cybersecurity Regulations",
+              "summary": "Cybersecurity Regulations for UAV systems in the Taiwan",
+              "entries": [
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "UAV cybersecurity testing and certification",
+                  "source_title": "MODA UAV cybersecurity testing and certification",
+                  "brief_summary": "Link extracted from the link bundle; direct Taiwan MODA press release on UAV cybersecurity testing / certification.",
+                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "UAV cybersecurity testing and certification",
+                  "source_title": "The Ministry of Digital Affairs Marks Establishing UAV Cybersecurity Laboratories by Private Sector for One Year",
+                  "brief_summary": "Press release on Taiwan’s private-sector UAV cybersecurity joint testing labs and the number of UAV models passing cyber testing.",
+                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "UAV cybersecurity testing and certification",
+                  "source_title": "The Ministry of Digital Affairs Marks Establishing UAV Cybersecurity Laboratories by Private Sector for One Year (duplicate capture)",
+                  "brief_summary": "Duplicate file capture of the same MODA cybersecurity testing press release; kept for completeness but excluded from summary counts.",
+                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "Communication security / cyber testing",
+                  "topic": "MODA/ETC cyber test scope for UAVs",
+                  "source_title": "The Ministry of Digital Affairs Marks Establishing UAV Cybersecurity Laboratories by Private Sector for One Year",
+                  "brief_summary": "MODA states that the UAV Cybersecurity Joint Testing Laboratory focuses on product system security, software security, communication security, and firmware security; ETC is one of the participating labs in the mechanism.",
+                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
+                  "pdf_url": ""
+                }
+              ]
+            }
+          ]
+        },
+        "certifications": {
+          "title": "Certifications",
+          "description": "Overview of reliability and airworthiness certification pathways.",
+          "subsections": []
+        },
+        "export-controls": {
+          "title": "Export Controls",
+          "description": "Overview of reliability-related market-entry and export issues.",
+          "subsections": []
+        }
+      }
     }
   }
 }
