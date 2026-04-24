@@ -60,6 +60,18 @@
                                 </a>
                             </p>
                         {% endif %}
+
+                        <input 
+                            value="🗑️" 
+                            type="button" 
+                            class="deleteButton"
+                            data-source-title="{{ entry['source_title'] }}" 
+                            data-brief-summary="{{ entry.get('brief_summary') | safe }}" 
+                            data-region-key = "{{ region_key }}"
+                            data-topic-key = "{{ topic_key }}"
+                            data-category-key = "{{ category_key }}"
+                            data-subsection-slug = "{{subsection.get('slug')}}"
+                        >  
                     </div>
                 {% endfor %}
             </div>
@@ -149,6 +161,56 @@
                 alert("Error submitting form")
             }
         })
+
+
+        async function deleteEntry (sourceTitle, briefSummary, regionKey, topicKey, categoryKey, subsectionSlug) {
+            const requestData = {
+                sourceTitle: sourceTitle,
+                briefSummary: briefSummary,
+                regionKey: regionKey,
+                topicKey: topicKey,
+                categoryKey: categoryKey,
+                subsectionSlug: subsectionSlug
+            }
+            try {
+                const jsonData = JSON.stringify(requestData)
+                const response = await fetch('/deleteEntry', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Entry added!")
+                    addEntryForm.reset()
+                    location.reload()
+                } else {
+                    throw new Error("Got Back Success = False :(")
+                }
+            } catch (error) {
+                alert('WAS NOT SUCCESSFUL')
+            }
+        }
+
+        document.querySelectorAll('.deleteButton').forEach(button => {
+            button.addEventListener('click', function() {
+                const sourceTitle = event.currentTarget.dataset.sourceTitle
+                const briefSummary = event.currentTarget.dataset.briefSummary
+                const regionKey = event.currentTarget.dataset.regionKey
+                const topicKey = event.currentTarget.dataset.topicKey
+                const categoryKey = event.currentTarget.dataset.categoryKey
+                const subsectionSlug = event.currentTarget.dataset.subsectionSlug
+                if (confirm("Are you sure you want to delete the entry. This can't be undone")) {
+                    deleteEntry(sourceTitle, briefSummary, regionKey, topicKey, categoryKey, subsectionSlug)
+                }
+            })
+        })
+
     </script>
 </body>
 </html>
