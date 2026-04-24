@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- <div class="topbar">
+        <a href="/" class="topbar-home">Home</a>
+
+        <div class="topbar-logo">
+            <img src="/static/etcLogo.png" alt="Logo">
+        </div>
+    </div>
+ -->
+
+
+    <div class="topbar">
+        <div class="topbar-inner">
+            <a href="/" class="topbar-home">Home</a>
+
+            <div class="topbar-logo">
+                <img src="/static/etcLogo.png" alt="Logo">
+            </div>
+
+            <div class="topbar-right">
+                <form action="{{ url_for('search') }}" method="get" class="topbar-search">
+                    <input
+                        type="text"
+                        name="keyword"
+                        placeholder="Search..."
+                        required
+                    >
+                    <button type="submit">Search</button>
+                </form>
+
+                <div class="topbar-admin">
+                    {% if is_admin %}
+                        <a href="{{ url_for('admin_logout') }}">Admin Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('admin_login') }}">Admin Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Admin Login</h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="item-list">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+                <br>
+            {% endif %}
+        {% endwith %}
+
+        <form method="post" action="{{ url_for('admin_login') }}">
+            <div>
+                <label>Password</label><br>
+                <input type="password" name="password" required>
+            </div>
+            <br>
+            <button type="submit">Log In</button>
+        </form>
+    </div>
+</body>
+</html>
