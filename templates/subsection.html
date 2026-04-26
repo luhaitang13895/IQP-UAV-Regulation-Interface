@@ -74,17 +74,19 @@
                             </p>
                         {% endif %}
 
-                        <input 
-                            value="🗑️" 
-                            type="button" 
-                            class="deleteButton"
-                            data-source-title="{{ entry['source_title'] }}" 
-                            data-brief-summary="{{ entry.get('brief_summary') | safe }}" 
-                            data-region-key = "{{ region_key }}"
-                            data-topic-key = "{{ topic_key }}"
-                            data-category-key = "{{ category_key }}"
-                            data-subsection-slug = "{{subsection.get('slug')}}"
-                        >  
+                        {% if is_admin %}
+                            <input 
+                                value="🗑️" 
+                                type="button" 
+                                class="deleteEntryButton"
+                                data-source-title="{{ entry['source_title'] }}" 
+                                data-brief-summary="{{ entry.get('brief_summary') | safe }}" 
+                                data-region-key = "{{ region_key }}"
+                                data-topic-key = "{{ topic_key }}"
+                                data-category-key = "{{ category_key }}"
+                                data-subsection-slug = "{{subsection.get('slug')}}"
+                            >
+                        {% endif %} 
                     </div>
                 {% endfor %}
             </div>
@@ -201,7 +203,7 @@
                 }
                 const data = await response.json()
                 if (data['success']) {
-                    alert("Entry added!")
+                    alert("Entry Deleted")
                     addEntryForm.reset()
                     location.reload()
                 } else {
@@ -212,7 +214,7 @@
             }
         }
 
-        document.querySelectorAll('.deleteButton').forEach(button => {
+        document.querySelectorAll('.deleteEntryButton').forEach(button => {
             button.addEventListener('click', function() {
                 const sourceTitle = event.currentTarget.dataset.sourceTitle
                 const briefSummary = event.currentTarget.dataset.briefSummary

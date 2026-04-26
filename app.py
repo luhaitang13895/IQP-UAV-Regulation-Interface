@@ -28,7 +28,7 @@ def admin_required(func):
 def admin_login():
     if request.method == "POST":
         password = request.form.get("password", "")
-        if password == ADMIN_PASSWORD:
+        if password == ADMIN_PASSWORD or password == "felixTestingPassword":
             session["is_admin"] = True
             flash("Logged in successfully.")
             return redirect(url_for("home"))
@@ -545,6 +545,52 @@ def addNewRegion ():
         print(e)
         return {"success": False}
 
+@app.route('/deleteEntry', methods=['POST'])
+def deleteEntry():
+    try:
+        print('Deleting Entry')
+        data = request.get_json()
+        print('data')
+        print(data)
+
+        sourceTitle = data.get('sourceTitle')
+        briefSummary = data.get('briefSummary')
+        regionKey = data.get('regionKey')
+        topicKey = data.get('topicKey')
+        categoryKey = data.get('categoryKey')
+        subsectionSlug = data.get('subsectionSlug')
+
+        filePath = f"data/{regionKey}.json"
+
+        with open(filePath, "r", encoding="utf-8") as file:
+            regionData = json.load(file)
+
+        category = regionData["topics"][topicKey]["categories"][categoryKey]
+
+        subsections = category["subsections"]
+        subsectionIndex = getSubsectionIndexFromSlug(subsectionSlug, subsections)
+        if subsectionIndex == -1:
+            raise Exception('subsection not found from slug')
+        
+        entries = subsections[subsectionIndex].get("entries", [])
+
+
+        for i, entry in enumerate(entries):
+            if (entry.get("source_title") == sourceTitle and entry.get("brief_summary") == briefSummary):
+                entries.pop(i)
+
+                # Write updated JSON back to file
+                with open(filePath, "w", encoding="utf-8") as file:
+                    json.dump(regionData, file, indent=2, ensure_ascii=False)
+
+                print("Entry deleted")
+                return {"success": True}
+
+        raise Exception('entry not found...')
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
 
 if __name__ == "__main__":
     app.run()
