@@ -45,8 +45,9 @@
         <p>{{ subsection["summary"] }}</p>
 
         {% if is_admin %} 
+            <b>Admin Controls: </b>
             <input 
-                value="deleteSubsection" 
+                value="Delete Subsection" 
                 type="button" 
                 id="deleteSubsectionButton"
                 data-region-key = "{{ region_key }}"
@@ -54,10 +55,31 @@
                 data-category-key = "{{ category_key }}"
                 data-subsection-slug = "{{subsection.get('slug')}}"
             >
-        {% endif %}
+            <input 
+                value="Edit Subsection" 
+                type="button" 
+                id="editSubsectionButton"
+            >
+            <form id="editSubsectionForm" action="/editSubsection" hidden>
+                <input type="hidden" name="region_key" value="{{ region_key }}">
+                <input type="hidden" name="topic_key" value="{{ topic_key }}">
+                <input type="hidden" name="category_key" value="{{ category_key }}">
+                <input type="hidden" name="subsection_slug" value="{{ subsection['slug'] }}">
 
+                <div>
+                    <label>New Subsection Name</label><br>
+                    <input type="text" name="newSubsectionName" rows="6" value='{{ subsection["name"] }}' required>
+                </div>
+
+                <div>
+                    <label>New Subsection Summary</label><br>
+                    <textarea name="newSubsectionSummary" rows="6" required> {{ subsection["summary"] }}</textarea>
+                </div>
+                <button type="submit">Apply Edits!</button>
+            </form>
         <hr>
         <b>Entries:</b>
+        {% endif %}
 
         {% if subsection.get("entries") and subsection["entries"]|length > 0 %}
             <div class="card-grid">
@@ -288,6 +310,44 @@
             }
         })
 
+        const editSubsectionForm = document.getElementById('editSubsectionForm')
+        const editSubsectionButton = document.getElementById('editSubsectionButton')
+        editSubsectionButton.addEventListener('click', () => {
+            if (editSubsectionForm.style.display === 'none' || editSubsectionForm.style.display === '') {
+                editSubsectionForm.style.display = 'block'
+            } else {
+                editSubsectionForm.style.display = 'none'
+            }
+        })
+
+        editSubsectionForm.addEventListener("submit", async function (event) {
+            event.preventDefault()
+            try {
+                const formData = new FormData(editSubsectionForm)
+                const jsonData = JSON.stringify(Object.fromEntries(formData.entries()))
+
+                const response = await fetch(editSubsectionForm.action, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Form Edited!")
+                    location.reload()
+                } else {
+                    throw new Error("Got Back Success = False :(")
+                }
+            } catch (error) {
+                console.error("Error submitting form:", error)
+                alert("Error Editing form")
+            }
+        })
     </script>
 </body>
 </html>

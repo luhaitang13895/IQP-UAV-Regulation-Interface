@@ -621,10 +621,51 @@ def deleteSubsection():
             raise Exception('subsection not found from slug')
         
         regionData["topics"][topicKey]["categories"][categoryKey]['subsections'].pop(subsectionIndex)
+
         with open(filePath, "w", encoding="utf-8") as file:
             json.dump(regionData, file, indent=2)
 
         return {"success": True}
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+    
+@app.route('/editSubsection', methods=['POST'])
+@admin_required
+def editSubsection():
+    try:
+        print('Editing Subsection')
+        data = request.get_json()
+        print('data')
+        print(data)
+
+        regionKey = data.get('region_key')
+        topicKey = data.get('topic_key')
+        categoryKey = data.get('category_key')
+        subsectionSlug = data.get('subsection_slug')
+        newSubsectionSummary = data.get('newSubsectionSummary')
+        newSubsectionName = data.get('newSubsectionName')
+
+        filePath = f"data/{regionKey}.json"
+
+        with open(filePath, "r", encoding="utf-8") as file:
+            regionData = json.load(file)
+
+        category = regionData["topics"][topicKey]["categories"][categoryKey]
+
+        subsections = category["subsections"]
+        subsectionIndex = getSubsectionIndexFromSlug(subsectionSlug, subsections)
+        if subsectionIndex == -1:
+            raise Exception('subsection not found from slug')
+        
+        regionData["topics"][topicKey]["categories"][categoryKey]['subsections'][subsectionIndex]['name'] = newSubsectionName
+        regionData["topics"][topicKey]["categories"][categoryKey]['subsections'][subsectionIndex]['summary'] = newSubsectionSummary
+
+        with open(filePath, "w", encoding="utf-8") as file:
+            json.dump(regionData, file, indent=2)
+
+        return {"success": True}      
     except Exception as e:
         print('ERROR SUBMITTING FORM')
         print(e)
