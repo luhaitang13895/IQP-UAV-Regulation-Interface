@@ -44,6 +44,39 @@
         <h1>{{ region.name }} - {{ topic.title }}</h1>
         <p>{{ topic.description }}</p>
 
+        {% if is_admin %} 
+            <b>Admin Controls: </b>
+            <input 
+                value="Delete Topic" 
+                type="button" 
+                id="deleteTopicButton"
+                data-region-key="{{ region_key }}"
+                data-topic-key="{{ topic_key }}"
+            >
+            <input 
+                value="Edit Topic" 
+                type="button" 
+                id="editTopicButton"
+            >
+            <form id="editTopicForm" action="/editTopic" hidden>
+                <input type="hidden" name="region_key" value="{{ region_key }}">
+                <input type="hidden" name="topic_key" value="{{ topic_key }}">
+
+                <div>
+                    <label>New Topic Title</label><br>
+                    <input type="text" name="newTopicTitle" value='{{ topic["title"] }}' required>
+                </div>
+
+                <div>
+                    <label>New Topic Description</label><br>
+                    <textarea name="newTopicDescription" required> {{ topic["description"] }}</textarea>
+                </div>
+                <button type="submit">Apply Edits!</button>
+            </form>
+
+            <hr>
+            <b>Categories:</b>
+        {% endif %}
         <div class="card-grid">
             {% if topic.get("categories") %}
                 {% for category_key, category in topic.categories.items() %}
@@ -129,6 +162,85 @@
             } catch (error) {
                 console.error("Error submitting form:", error)
                 alert("Error submitting form")
+            }
+        })
+
+        async function deleteTopic(regionKey, topicKey) {
+            const requestData = {
+                regionKey: regionKey,
+                topicKey: topicKey
+            }
+            try {
+                const jsonData = JSON.stringify(requestData)
+                const response = await fetch('/deleteTopic', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Topic Deleted")
+
+                    const backButton = document.querySelector('.back-link')
+                    window.location.href = backButton.href
+                } else {
+                    throw new Error("Got Back Success = False :(")
+                }
+            } catch (error) {
+                alert('WAS NOT SUCCESSFUL')
+            }
+        }
+
+        const deleteTopicButton = document.getElementById('deleteTopicButton')
+        deleteTopicButton.addEventListener('click', () =>{
+            const regionKey = event.currentTarget.dataset.regionKey
+            const topicKey = event.currentTarget.dataset.topicKey
+            if (confirm("Are you sure you want to delete the topic & all categories. This can't be undone")) {
+                deleteTopic(regionKey, topicKey)
+            }
+        })
+
+        const editTopicForm = document.getElementById('editTopicForm')
+        const editTopicButton = document.getElementById('editTopicButton')
+        editTopicButton.addEventListener('click', () => {
+            if (editTopicForm.style.display === 'none' || editTopicForm.style.display === '') {
+                editTopicForm.style.display = 'block'
+            } else {
+                editTopicForm.style.display = 'none'
+            }
+        })
+
+        editTopicForm.addEventListener("submit", async function (event) {
+            event.preventDefault()
+            try {
+                const formData = new FormData(editTopicForm)
+                const jsonData = JSON.stringify(Object.fromEntries(formData.entries()))
+
+                const response = await fetch(editTopicForm.action, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Topic Edited!")
+                    location.reload()
+                } else {
+                    throw new Error("Got Back Success = False :(")
+                }
+            } catch (error) {
+                console.error("Error submitting form:", error)
+                alert("Error Editing form")
             }
         })
     </script>

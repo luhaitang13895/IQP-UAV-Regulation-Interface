@@ -43,6 +43,41 @@
 
         <h1>{{ region["name"] }} - {{ topic["title"] }} - {{ category["title"] }}</h1>
         <p>{{ category["description"] }}</p>
+        {% if is_admin %} 
+            <b>Admin Controls: </b>
+            <input 
+                value="Delete Category" 
+                type="button" 
+                id="deleteCategoryButton"
+                data-region-key="{{ region_key }}"
+                data-topic-key="{{ topic_key }}"
+                data-category-key="{{ category_key }}"
+            >
+            <input 
+                value="Edit Category" 
+                type="button" 
+                id="editCategoryButton"
+            >
+            <form id="editCategoryForm" action="/editCategory" hidden>
+                <input type="hidden" name="region_key" value="{{ region_key }}">
+                <input type="hidden" name="topic_key" value="{{ topic_key }}">
+                <input type="hidden" name="category_key" value="{{ category_key }}">
+
+                <div>
+                    <label>New Category Title</label><br>
+                    <input type="text" name="newCategoryTitle" rows="6" value='{{ category["title"] }}' required>
+                </div>
+
+                <div>
+                    <label>New Category Description</label><br>
+                    <textarea name="newCategoryDescription" rows="6" required> {{ category["description"] }}</textarea>
+                </div>
+                <button type="submit">Apply Edits!</button>
+            </form>
+
+            <hr>
+            <b>Subsections:</b>
+        {% endif %}
 
         {% if category.get("subsections") %}
             <div class="card-grid">
@@ -140,6 +175,87 @@
             } catch (error) {
                 console.error("Error submitting form:", error)
                 alert("Error submitting form")
+            }
+        })
+
+        async function deleteCategory(regionKey, topicKey, categoryKey) {
+            const requestData = {
+                regionKey: regionKey,
+                topicKey: topicKey,
+                categoryKey: categoryKey
+            }
+            try {
+                const jsonData = JSON.stringify(requestData)
+                const response = await fetch('/deleteCategory', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Category Deleted")
+
+                    const backButton = document.querySelector('.back-link')
+                    window.location.href = backButton.href
+                } else {
+                    throw new Error("Got Back Success = False :(")
+                }
+            } catch (error) {
+                alert('WAS NOT SUCCESSFUL')
+            }
+        }
+
+        const deleteCategoryButton = document.getElementById('deleteCategoryButton')
+        deleteCategoryButton.addEventListener('click', () =>{
+            const regionKey = event.currentTarget.dataset.regionKey
+            const topicKey = event.currentTarget.dataset.topicKey
+            const categoryKey = event.currentTarget.dataset.categoryKey
+            if (confirm("Are you sure you want to delete the category & all subsections. This can't be undone")) {
+                deleteCategory(regionKey, topicKey, categoryKey)
+            }
+        })
+
+        const editCategoryForm = document.getElementById('editCategoryForm')
+        const editCategoryButton = document.getElementById('editCategoryButton')
+        editCategoryButton.addEventListener('click', () => {
+            if (editCategoryForm.style.display === 'none' || editCategoryForm.style.display === '') {
+                editCategoryForm.style.display = 'block'
+            } else {
+                editCategoryForm.style.display = 'none'
+            }
+        })
+
+        editCategoryForm.addEventListener("submit", async function (event) {
+            event.preventDefault()
+            try {
+                const formData = new FormData(editCategoryForm)
+                const jsonData = JSON.stringify(Object.fromEntries(formData.entries()))
+
+                const response = await fetch(editCategoryForm.action, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Category Edited!")
+                    location.reload()
+                } else {
+                    throw new Error("Got Back Success = False :(")
+                }
+            } catch (error) {
+                console.error("Error submitting form:", error)
+                alert("Error Editing form")
             }
         })
     </script>
