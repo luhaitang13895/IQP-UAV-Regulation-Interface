@@ -37,12 +37,27 @@
         </div>
     </div>
     <div class="container">
-        <a class="back-link" href="{{ url_for('category_page', region_key=region_key, topic_key=topic_key, category_key=category_key) }}">
+        <a class="back-link" id="backButton" href="{{ url_for('category_page', region_key=region_key, topic_key=topic_key, category_key=category_key) }}">
             ← Back to {{ category["title"] }}
         </a>
 
         <h1>{{ region["name"] }} - {{ topic["title"] }} - {{ subsection["name"] }}</h1>
         <p>{{ subsection["summary"] }}</p>
+
+        {% if is_admin %} 
+            <input 
+                value="deleteSubsection" 
+                type="button" 
+                id="deleteSubsectionButton"
+                data-region-key = "{{ region_key }}"
+                data-topic-key = "{{ topic_key }}"
+                data-category-key = "{{ category_key }}"
+                data-subsection-slug = "{{subsection.get('slug')}}"
+            >
+        {% endif %}
+
+        <hr>
+        <b>Entries:</b>
 
         {% if subsection.get("entries") and subsection["entries"]|length > 0 %}
             <div class="card-grid">
@@ -226,6 +241,51 @@
                     deleteEntry(sourceTitle, briefSummary, regionKey, topicKey, categoryKey, subsectionSlug)
                 }
             })
+        })
+
+        async function deleteSubsection(regionKey, topicKey, categoryKey, subsectionSlug) {
+            const requestData = {
+                regionKey: regionKey,
+                topicKey: topicKey,
+                categoryKey: categoryKey,
+                subsectionSlug: subsectionSlug
+            }
+            try {
+                const jsonData = JSON.stringify(requestData)
+                const response = await fetch('/deleteSubsection', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Subsection Deleted")
+                    addEntryForm.reset()
+
+                    const backButton = document.getElementById('backButton')
+                    window.location.href = backButton.href
+                } else {
+                    throw new Error("Got Back Success = False :(")
+                }
+            } catch (error) {
+                alert('WAS NOT SUCCESSFUL')
+            }
+        }
+
+        const deleteSubsectionButton = document.getElementById('deleteSubsectionButton')
+        deleteSubsectionButton.addEventListener('click', () =>{
+            const regionKey = event.currentTarget.dataset.regionKey
+            const topicKey = event.currentTarget.dataset.topicKey
+            const categoryKey = event.currentTarget.dataset.categoryKey
+            const subsectionSlug = event.currentTarget.dataset.subsectionSlug
+            if (confirm("Are you sure you want to delete the subsection & all entries. This can't be undone")) {
+                deleteSubsection(regionKey, topicKey, categoryKey, subsectionSlug)
+            }
         })
 
     </script>

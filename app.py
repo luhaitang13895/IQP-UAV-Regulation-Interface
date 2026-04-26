@@ -546,6 +546,7 @@ def addNewRegion ():
         return {"success": False}
 
 @app.route('/deleteEntry', methods=['POST'])
+@admin_required
 def deleteEntry():
     try:
         print('Deleting Entry')
@@ -561,7 +562,7 @@ def deleteEntry():
         subsectionSlug = data.get('subsectionSlug')
 
         filePath = f"data/{regionKey}.json"
-
+        # gets data for the 
         with open(filePath, "r", encoding="utf-8") as file:
             regionData = json.load(file)
 
@@ -581,12 +582,49 @@ def deleteEntry():
 
                 # Write updated JSON back to file
                 with open(filePath, "w", encoding="utf-8") as file:
-                    json.dump(regionData, file, indent=2, ensure_ascii=False)
+                    json.dump(regionData, file, indent=2)
 
                 print("Entry deleted")
                 return {"success": True}
 
         raise Exception('entry not found...')
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+    
+
+@app.route('/deleteSubsection', methods=['POST'])
+@admin_required
+def deleteSubsection():
+    try:
+        print('Deleting Subsection')
+        data = request.get_json()
+        print('data')
+        print(data)
+
+        regionKey = data.get('regionKey')
+        topicKey = data.get('topicKey')
+        categoryKey = data.get('categoryKey')
+        subsectionSlug = data.get('subsectionSlug')
+
+        filePath = f"data/{regionKey}.json"
+
+        with open(filePath, "r", encoding="utf-8") as file:
+            regionData = json.load(file)
+
+        category = regionData["topics"][topicKey]["categories"][categoryKey]
+
+        subsections = category["subsections"]
+        subsectionIndex = getSubsectionIndexFromSlug(subsectionSlug, subsections)
+        if subsectionIndex == -1:
+            raise Exception('subsection not found from slug')
+        
+        regionData["topics"][topicKey]["categories"][categoryKey]['subsections'].pop(subsectionIndex)
+        with open(filePath, "w", encoding="utf-8") as file:
+            json.dump(regionData, file, indent=2)
+
+        return {"success": True}
     except Exception as e:
         print('ERROR SUBMITTING FORM')
         print(e)
