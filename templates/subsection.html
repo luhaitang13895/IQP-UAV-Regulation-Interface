@@ -91,6 +91,10 @@
                             <p><strong>Topic:</strong> {{ entry["topic"] }}</p>
                         {% endif %}
 
+                        {% if entry.get("regulation_date") %}
+                            <b>{{ entry["regulation_date"] }}</b>
+                        {% endif %}
+
                         {% if entry.get("brief_summary") %}
                             <p>{{ entry["brief_summary"] }}</p>
                         {% endif %}
@@ -175,6 +179,12 @@
             <div>
                 <label>PDF Link</label><br>
                 <input type="url" name="pdf_link">
+            </div>
+
+            
+            <div>
+                <label>Regulation Created</label><br>
+                <input type="date" name="date">
             </div>
 
             <br>

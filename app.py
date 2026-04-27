@@ -210,6 +210,7 @@ def addNewEntry ():
         briefSummary = data.get('brief_summary')
         externalURL = data.get('external_url', '')
         pdfLink = data.get('pdf_link', '')
+        regulationDate = data.get('date', '')
 
         dataToAppend = {
             "region": regionName,
@@ -218,7 +219,8 @@ def addNewEntry ():
             "source_title": sourceTitle,
             "brief_summary": briefSummary,
             "external_url": externalURL,
-            "pdf_url": pdfLink
+            "pdf_url": pdfLink,
+            "regulation_date": regulationDate,
         }
 
         regionKey = data.get('region_key')
@@ -379,11 +381,11 @@ def addTopicForm():
                 "description": "Overview of RF certification pathways.",
                 "subsections": []
             }
-            dictToAppend['categories']['export-controls'] = {
-                "title": "Export Controls",
-                "description": "Overview of RF-related export and market-entry rules.",
-                "subsections": []
-            }
+            # dictToAppend['categories']['export-controls'] = {
+            #     "title": "Export Controls",
+            #     "description": "Overview of RF-related export and market-entry rules.",
+            #     "subsections": []
+            # }
             
         # Gets region data
         regionKey = data.get('region_key')
@@ -447,11 +449,11 @@ def addNewRegion ():
                             "description": "Overview of RF certification pathways.",
                             "subsections": []
                         },
-                        "export-controls": {
-                            "title": "Export Controls",
-                            "description": "Overview of RF-related export and market-entry rules.",
-                            "subsections": []
-                        }
+                        # "export-controls": {
+                        #     "title": "Export Controls",
+                        #     "description": "Overview of RF-related export and market-entry rules.",
+                        #     "subsections": []
+                        # }
                     }
                 }, 
                 "emc": {
@@ -473,11 +475,11 @@ def addNewRegion ():
                             "description": "Overview of EMC certification pathways.",
                             "subsections": []
                         },
-                        "export-controls": {
-                            "title": "Export Controls",
-                            "description": "Overview of EMC-related export and market-entry rules.",
-                            "subsections": []
-                        }
+                        # "export-controls": {
+                        #     "title": "Export Controls",
+                        #     "description": "Overview of EMC-related export and market-entry rules.",
+                        #     "subsections": []
+                        # }
                     }
                 }, 
                 "reliability": {
@@ -499,11 +501,11 @@ def addNewRegion ():
                         "description": "Overview of reliability and airworthiness certification pathways.",
                         "subsections": []
                         },
-                        "export-controls": {
-                        "title": "Export Controls",
-                        "description": "Overview of reliability-related market-entry and export issues.",
-                        "subsections": []
-                        }
+                        # "export-controls": {
+                        # "title": "Export Controls",
+                        # "description": "Overview of reliability-related market-entry and export issues.",
+                        # "subsections": []
+                        # }
                     }
                 },
                 "Cybersecurity": {
@@ -525,11 +527,11 @@ def addNewRegion ():
                             "description": "Overview of reliability and airworthiness certification pathways.",
                             "subsections": []
                         },
-                        "export-controls": {
-                            "title": "Export Controls",
-                            "description": "Overview of reliability-related market-entry and export issues.",
-                            "subsections": []
-                        }
+                        # "export-controls": {
+                        #     "title": "Export Controls",
+                        #     "description": "Overview of reliability-related market-entry and export issues.",
+                        #     "subsections": []
+                        # }
                     }
                 }
             }
