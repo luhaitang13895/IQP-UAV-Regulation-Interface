@@ -259,6 +259,125 @@
           "subsections": []
         }
       }
+    },
+    "Cybersecurity": {
+      "title": "Cybersecurity",
+      "description": "Cybersecurity Related Topics",
+      "categories": {
+        "regulations": {
+          "title": "Regulations",
+          "description": "Overview of cybersecurity regulations in Taiwan",
+          "subsections": [
+            {
+              "slug": "cybersecurity-regulations",
+              "name": "Cybersecurity Regulations",
+              "summary": "Cybersecurity Regulations for UAV systems in the EU",
+              "entries": [
+                {
+                  "region": "European Union",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "Regulation (EU) 2024/2847 AKA Cyber Resilient Act",
+                  "source_title": "Regulation (EU) 2024/2847",
+                  "brief_summary": "This Regulation aims to set the boundary conditions for the development of secure products with digital elements by ensuring that hardware and software products are placed on the market with fewer vulnerabilities and that manufacturers take security seriously throughout a product’s lifecycle. It also aims to create conditions allowing users to take cybersecurity into account when selecting and using products with digital elements, for example by improving transparency with regard to the support period for products with digital elements made available on the market.",
+                  "external_url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "Regulation (EU) 2022/2555 AKA the NIS2 Directive",
+                  "source_title": "Regulation (EU) 2022/2555",
+                  "brief_summary": " This Directive lays down measures that aim to achieve a high common level of cybersecurity across the Union, with a view to improving the functioning of the internal market. By 17 October 2024, Member States shall adopt and publish the measures necessary to comply with this Directive. They shall immediately inform the Commission thereof.",
+                  "external_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02022L2555-20221227",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "Regulation EU 2019/881 AKA the Cybersecurity Act",
+                  "source_title": "Regulation (EU) 2019/881",
+                  "brief_summary": " Regulation (EU) 2019/881 aims to achieve a high level of cybersecurity, cyber resilience and trust in the European Union (EU) by setting out objectives, tasks and organisational matters for a strengthened and renamed European Union Agency for Cybersecurity (ENISA), with a new permanent mandate; a framework for voluntary European cybersecurity certification schemes for information and communications technology (ICT) products, services and processes, and managed security services.",
+                  "external_url": "https://eur-lex.europa.eu/EN/legal-content/summary/the-eu-cybersecurity-act.html",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "European Union",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "Regulation EU 2016/679",
+                  "source_title": "Regulation (EU) 2016/679",
+                  "brief_summary": "The General Data Protection Regulation (GDPR) is the toughest privacy and security law in the world. Though it was drafted and passed by the European Union (EU), it imposes obligations onto organizations anywhere, so long as they target or collect data related to people in the EU. ",
+                  "external_url": "https://gdpr.eu/tag/gdpr/",
+                  "pdf_url": ""
+                }
+                
+
+              ]
+            }
+          ]
+        },
+        "testing": {
+          "title": "Testing",
+          "description": "Overview of reliability and airworthiness testing procedures.",
+          "subsections": [
+            {
+              "slug": "cybersecurity-regulations",
+              "name": "Cybersecurity Regulations",
+              "summary": "Cybersecurity Regulations for UAV systems in the Taiwan",
+              "entries": [
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "UAV cybersecurity testing and certification",
+                  "source_title": "MODA UAV cybersecurity testing and certification",
+                  "brief_summary": "Link extracted from the link bundle; direct Taiwan MODA press release on UAV cybersecurity testing / certification.",
+                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "UAV cybersecurity testing and certification",
+                  "source_title": "The Ministry of Digital Affairs Marks Establishing UAV Cybersecurity Laboratories by Private Sector for One Year",
+                  "brief_summary": "Press release on Taiwan’s private-sector UAV cybersecurity joint testing labs and the number of UAV models passing cyber testing.",
+                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "UAV cybersecurity testing and certification",
+                  "source_title": "The Ministry of Digital Affairs Marks Establishing UAV Cybersecurity Laboratories by Private Sector for One Year (duplicate capture)",
+                  "brief_summary": "Duplicate file capture of the same MODA cybersecurity testing press release; kept for completeness but excluded from summary counts.",
+                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
+                  "pdf_url": ""
+                },
+                {
+                  "region": "Taiwan",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "Communication security / cyber testing",
+                  "topic": "MODA/ETC cyber test scope for UAVs",
+                  "source_title": "The Ministry of Digital Affairs Marks Establishing UAV Cybersecurity Laboratories by Private Sector for One Year",
+                  "brief_summary": "MODA states that the UAV Cybersecurity Joint Testing Laboratory focuses on product system security, software security, communication security, and firmware security; ETC is one of the participating labs in the mechanism.",
+                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
+                  "pdf_url": ""
+                }
+              ]
+            }
+          ]
+        },
+        "certifications": {
+          "title": "Certifications",
+          "description": "Overview of reliability and airworthiness certification pathways.",
+          "subsections": []
+        }
+      }
     }
   }
 }
