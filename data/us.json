@@ -265,6 +265,36 @@
           "subsections": []
         }
       }
-    }   
+    } ,
+    "Cybersecurity": {
+      "title": "Cybersecurity",
+      "description": "Cybersecurity Related Topics",
+      "categories": {
+        "regulations": {
+          "title": "Regulations",
+          "description": "Overview of cybersecurity regulations in the US",
+          "subsections": [
+            {
+              "slug": "cybersecurity-regulations",
+              "name": "Cybersecurity Regulations",
+              "summary": "Cybersecurity Regulations for UAV systems in the US",
+              "entries": [
+                {
+                  "region": "United States",
+                  "primary_category": "Cybersecurity",
+                  "secondary_category": "",
+                  "topic": "Cybesecurity aroud IUEI",
+                  "source_title": "Cybesecurity aroud IUEI",
+                  "brief_summary": "The FAA and TSA releases a draft NPRM to normalize unmmanned aircraft systems (UAS) operations beyond visual line of sight (BVLOS) with comments due by 2/11/2026. Although there was no specific technical rules that UAS manufacturers must follow stipulated in the proposed ruling, the use of NIST cybersecurity framework was said to be pontentially accepted. Under this proposed rule 108.150© - The propose rules is saying that manufacturers must safeguard against IUEI, which covers cyber attackees involing unathorized access or disruption, but excludes physical attacks or electromagnetic jamming.",
+                  "external_url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+                  "pdf_url": ""
+                }
+
+              ]
+            }
+          ]
+        }
+      }
+    }  
   }
 }
