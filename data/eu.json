@@ -147,11 +147,6 @@
           "title": "Certifications",
           "description": "Overview of RF certification pathways.",
           "subsections": []
-        },
-        "export-controls": {
-          "title": "Export Controls",
-          "description": "Overview of RF-related export and market-entry rules.",
-          "subsections": []
         }
       }
     },
@@ -221,11 +216,6 @@
           "title": "Certifications",
           "description": "Overview of EMC certification pathways.",
           "subsections": []
-        },
-        "export-controls": {
-          "title": "Export Controls",
-          "description": "Overview of EMC-related export and market-entry rules.",
-          "subsections": []
         }
       }
     },
@@ -266,11 +256,6 @@
         "certifications": {
           "title": "Certifications",
           "description": "Overview of reliability and airworthiness certification pathways.",
-          "subsections": []
-        },
-        "export-controls": {
-          "title": "Export Controls",
-          "description": "Overview of reliability-related market-entry and export issues.",
           "subsections": []
         }
       }
