@@ -40,6 +40,34 @@
         <a class="back-link" href="{{ url_for('home') }}">← Back to Home</a>
 
         <h1>{{ region.name }}</h1>
+
+        {% if is_admin %} 
+            <b>Admin Controls: </b>
+            <input 
+                value="Delete Region" 
+                type="button" 
+                id="deleteRegionButton"
+                data-region-key="{{ region_key }}"
+            >
+            <input 
+                value="Edit Region" 
+                type="button" 
+                id="editRegionButton"
+            >
+            <form id="editRegionForm" action="/editRegion" hidden>
+                <input type="hidden" name="region_key" value="{{ region_key }}">
+
+                <div>
+                    <label>New Region Name</label><br>
+                    <input type="text" name="newRegionName" value='{{ region["name"] }}' required>
+                </div>
+
+                <button type="submit">Apply Edits!</button>
+            </form>
+
+            <hr>
+            <b>Topics:</b>
+        {% endif %}
         <p>Select a topic.</p>
 
         <div class="card-grid">
@@ -129,6 +157,83 @@
             } catch (error) {
                 console.error("Error submitting form:", error)
                 alert("Error submitting form")
+            }
+        })
+
+        async function deleteRegion(regionKey) {
+            const requestData = {
+                regionKey: regionKey
+            }
+            try {
+                const jsonData = JSON.stringify(requestData)
+                const response = await fetch('/deleteRegion', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Region Deleted")
+
+                    const backButton = document.querySelector('.back-link')
+                    window.location.href = backButton.href
+                } else {
+                    throw new Error("Got Back Success = False :(")
+                }
+            } catch (error) {
+                alert('WAS NOT SUCCESSFUL')
+            }
+        }
+
+        const deleteRegionButton = document.getElementById('deleteRegionButton')
+        deleteRegionButton.addEventListener('click', () =>{
+            const regionKey = event.currentTarget.dataset.regionKey
+            if (confirm("Are you sure you want to delete the region & all topics. This can't be undone")) {
+                deleteRegion(regionKey)
+            }
+        })
+
+        const editRegionForm = document.getElementById('editRegionForm')
+        const editRegionButton = document.getElementById('editRegionButton')
+        editRegionButton.addEventListener('click', () => {
+            if (editRegionForm.style.display === 'none' || editRegionForm.style.display === '') {
+                editRegionForm.style.display = 'block'
+            } else {
+                editRegionForm.style.display = 'none'
+            }
+        })
+
+        editRegionForm.addEventListener("submit", async function (event) {
+            event.preventDefault()
+            try {
+                const formData = new FormData(editRegionForm)
+                const jsonData = JSON.stringify(Object.fromEntries(formData.entries()))
+
+                const response = await fetch(editRegionForm.action, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                if (!response.ok) {
+                    throw new Error("Request failed")
+                }
+                const data = await response.json()
+                if (data['success']) {
+                    alert("Region Edited!")
+                    location.reload()
+                } else {
+                    throw new Error("Got Back Success = False :(")
+                }
+            } catch (error) {
+                console.error("Error submitting form:", error)
+                alert("Error Editing form")
             }
         })
     </script>

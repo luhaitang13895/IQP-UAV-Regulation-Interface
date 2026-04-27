@@ -118,3 +118,38 @@ p {
 .topbar-logo img {
     height: 40px;
 }
+
+input,
+textarea,
+button {
+    font-family: inherit;
+    font-size: 14px;
+}
+
+input[type="text"],
+input[type="url"],
+textarea {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 4px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button,
+input[type="button"] {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #eee;
+    cursor: pointer;
+}
+
+button:hover,
+input[type="button"]:hover {
+    background: #ddd;
+}

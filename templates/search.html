@@ -57,10 +57,10 @@
                         <input
                             type="checkbox"
                             name="regions"
-                            value="{{ region }}"
-                            {% if region in selectedRegions %}checked{% endif %}
+                            value="{{ region.slug }}"
+                            {% if region.slug in selectedRegions %}checked{% endif %}
                         >
-                        {{ region }}
+                        {{ region.name }}
                     </label>
                 {% endfor %}
             </div>

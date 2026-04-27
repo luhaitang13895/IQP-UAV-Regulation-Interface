@@ -139,26 +139,26 @@ def search():
     if not keyword:
         abort(400, description="Missing required parameter: keyword")
 
-    
     selectedRegions = request.args.getlist("regions")
 
-    allRegions = getRegulatoryData().keys()
+    regulatoryData = getRegulatoryData()
 
-    results = keywordSearch(keyword, regions = selectedRegions)
+    allRegions = [
+        {
+            "slug": slug,
+            "name": regionData.get("name", slug)
+        }
+        for slug, regionData in regulatoryData.items()
+    ]
 
-    # for result in results:
-    #     print("=" * 80)
-    #     print("RESULT:")
-    #     print(result)
-    #     link = "http://127.0.0.1:5000" + result.get("path", "")
-    #     print(link)
+    results = keywordSearch(keyword, regions=selectedRegions)
 
     return render_template(
         "search.html",
         results=results,
         keyword=keyword,
-        allRegions = allRegions,
-        selectedRegions = selectedRegions
+        allRegions=allRegions,
+        selectedRegions=selectedRegions
     )
 
 @app.route("/region/<region_key>/topic/<topic_key>/category/<category_key>/subsection/<subsection_slug>")
@@ -545,6 +545,304 @@ def addNewRegion ():
         print(e)
         return {"success": False}
 
+@app.route('/deleteEntry', methods=['POST'])
+@admin_required
+def deleteEntry():
+    try:
+        print('Deleting Entry')
+        data = request.get_json()
+        print('data')
+        print(data)
+
+        sourceTitle = data.get('sourceTitle')
+        briefSummary = data.get('briefSummary')
+        regionKey = data.get('regionKey')
+        topicKey = data.get('topicKey')
+        categoryKey = data.get('categoryKey')
+        subsectionSlug = data.get('subsectionSlug')
+
+        filePath = f"data/{regionKey}.json"
+        # gets data for the 
+        with open(filePath, "r", encoding="utf-8") as file:
+            regionData = json.load(file)
+
+        category = regionData["topics"][topicKey]["categories"][categoryKey]
+
+        subsections = category["subsections"]
+        subsectionIndex = getSubsectionIndexFromSlug(subsectionSlug, subsections)
+        if subsectionIndex == -1:
+            raise Exception('subsection not found from slug')
+        
+        entries = subsections[subsectionIndex].get("entries", [])
+
+
+        for i, entry in enumerate(entries):
+            if (entry.get("source_title") == sourceTitle and entry.get("brief_summary") == briefSummary):
+                entries.pop(i)
+
+                # Write updated JSON back to file
+                with open(filePath, "w", encoding="utf-8") as file:
+                    json.dump(regionData, file, indent=2)
+
+                print("Entry deleted")
+                return {"success": True}
+
+        raise Exception('entry not found...')
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+    
+
+@app.route('/deleteSubsection', methods=['POST'])
+@admin_required
+def deleteSubsection():
+    try:
+        print('Deleting Subsection')
+        data = request.get_json()
+        print('data')
+        print(data)
+
+        regionKey = data.get('regionKey')
+        topicKey = data.get('topicKey')
+        categoryKey = data.get('categoryKey')
+        subsectionSlug = data.get('subsectionSlug')
+
+        filePath = f"data/{regionKey}.json"
+
+        with open(filePath, "r", encoding="utf-8") as file:
+            regionData = json.load(file)
+
+        category = regionData["topics"][topicKey]["categories"][categoryKey]
+
+        subsections = category["subsections"]
+        subsectionIndex = getSubsectionIndexFromSlug(subsectionSlug, subsections)
+        if subsectionIndex == -1:
+            raise Exception('subsection not found from slug')
+        
+        regionData["topics"][topicKey]["categories"][categoryKey]['subsections'].pop(subsectionIndex)
+
+        with open(filePath, "w", encoding="utf-8") as file:
+            json.dump(regionData, file, indent=2)
+
+        return {"success": True}
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+    
+@app.route('/editSubsection', methods=['POST'])
+@admin_required
+def editSubsection():
+    try:
+        print('Editing Subsection')
+        data = request.get_json()
+        print('data')
+        print(data)
+
+        regionKey = data.get('region_key')
+        topicKey = data.get('topic_key')
+        categoryKey = data.get('category_key')
+        subsectionSlug = data.get('subsection_slug')
+        newSubsectionSummary = data.get('newSubsectionSummary')
+        newSubsectionName = data.get('newSubsectionName')
+
+        filePath = f"data/{regionKey}.json"
+
+        with open(filePath, "r", encoding="utf-8") as file:
+            regionData = json.load(file)
+
+        category = regionData["topics"][topicKey]["categories"][categoryKey]
+
+        subsections = category["subsections"]
+        subsectionIndex = getSubsectionIndexFromSlug(subsectionSlug, subsections)
+        if subsectionIndex == -1:
+            raise Exception('subsection not found from slug')
+        
+        regionData["topics"][topicKey]["categories"][categoryKey]['subsections'][subsectionIndex]['name'] = newSubsectionName
+        regionData["topics"][topicKey]["categories"][categoryKey]['subsections'][subsectionIndex]['summary'] = newSubsectionSummary
+
+        with open(filePath, "w", encoding="utf-8") as file:
+            json.dump(regionData, file, indent=2)
+
+        return {"success": True}      
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+
+@app.route('/deleteCategory', methods=['POST'])
+@admin_required
+def deleteCategory():
+    try:
+        print('Deleting Category')
+        data = request.get_json()
+        print('data')
+        print(data)
+
+        regionKey = data.get('regionKey')
+        topicKey = data.get('topicKey')
+        categoryKey = data.get('categoryKey')
+
+        filePath = f"data/{regionKey}.json"
+
+        with open(filePath, "r", encoding="utf-8") as file:
+            regionData = json.load(file)
+
+        regionData["topics"][topicKey]["categories"].pop(categoryKey)
+
+        with open(filePath, "w", encoding="utf-8") as file:
+            json.dump(regionData, file, indent=2)
+
+        return {"success": True}
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+
+@app.route('/editCategory', methods=['POST'])
+@admin_required
+def editCategory():
+    try:
+        print('Editing Category')
+        data = request.get_json()
+        print('data')
+        print(data)
+
+        regionKey = data.get('region_key')
+        topicKey = data.get('topic_key')
+        categoryKey = data.get('category_key')
+        newCategoryTitle = data.get('newCategoryTitle')
+        newCategoryDescription = data.get('newCategoryDescription')
+
+        filePath = f"data/{regionKey}.json"
+
+        with open(filePath, "r", encoding="utf-8") as file:
+            regionData = json.load(file)
+
+        regionData["topics"][topicKey]["categories"][categoryKey]['title'] = newCategoryTitle
+        regionData["topics"][topicKey]["categories"][categoryKey]['description'] = newCategoryDescription
+
+        with open(filePath, "w", encoding="utf-8") as file:
+            json.dump(regionData, file, indent=2)
+
+        return {"success": True}
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+    
+@app.route('/deleteTopic', methods=['POST'])
+@admin_required
+def deleteTopic():
+    try:
+        print('Deleting Topic')
+        data = request.get_json()
+        print('data')
+        print(data)
+
+        regionKey = data.get('regionKey')
+        topicKey = data.get('topicKey')
+
+        filePath = f"data/{regionKey}.json"
+
+        with open(filePath, "r", encoding="utf-8") as file:
+            regionData = json.load(file)
+
+        regionData["topics"].pop(topicKey)
+
+        with open(filePath, "w", encoding="utf-8") as file:
+            json.dump(regionData, file, indent=2)
+
+        return {"success": True}
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+    
+
+@app.route('/editTopic', methods=['POST'])
+@admin_required
+def editTopic():
+    try:
+        print('Editing Topic')
+        data = request.get_json()
+        print('data')
+        print(data)
+
+        regionKey = data.get('region_key')
+        topicKey = data.get('topic_key')
+        newTopicTitle = data.get('newTopicTitle')
+        newTopicDescription = data.get('newTopicDescription')
+
+        filePath = f"data/{regionKey}.json"
+
+        with open(filePath, "r", encoding="utf-8") as file:
+            regionData = json.load(file)
+
+        regionData["topics"][topicKey]['title'] = newTopicTitle
+        regionData["topics"][topicKey]['description'] = newTopicDescription
+
+        with open(filePath, "w", encoding="utf-8") as file:
+            json.dump(regionData, file, indent=2)
+
+        return {"success": True}
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+
+@app.route('/deleteRegion', methods=['POST'])
+@admin_required
+def deleteRegion():
+    try:
+        print('Deleting Region')
+        data = request.get_json()
+        print('data')
+        print(data)
+
+        regionKey = data.get('regionKey')
+
+        filePath = f"data/{regionKey}.json"
+
+        if not os.path.exists(filePath):
+            raise Exception('region file not found')
+
+        os.remove(filePath)
+
+        return {"success": True}
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
+    
+@app.route('/editRegion', methods=['POST'])
+@admin_required
+def editRegion():
+    try:
+        print('Editing Region')
+        data = request.get_json()
+        print('data')
+        print(data)
+
+        regionKey = data.get('region_key')
+        newRegionName = data.get('newRegionName')
+
+        filePath = f"data/{regionKey}.json"
+
+        with open(filePath, "r", encoding="utf-8") as file:
+            regionData = json.load(file)
+
+        regionData['name'] = newRegionName
+
+        with open(filePath, "w", encoding="utf-8") as file:
+            json.dump(regionData, file, indent=2)
+
+        return {"success": True}
+    except Exception as e:
+        print('ERROR SUBMITTING FORM')
+        print(e)
+        return {"success": False}
 
 if __name__ == "__main__":
     app.run()
