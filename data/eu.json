@@ -328,46 +328,6 @@
               "name": "Cybersecurity Regulations",
               "summary": "Cybersecurity Regulations for UAV systems in the Taiwan",
               "entries": [
-                {
-                  "region": "Taiwan",
-                  "primary_category": "Cybersecurity",
-                  "secondary_category": "",
-                  "topic": "UAV cybersecurity testing and certification",
-                  "source_title": "MODA UAV cybersecurity testing and certification",
-                  "brief_summary": "Link extracted from the link bundle; direct Taiwan MODA press release on UAV cybersecurity testing / certification.",
-                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
-                  "pdf_url": ""
-                },
-                {
-                  "region": "Taiwan",
-                  "primary_category": "Cybersecurity",
-                  "secondary_category": "",
-                  "topic": "UAV cybersecurity testing and certification",
-                  "source_title": "The Ministry of Digital Affairs Marks Establishing UAV Cybersecurity Laboratories by Private Sector for One Year",
-                  "brief_summary": "Press release on Taiwan’s private-sector UAV cybersecurity joint testing labs and the number of UAV models passing cyber testing.",
-                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
-                  "pdf_url": ""
-                },
-                {
-                  "region": "Taiwan",
-                  "primary_category": "Cybersecurity",
-                  "secondary_category": "",
-                  "topic": "UAV cybersecurity testing and certification",
-                  "source_title": "The Ministry of Digital Affairs Marks Establishing UAV Cybersecurity Laboratories by Private Sector for One Year (duplicate capture)",
-                  "brief_summary": "Duplicate file capture of the same MODA cybersecurity testing press release; kept for completeness but excluded from summary counts.",
-                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
-                  "pdf_url": ""
-                },
-                {
-                  "region": "Taiwan",
-                  "primary_category": "Cybersecurity",
-                  "secondary_category": "Communication security / cyber testing",
-                  "topic": "MODA/ETC cyber test scope for UAVs",
-                  "source_title": "The Ministry of Digital Affairs Marks Establishing UAV Cybersecurity Laboratories by Private Sector for One Year",
-                  "brief_summary": "MODA states that the UAV Cybersecurity Joint Testing Laboratory focuses on product system security, software security, communication security, and firmware security; ETC is one of the participating labs in the mechanism.",
-                  "external_url": "https://moda.gov.tw/en/press/press-releases/12266",
-                  "pdf_url": ""
-                }
               ]
             }
           ]
