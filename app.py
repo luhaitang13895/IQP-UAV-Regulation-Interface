@@ -4,13 +4,96 @@ from flask import Flask, render_template, abort, request, session, redirect, url
 from keywordSearch import keywordSearch
 import os
 from functools import wraps
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key-change-this")
-
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "change-this-password")
 
+database_url = os.environ.get("DATABASE_URL", "sqlite:///local.db")
+
+# Some providers use postgres://, but SQLAlchemy expects postgresql://
+if database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)
+
+class Region(db.Model):
+    __tablename__ = "regions"
+
+    id = db.Column(db.Integer, primary_key=True)
+    slug = db.Column(db.String(100), unique=True, nullable=False)
+    name = db.Column(db.String(200), nullable=False)
+
+    topics = db.relationship("Topic", backref="region", cascade="all, delete-orphan")
+
+
+class Topic(db.Model):
+    __tablename__ = "topics"
+
+    id = db.Column(db.Integer, primary_key=True)
+    region_id = db.Column(db.Integer, db.ForeignKey("regions.id"), nullable=False)
+    slug = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.Text, default="")
+
+    categories = db.relationship("Category", backref="topic", cascade="all, delete-orphan")
+
+    __table_args__ = (
+        db.UniqueConstraint("region_id", "slug", name="unique_topic_per_region"),
+    )
+
+
+class Category(db.Model):
+    __tablename__ = "categories"
+
+    id = db.Column(db.Integer, primary_key=True)
+    topic_id = db.Column(db.Integer, db.ForeignKey("topics.id"), nullable=False)
+    slug = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.Text, default="")
+
+    subsections = db.relationship("Subsection", backref="category", cascade="all, delete-orphan")
+
+    __table_args__ = (
+        db.UniqueConstraint("topic_id", "slug", name="unique_category_per_topic"),
+    )
+
+
+class Subsection(db.Model):
+    __tablename__ = "subsections"
+
+    id = db.Column(db.Integer, primary_key=True)
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"), nullable=False)
+    slug = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(200), nullable=False)
+    summary = db.Column(db.Text, default="")
+
+    entries = db.relationship("Entry", backref="subsection", cascade="all, delete-orphan")
+
+    __table_args__ = (
+        db.UniqueConstraint("category_id", "slug", name="unique_subsection_per_category"),
+    )
+
+
+class Entry(db.Model):
+    __tablename__ = "entries"
+
+    id = db.Column(db.Integer, primary_key=True)
+    subsection_id = db.Column(db.Integer, db.ForeignKey("subsections.id"), nullable=False)
+
+    region = db.Column(db.String(200), default="")
+    primary_category = db.Column(db.String(200), default="")
+    secondary_category = db.Column(db.String(200), default="")
+    topic = db.Column(db.String(300), default="")
+    source_title = db.Column(db.String(500), nullable=False)
+    brief_summary = db.Column(db.Text, default="")
+    external_url = db.Column(db.Text, default="")
+    pdf_url = db.Column(db.Text, default="")
 
 def is_admin():
     return session.get("is_admin", False)
@@ -66,6 +149,61 @@ def getRegulatoryData ():
     return REGULATORY_DATA
 
 
+def getRegulatoryDataFromDB():
+    regions = Region.query.all()
+    data = {}
+
+    for region in regions:
+        region_dict = {
+            "name": region.name,
+            "topics": {}
+        }
+
+        for topic in region.topics:
+            topic_dict = {
+                "title": topic.title,
+                "description": topic.description,
+                "categories": {}
+            }
+
+            for category in topic.categories:
+                category_dict = {
+                    "title": category.title,
+                    "description": category.description,
+                    "subsections": []
+                }
+
+                for subsection in category.subsections:
+                    subsection_dict = {
+                        "slug": subsection.slug,
+                        "name": subsection.name,
+                        "summary": subsection.summary,
+                        "entries": []
+                    }
+
+                    for entry in subsection.entries:
+                        subsection_dict["entries"].append({
+                            "region": entry.region,
+                            "primary_category": entry.primary_category,
+                            "secondary_category": entry.secondary_category,
+                            "topic": entry.topic,
+                            "source_title": entry.source_title,
+                            "brief_summary": entry.brief_summary,
+                            "external_url": entry.external_url,
+                            "pdf_url": entry.pdf_url
+                        })
+
+                    category_dict["subsections"].append(subsection_dict)
+
+                topic_dict["categories"][category.slug] = category_dict
+
+            region_dict["topics"][topic.slug] = topic_dict
+
+        data[region.slug] = region_dict
+
+    return data
+
+
 # Gets the subsection index from a given slug
 def getSubsectionIndexFromSlug (slug, subsections):
     index = 0
@@ -77,12 +215,12 @@ def getSubsectionIndexFromSlug (slug, subsections):
 
 @app.route("/")
 def home():
-    return render_template("home.html", regions=getRegulatoryData(), is_admin=is_admin())
+    return render_template("home.html", regions=getRegulatoryDataFromDB(), is_admin=is_admin())
 
 
 @app.route("/region/<region_key>")
 def region_page(region_key):
-    region = getRegulatoryData().get(region_key)
+    region = getRegulatoryDataFromDB().get(region_key)
     if not region:
         abort(404)
     return render_template("region.html", region=region, region_key=region_key, is_admin=is_admin())
@@ -90,7 +228,7 @@ def region_page(region_key):
 
 @app.route("/region/<region_key>/topic/<topic_key>")
 def topic_page(region_key, topic_key):
-    region = getRegulatoryData().get(region_key)
+    region = getRegulatoryDataFromDB().get(region_key)
     if not region:
         abort(404)
 
@@ -110,7 +248,7 @@ def topic_page(region_key, topic_key):
 
 @app.route("/region/<region_key>/topic/<topic_key>/category/<category_key>")
 def category_page(region_key, topic_key, category_key):
-    region = getRegulatoryData().get(region_key)
+    region = getRegulatoryDataFromDB().get(region_key)
     if not region:
         abort(404)
 
@@ -141,7 +279,7 @@ def search():
 
     selectedRegions = request.args.getlist("regions")
 
-    regulatoryData = getRegulatoryData()
+    regulatoryData = getRegulatoryDataFromDB()
 
     allRegions = [
         {
@@ -163,7 +301,7 @@ def search():
 
 @app.route("/region/<region_key>/topic/<topic_key>/category/<category_key>/subsection/<subsection_slug>")
 def subsection_page(region_key, topic_key, category_key, subsection_slug):
-    region = getRegulatoryData().get(region_key)
+    region = getRegulatoryDataFromDB().get(region_key)
     if not region:
         abort(404)
 
@@ -195,59 +333,69 @@ def subsection_page(region_key, topic_key, category_key, subsection_slug):
     subsection=subsection,
     is_admin=is_admin()
 )
-
 @app.route('/addNewEntry', methods=['POST'])
 @admin_required
-def addNewEntry ():
+def addNewEntry():
     try:
-        print('adding new entry')
-        data = json.loads(request.get_json())
+        print("adding new entry")
 
-        regionName = data.get('region')
-        primaryCategory = data.get('primary_category')
-        secondaryCategory = data.get('secondary_category')
-        sourceTitle = data.get('source_title')
-        briefSummary = data.get('brief_summary')
-        externalURL = data.get('external_url', '')
-        pdfLink = data.get('pdf_link', '')
+        raw_data = request.get_json()
 
-        dataToAppend = {
-            "region": regionName,
-            "primary_category": primaryCategory,
-            "secondary_category": secondaryCategory,
-            "source_title": sourceTitle,
-            "brief_summary": briefSummary,
-            "external_url": externalURL,
-            "pdf_url": pdfLink
-        }
+        if isinstance(raw_data, str):
+            data = json.loads(raw_data)
+        else:
+            data = raw_data
 
-        regionKey = data.get('region_key')
-        regionJson = load_json(regionKey + ".json")
+        region_key = data.get("region_key")
+        topic_key = data.get("topic_key")
+        category_key = data.get("category_key")
+        subsection_slug = data.get("subsection_slug")
 
-        topicKey = data.get('topic_key')
-        categoryKey = data.get('category_key')
+        region = Region.query.filter_by(slug=region_key).first()
+        if not region:
+            raise Exception("Region not found")
 
-        # Becasue subsections are a list, we need to find the index of the subsection by slug
-        subsectionSlug = data.get('subsection_slug')
-        categorySubsections = regionJson['topics'][topicKey]['categories'][categoryKey]["subsections"]
-        subsectionIndex = getSubsectionIndexFromSlug(subsectionSlug, categorySubsections)
+        topic = Topic.query.filter_by(region_id=region.id, slug=topic_key).first()
+        if not topic:
+            raise Exception("Topic not found")
 
-        # Adds the entry to the json:
-        regionJson['topics'][topicKey]['categories'][categoryKey]["subsections"][subsectionIndex]['entries'].append(dataToAppend)
-        
-        # Saves the new json
-        filepath = "data/" + regionKey + ".json"
-        with open(filepath, "w", encoding="utf-8") as f:
-            json.dump(regionJson, f, indent=2)
+        category = Category.query.filter_by(topic_id=topic.id, slug=category_key).first()
+        if not category:
+            raise Exception("Category not found")
 
+        subsection = Subsection.query.filter_by(
+            category_id=category.id,
+            slug=subsection_slug
+        ).first()
 
-        print('sucessfully added to form')
+        if not subsection:
+            raise Exception("Subsection not found")
+
+        new_entry = Entry(
+            subsection_id=subsection.id,
+            region=data.get("region", ""),
+            primary_category=data.get("primary_category", ""),
+            secondary_category=data.get("secondary_category", ""),
+            topic=data.get("topic", ""),
+            source_title=data.get("source_title", ""),
+            brief_summary=data.get("brief_summary", ""),
+            external_url=data.get("external_url", ""),
+            pdf_url=data.get("pdf_link", "")
+        )
+
+        db.session.add(new_entry)
+        db.session.commit()
+
         return {"success": True}
+
     except Exception as e:
-        print('ERROR SUBMITTING FORM')
+        print("ERROR SUBMITTING FORM")
         print(e)
+        db.session.rollback()
         return {"success": False}
+
     
+        
 @app.route('/addNewSubsection', methods=['POST'])
 @admin_required
 def addNewSubsection ():
@@ -843,6 +991,13 @@ def editRegion():
         print('ERROR SUBMITTING FORM')
         print(e)
         return {"success": False}
+    
+
+@app.route("/init-db")
+def init_db():
+    with app.app_context():
+        db.create_all()
+    return "Database initialized."
 
 if __name__ == "__main__":
     app.run()
