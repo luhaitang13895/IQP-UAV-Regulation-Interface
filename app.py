@@ -4,12 +4,103 @@ from flask import Flask, render_template, abort, request, session, redirect, url
 from keywordSearch import keywordSearch
 import os
 from functools import wraps
+import subprocess
+import threading
+import time
+import requests
 
 app = Flask(__name__)
 
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key-change-this")
 
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "change-this-password")
+
+# Variables relating to the timer/ping system
+SELF_PING_URL = 'https://etc-uav-regulation-interface.onrender.com/ping'
+SYNC_DELAY_SECONDS = 15 * 60 # how long to wait before pushing changes to github
+PING_INTERVAL_SECONDS = 60
+
+timerLock = threading.Lock()
+lastDataUpdateTime = None
+syncWorkerRunning = False
+
+# pushes the code to main on git
+def commitAndPush():
+    try:
+        subprocess.run(["git", "add", "data"], check=True)
+
+        # Don't commit if there are no changes
+        diffResult = subprocess.run(["git", "diff", "--cached", "--quiet"])
+        if diffResult.returncode == 0:
+            print("No JSON changes to commit.")
+            return True
+
+        subprocess.run(["git", "commit", "-m", "auto-update json"], check=True)
+        subprocess.run(["git", "push", "origin", "main"], check=True)
+
+        print("Successfully pushed JSON changes to Git.")
+        return True
+    except Exception as e:
+        print("Git push failed:", e)
+        return False
+    
+# Worker thread function (counts down to 15 minutes and sends the message - pings every 1 minute to keep the instance alive)
+def dataSyncWorker():
+    global lastDataUpdateTime
+    global syncWorkerRunning
+    print("Data sync worker started.")
+
+    timesTriedToSync = 0
+    while True:
+        time.sleep(PING_INTERVAL_SECONDS)
+
+        try:
+            requests.get(SELF_PING_URL, timeout=10)
+            print("Pinged self to stay awake.")
+        except Exception as e:
+            print("Self-ping failed:", e)
+
+        # Blocks the main thread from updating any variables and crashing out
+        timerLock.acquire()
+        try:
+            secondsSinceLastUpdate = time.time() - lastDataUpdateTime
+            if secondsSinceLastUpdate > SYNC_DELAY_SECONDS:
+                print("enough time passed with no edits. Syncing to Git...")
+                gitPushSuccess = commitAndPush()
+                if gitPushSuccess:
+                    lastDataUpdateTime = None
+                    syncWorkerRunning = False
+                    print("Sync complete. Worker stopping.")
+                    return
+                else:
+                    if timesTriedToSync < 4:
+                    # If push failed, try again after another minute
+                        print("Sync failed. Will retry.")
+                    else:
+                        # Otherwise stop trying to sync (data will be lost but it wont drain the account of free instance hours)
+                        syncWorkerRunning = False
+                        return
+                    timesTriedToSync += 1
+        finally:
+            timerLock.release()
+
+# This is the function that is called whenever the data gets updated
+def updateDataTimer ():
+    global lastDataUpdateTime
+    global syncWorkerRunning
+
+    timerLock.acquire()
+    try:
+        lastDataUpdateTime = time.time() # This varaible is what keeps track of when the last update was made
+        if not syncWorkerRunning:
+            syncWorkerRunning = True
+            workerThread = threading.Thread(target=dataSyncWorker, daemon=True)
+            workerThread.start()
+            print("Started new sync timer.")
+        else:
+            print("Reset existing sync timer.")
+    finally:
+        timerLock.release()
 
 
 def is_admin():
@@ -23,6 +114,9 @@ def admin_required(func):
         return func(*args, **kwargs)
     return wrapper
 
+@app.route("/ping")
+def ping():
+    return {"success": True}
 
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
@@ -540,7 +634,7 @@ def addNewRegion ():
         # Saves the data
         with open(newFilepath, "w") as f:
             json.dump(data, f)
-
+        commitAndPush()
         return {"success": True}
     except Exception as e:
         print('ERROR SUBMITTING FORM')
