@@ -1,5 +1,5 @@
 {
-  "name": "European Union 歐洲聯盟",
+  "name": "European Union \u6b50\u6d32\u806f\u76df",
   "topics": {
     "rf": {
       "title": "Radio Frequency (RF)",
@@ -25,6 +25,16 @@
                 {
                   "source_title": "Applicable Products",
                   "brief_summary": "Examples include Wi-Fi devices, Bluetooth products, cellular modules, and other wireless transmitters or receivers."
+                },
+                {
+                  "region": "European Union \u6b50\u6d32\u806f\u76df",
+                  "primary_category": "",
+                  "secondary_category": "",
+                  "source_title": "Test to see if pushing works?",
+                  "brief_summary": "hmm",
+                  "external_url": "",
+                  "pdf_url": "",
+                  "regulation_date": ""
                 }
               ]
             },
@@ -47,7 +57,7 @@
               "slug": "rf-regulations",
               "name": "Redio Frequency in the EU",
               "summary": "RF in EU",
-              "entries":[
+              "entries": [
                 {
                   "region": "European Union",
                   "primary_category": "Radio Frequency (RF)",
@@ -227,8 +237,6 @@
                   "external_url": "https://single-market-economy.ec.europa.eu/sectors/electrical-and-electronic-engineering-industries-eei/low-voltage-directive-lvd_en",
                   "pdf_url": ""
                 }
-            
-            
               ]
             }
           ]
@@ -254,7 +262,7 @@
                   "secondary_category": "",
                   "topic": "Regulation (EU) 2024/2847 AKA Cyber Resilient Act",
                   "source_title": "Regulation (EU) 2024/2847",
-                  "brief_summary": "This Regulation aims to set the boundary conditions for the development of secure products with digital elements by ensuring that hardware and software products are placed on the market with fewer vulnerabilities and that manufacturers take security seriously throughout a product’s lifecycle. It also aims to create conditions allowing users to take cybersecurity into account when selecting and using products with digital elements, for example by improving transparency with regard to the support period for products with digital elements made available on the market.",
+                  "brief_summary": "This Regulation aims to set the boundary conditions for the development of secure products with digital elements by ensuring that hardware and software products are placed on the market with fewer vulnerabilities and that manufacturers take security seriously throughout a product\u2019s lifecycle. It also aims to create conditions allowing users to take cybersecurity into account when selecting and using products with digital elements, for example by improving transparency with regard to the support period for products with digital elements made available on the market.",
                   "external_url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
                   "pdf_url": ""
                 },
@@ -288,8 +296,6 @@
                   "external_url": "https://gdpr.eu/tag/gdpr/",
                   "pdf_url": ""
                 }
-                
-
               ]
             }
           ]
@@ -302,8 +308,7 @@
               "slug": "cybersecurity-regulations",
               "name": "Cybersecurity Regulations",
               "summary": "Cybersecurity Regulations for UAV systems in the Taiwan",
-              "entries": [
-              ]
+              "entries": []
             }
           ]
         }
