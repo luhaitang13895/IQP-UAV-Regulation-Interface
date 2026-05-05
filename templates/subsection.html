@@ -10,6 +10,35 @@
     <div class="topbar">
         <div class="topbar-inner">
             <a href="/" class="topbar-home">Home</a>
+            {% if is_admin %}
+                <div class="topbar-save-left">
+                    <button id="saveChangesBtn" type="button" {% if not changesMade %}disabled{% endif %}>
+                        Save Changes
+                    </button>
+
+                    {% if changesMade %}
+                        <span class="unsaved-warning">
+                            ⚠ Changes will be lost unless you save!
+                        </span>
+                    {% endif %}
+                    <div class="info-tooltip">
+                        ⓘ
+                        <div class="tooltip-text">
+                            Changes are only saved locally on the server.
+                            <br><br>
+                            The server restarts when you leave, and your changes will be lost.
+                            <br><br>
+                            Click "Save Changes" to store them permanently.
+                            <br><br>
+                            Saving will trigger a server redeploy.
+                            <br><br>
+                            During this time (up to ~5 minutes), the site will remain accessible, but any new changes made may not be saved.
+                            <br><br>
+                            Its recomended to save once you are finished with all your edits
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
 
             <div class="topbar-logo">
                 <img src="/static/etcLogo.png" alt="Logo">
@@ -358,6 +387,35 @@
                 alert("Error Editing form")
             }
         })
+        const saveChangesBtn = document.getElementById("saveChangesBtn")
+
+        if (saveChangesBtn) {
+            saveChangesBtn.addEventListener("click", async () => {
+                if (!confirm("Save changes to GitHub - This will cause the render server to restart. You will still be able to view the website but anychanges made in the next 5 minutes or so may be lost")) return
+
+                saveChangesBtn.disabled = true
+                saveChangesBtn.textContent = "Saving..."
+                document.body.style.cursor = "wait"
+
+                const response = await fetch("/admin/pushChanges", { method: "POST" })
+                try {
+                    const data = await response.json()
+
+                    if (data.success) {
+                        alert("Changes saved! Any Edits made in the next 5 minutes or so may be lost")
+                        location.reload()
+                    } else {
+                        alert("Failed to save changes.")
+                    }
+                } catch (error) {
+                        alert("Failed to save changes.")
+                }   finally {
+                    document.body.style.cursor = "default"
+                    saveChangesBtn.disabled = false
+                    saveChangesBtn.textContent = "Save Changes"
+                }
+            })
+        }
     </script>
 </body>
 </html>

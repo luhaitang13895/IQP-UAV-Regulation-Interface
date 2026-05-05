@@ -15,14 +15,18 @@ app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key-change-this")
 
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "change-this-password")
 
-# Variables relating to the timer/ping system
-SELF_PING_URL = 'https://etc-uav-regulation-interface.onrender.com/ping'
-SYNC_DELAY_SECONDS = 15 * 60 # how long to wait before pushing changes to github
-PING_INTERVAL_SECONDS = 60
+global changesMade 
+changesMade = False
 
-timerLock = threading.Lock()
-lastDataUpdateTime = None
-syncWorkerRunning = False
+# NOT DOING THIS ANYMORE:
+# Variables relating to the timer/ping system
+# SELF_PING_URL = 'https://etc-uav-regulation-interface.onrender.com/ping'
+# SYNC_DELAY_SECONDS = 15 * 60 # how long to wait before pushing changes to github
+# PING_INTERVAL_SECONDS = 60
+
+# timerLock = threading.Lock()
+# lastDataUpdateTime = None
+# syncWorkerRunning = False
 
 # pushes the code to main on git
 def commitAndPush():
@@ -36,7 +40,7 @@ def commitAndPush():
             return True
 
         subprocess.run(["git", "commit", "-m", "auto-update json"], check=True)
-        subprocess.run(["git", "push", "origin", "main"], check=True)
+        subprocess.run(["git", "push"], check=True)
 
         print("Successfully pushed JSON changes to Git.")
         return True
@@ -44,63 +48,65 @@ def commitAndPush():
         print("Git push failed:", e)
         return False
     
+# THESE FUNCTIONS ARE WICKED COMPLICATED AND PROBABLY SHOULDNT BE USED
+
 # Worker thread function (counts down to 15 minutes and sends the message - pings every 1 minute to keep the instance alive)
-def dataSyncWorker():
-    global lastDataUpdateTime
-    global syncWorkerRunning
-    print("Data sync worker started.")
+# def dataSyncWorker():
+#     global lastDataUpdateTime
+#     global syncWorkerRunning
+#     print("Data sync worker started.")
 
-    timesTriedToSync = 0
-    while True:
-        time.sleep(PING_INTERVAL_SECONDS)
+#     timesTriedToSync = 0
+#     while True:
+#         time.sleep(PING_INTERVAL_SECONDS)
 
-        try:
-            requests.get(SELF_PING_URL, timeout=10)
-            print("Pinged self to stay awake.")
-        except Exception as e:
-            print("Self-ping failed:", e)
+#         try:
+#             requests.get(SELF_PING_URL, timeout=10)
+#             print("Pinged self to stay awake.")
+#         except Exception as e:
+#             print("Self-ping failed:", e)
 
-        # Blocks the main thread from updating any variables and crashing out
-        timerLock.acquire()
-        try:
-            secondsSinceLastUpdate = time.time() - lastDataUpdateTime
-            if secondsSinceLastUpdate > SYNC_DELAY_SECONDS:
-                print("enough time passed with no edits. Syncing to Git...")
-                gitPushSuccess = commitAndPush()
-                if gitPushSuccess:
-                    lastDataUpdateTime = None
-                    syncWorkerRunning = False
-                    print("Sync complete. Worker stopping.")
-                    return
-                else:
-                    if timesTriedToSync < 4:
-                    # If push failed, try again after another minute
-                        print("Sync failed. Will retry.")
-                    else:
-                        # Otherwise stop trying to sync (data will be lost but it wont drain the account of free instance hours)
-                        syncWorkerRunning = False
-                        return
-                    timesTriedToSync += 1
-        finally:
-            timerLock.release()
+#         # Blocks the main thread from updating any variables and crashing out
+#         timerLock.acquire()
+#         try:
+#             secondsSinceLastUpdate = time.time() - lastDataUpdateTime
+#             if secondsSinceLastUpdate > SYNC_DELAY_SECONDS:
+#                 print("enough time passed with no edits. Syncing to Git...")
+#                 gitPushSuccess = commitAndPush()
+#                 if gitPushSuccess:
+#                     lastDataUpdateTime = None
+#                     syncWorkerRunning = False
+#                     print("Sync complete. Worker stopping.")
+#                     return
+#                 else:
+#                     if timesTriedToSync < 4:
+#                     # If push failed, try again after another minute
+#                         print("Sync failed. Will retry.")
+#                     else:
+#                         # Otherwise stop trying to sync (data will be lost but it wont drain the account of free instance hours)
+#                         syncWorkerRunning = False
+#                         return
+#                     timesTriedToSync += 1
+#         finally:
+#             timerLock.release()
 
-# This is the function that is called whenever the data gets updated
-def updateDataTimer ():
-    global lastDataUpdateTime
-    global syncWorkerRunning
+# # This is the function that is called whenever the data gets updated
+# def updateDataTimer ():
+#     global lastDataUpdateTime
+#     global syncWorkerRunning
 
-    timerLock.acquire()
-    try:
-        lastDataUpdateTime = time.time() # This varaible is what keeps track of when the last update was made
-        if not syncWorkerRunning:
-            syncWorkerRunning = True
-            workerThread = threading.Thread(target=dataSyncWorker, daemon=True)
-            workerThread.start()
-            print("Started new sync timer.")
-        else:
-            print("Reset existing sync timer.")
-    finally:
-        timerLock.release()
+#     timerLock.acquire()
+#     try:
+#         lastDataUpdateTime = time.time() # This varaible is what keeps track of when the last update was made
+#         if not syncWorkerRunning:
+#             syncWorkerRunning = True
+#             workerThread = threading.Thread(target=dataSyncWorker, daemon=True)
+#             workerThread.start()
+#             print("Started new sync timer.")
+#         else:
+#             print("Reset existing sync timer.")
+#     finally:
+#         timerLock.release()
 
 
 def is_admin():
@@ -128,7 +134,10 @@ def admin_login():
             return redirect(url_for("home"))
         else:
             flash("Incorrect password.")
-    return render_template("admin_login.html", is_admin=is_admin())
+            
+    global changesMade
+    # ^ just for consistency with the headers
+    return render_template("admin_login.html", is_admin=is_admin(), changesMade=changesMade)
 
 @app.route("/admin/logout")
 def admin_logout():
@@ -136,6 +145,20 @@ def admin_logout():
     flash("Logged out.")
     return redirect(url_for("home"))
 
+@app.route("/admin/pushChanges", methods=["POST"])
+@admin_required
+def pushChanges ():
+    try:
+        pushed = commitAndPush()
+        if not pushed:
+            raise Exception ('Commit Failed :(')
+        global changesMade
+        changesMade = False
+        return {"success": True}
+    except Exception as e:
+        print('ERROR PUSHING DATA')
+        print(e)
+        return {"success": False}
 
 def load_json(filename):
     file_path = Path("data") / filename
@@ -171,7 +194,8 @@ def getSubsectionIndexFromSlug (slug, subsections):
 
 @app.route("/")
 def home():
-    return render_template("home.html", regions=getRegulatoryData(), is_admin=is_admin())
+    global changesMade
+    return render_template("home.html", regions=getRegulatoryData(), is_admin=is_admin(), changesMade=changesMade)
 
 
 @app.route("/region/<region_key>")
@@ -179,7 +203,8 @@ def region_page(region_key):
     region = getRegulatoryData().get(region_key)
     if not region:
         abort(404)
-    return render_template("region.html", region=region, region_key=region_key, is_admin=is_admin())
+    global changesMade
+    return render_template("region.html", region=region, region_key=region_key, is_admin=is_admin(), changesMade=changesMade)
 
 
 @app.route("/region/<region_key>/topic/<topic_key>")
@@ -192,14 +217,16 @@ def topic_page(region_key, topic_key):
     if not topic:
         abort(404)
 
+    global changesMade
     return render_template(
-    "topic.html",
-    region=region,
-    region_key=region_key,
-    topic=topic,
-    topic_key=topic_key,
-    is_admin=is_admin()
-)
+        "topic.html",
+        region=region,
+        region_key=region_key,
+        topic=topic,
+        topic_key=topic_key,
+        is_admin=is_admin(), 
+        changesMade=changesMade
+    )
 
 
 @app.route("/region/<region_key>/topic/<topic_key>/category/<category_key>")
@@ -216,16 +243,17 @@ def category_page(region_key, topic_key, category_key):
     if not category:
         abort(404)
 
+    global changesMade
     return render_template(
-    "category.html",
-    region=region,
-    region_key=region_key,
-    topic=topic,
-    topic_key=topic_key,
-    category=category,
-    category_key=category_key,
-    is_admin=is_admin()
-)
+        "category.html",
+        region=region,
+        region_key=region_key,
+        topic=topic,
+        topic_key=topic_key,
+        category=category,
+        category_key=category_key,
+        is_admin=is_admin(), changesMade=changesMade
+    )
 
 @app.route("/search")
 def search():
@@ -247,12 +275,14 @@ def search():
 
     results = keywordSearch(keyword, regions=selectedRegions)
 
+    global changesMade
     return render_template(
         "search.html",
         results=results,
         keyword=keyword,
         allRegions=allRegions,
-        selectedRegions=selectedRegions
+        selectedRegions=selectedRegions,
+        changesMade = changesMade
     )
 
 @app.route("/region/<region_key>/topic/<topic_key>/category/<category_key>/subsection/<subsection_slug>")
@@ -278,17 +308,19 @@ def subsection_page(region_key, topic_key, category_key, subsection_slug):
     if not subsection:
         abort(404)
 
+    global changesMade
     return render_template(
-    "subsection.html",
-    region=region,
-    region_key=region_key,
-    topic=topic,
-    topic_key=topic_key,
-    category=category,
-    category_key=category_key,
-    subsection=subsection,
-    is_admin=is_admin()
-)
+        "subsection.html",
+        region=region,
+        region_key=region_key,
+        topic=topic,
+        topic_key=topic_key,
+        category=category,
+        category_key=category_key,
+        subsection=subsection,
+        changesMade = changesMade,
+        is_admin=is_admin()
+    )
 
 @app.route('/addNewEntry', methods=['POST'])
 @admin_required
@@ -336,6 +368,8 @@ def addNewEntry ():
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump(regionJson, f, indent=2)
 
+        global changesMade
+        changesMade = True
 
         print('sucessfully added to form')
         return {"success": True}
@@ -387,6 +421,8 @@ def addNewSubsection ():
             json.dump(regionJson, f, indent=2)
 
 
+        global changesMade
+        changesMade = True
         print('sucessfully added to form')
         return {"success": True}
     except Exception as e:
@@ -428,6 +464,8 @@ def addCategoryForm():
             json.dump(regionJson, f, indent=2)
 
 
+        global changesMade
+        changesMade = True
         print('sucessfully added to form')
         return {"success": True}
 
@@ -494,6 +532,8 @@ def addTopicForm():
             json.dump(regionJson, f, indent=2)
 
 
+        global changesMade
+        changesMade = True
         print('sucessfully added to form')
         return {"success": True}
     except Exception as e:
@@ -634,7 +674,9 @@ def addNewRegion ():
         # Saves the data
         with open(newFilepath, "w") as f:
             json.dump(data, f)
-        commitAndPush()
+        # commitAndPush()
+        global changesMade
+        changesMade = True
         return {"success": True}
     except Exception as e:
         print('ERROR SUBMITTING FORM')
@@ -680,6 +722,8 @@ def deleteEntry():
                 with open(filePath, "w", encoding="utf-8") as file:
                     json.dump(regionData, file, indent=2)
 
+                global changesMade
+                changesMade = True
                 print("Entry deleted")
                 return {"success": True}
 
@@ -720,6 +764,8 @@ def deleteSubsection():
 
         with open(filePath, "w", encoding="utf-8") as file:
             json.dump(regionData, file, indent=2)
+        global changesMade
+        changesMade = True
 
         return {"success": True}
     except Exception as e:
@@ -760,6 +806,8 @@ def editSubsection():
 
         with open(filePath, "w", encoding="utf-8") as file:
             json.dump(regionData, file, indent=2)
+        global changesMade
+        changesMade = True
 
         return {"success": True}      
     except Exception as e:
@@ -789,6 +837,8 @@ def deleteCategory():
 
         with open(filePath, "w", encoding="utf-8") as file:
             json.dump(regionData, file, indent=2)
+        global changesMade
+        changesMade = True
 
         return {"success": True}
     except Exception as e:
@@ -821,6 +871,8 @@ def editCategory():
 
         with open(filePath, "w", encoding="utf-8") as file:
             json.dump(regionData, file, indent=2)
+        global changesMade
+        changesMade = True
 
         return {"success": True}
     except Exception as e:
@@ -849,6 +901,8 @@ def deleteTopic():
 
         with open(filePath, "w", encoding="utf-8") as file:
             json.dump(regionData, file, indent=2)
+        global changesMade
+        changesMade = True
 
         return {"success": True}
     except Exception as e:
@@ -881,6 +935,8 @@ def editTopic():
 
         with open(filePath, "w", encoding="utf-8") as file:
             json.dump(regionData, file, indent=2)
+        global changesMade
+        changesMade = True
 
         return {"success": True}
     except Exception as e:
@@ -906,6 +962,8 @@ def deleteRegion():
 
         os.remove(filePath)
 
+        global changesMade
+        changesMade = True
         return {"success": True}
     except Exception as e:
         print('ERROR SUBMITTING FORM')
@@ -933,6 +991,8 @@ def editRegion():
 
         with open(filePath, "w", encoding="utf-8") as file:
             json.dump(regionData, file, indent=2)
+        global changesMade
+        changesMade = True
 
         return {"success": True}
     except Exception as e:
