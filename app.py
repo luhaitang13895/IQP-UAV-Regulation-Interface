@@ -29,8 +29,40 @@ changesMade = False
 # syncWorkerRunning = False
 
 # pushes the code to main on git
+# def commitAndPush():
+#     try:
+#         subprocess.run(["git", "add", "data"], check=True)
+
+#         # Don't commit if there are no changes
+#         diffResult = subprocess.run(["git", "diff", "--cached", "--quiet"])
+#         if diffResult.returncode == 0:
+#             print("No JSON changes to commit.")
+#             return True
+
+#         subprocess.run(["git", "commit", "-m", "auto-update json"], check=True)
+#         subprocess.run(["git", "push"], check=True)
+
+#         print("Successfully pushed JSON changes to Git.")
+#         return True
+#     except Exception as e:
+#         print("Git push failed:", e)
+#         return False
+    
 def commitAndPush():
     try:
+        github_token = os.environ.get("GITHUB_TOKEN")
+        github_repo = os.environ.get("GITHUB_REPO")
+        github_branch = os.environ.get("GITHUB_BRANCH", "main")
+
+        if not github_token:
+            raise Exception("Missing GITHUB_TOKEN environment variable")
+
+        if not github_repo:
+            raise Exception("Missing GITHUB_REPO environment variable")
+
+        subprocess.run(["git", "config", "user.name", "Render Auto Commit"], check=True)
+        subprocess.run(["git", "config", "user.email", "render@example.com"], check=True)
+
         subprocess.run(["git", "add", "data"], check=True)
 
         # Don't commit if there are no changes
@@ -40,10 +72,17 @@ def commitAndPush():
             return True
 
         subprocess.run(["git", "commit", "-m", "auto-update json"], check=True)
-        subprocess.run(["git", "push"], check=True)
+
+        remote_url = f"https://x-access-token:{github_token}@github.com/{github_repo}.git"
+
+        subprocess.run(
+            ["git", "push", remote_url, f"HEAD:{github_branch}"],
+            check=True
+        )
 
         print("Successfully pushed JSON changes to Git.")
         return True
+
     except Exception as e:
         print("Git push failed:", e)
         return False
